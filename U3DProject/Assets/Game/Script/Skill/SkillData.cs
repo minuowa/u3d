@@ -10,7 +10,7 @@ namespace Skill
     {
         public int id;
         public double distance;
-        public string animition;
+        public int animition;
 
         public RangeData range;
         public EffectData effect;
@@ -74,9 +74,11 @@ namespace Skill
                 effector.data = effect;
             }
 
-            Animation anim = actor.GetComponentInParent<Animation>();
+            Animator anim = actor.GetComponentInChildren<Animator>();
             if (anim != null)
-                anim.CrossFade(animition);
+            {
+                anim.SetInteger(BeingAction.action, animition);
+            }
 
             //BeingStat stat = actor.GetComponent<BeingStat>();
             DamageObject.Init(id, actor, victim);

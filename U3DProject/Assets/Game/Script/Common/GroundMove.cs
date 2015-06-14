@@ -12,6 +12,7 @@ public class GroundMove : MonoBehaviour {
 
     Duration _duration;
     GameObject _goundFlag;
+    Animator animator;
 	// Use this for initialization
 	void Start () {
         _finding = true;
@@ -22,6 +23,9 @@ public class GroundMove : MonoBehaviour {
         _goundFlag.transform.localPosition = target;
         _goundFlag.transform.localScale = preGroundObj.transform.localScale;
         _goundFlag.SetActive(true);
+
+        animator = GetComponentInChildren<Animator>();
+        animator.SetInteger(BeingAction.action, BeingAction.Run);
 	}
 
     void OnDestroy()
@@ -31,52 +35,46 @@ public class GroundMove : MonoBehaviour {
     // Update is called once per frame
     void EndFinding()
     {
-        Animation anim = GetComponentInParent<Animation>();
         _finding = false;
-        if (anim != null)
-            anim.CrossFade("idle");
+        animator.SetInteger(BeingAction.action, BeingAction.Idle);
         GameObject.Destroy(this);
     }
     void Update()
     {
         if (_finding)
         {
-            Vector3 v0 = transform.position;
+            Vector3 mypos = animator.rootPosition;
+            Quaternion myrotation = animator.rootRotation;
+            Vector3 v0 = mypos;
             Vector3 v1 = target;
             v0.y = 0;
             v1.y = 0;
-            if (Vector3.Distance(transform.position, target) < miniDistance
+            if (Vector3.Distance(mypos, target) < miniDistance
                 || Vector3.Distance(v0, v1) < 0.01f)
             {
                 EndFinding();
             }
             else
             {
-                Debug.DrawLine(target, transform.position, Color.green);
+                Debug.DrawLine(target, mypos, Color.green);
 
                 CharacterController ctrler = GetComponentInParent<CharacterController>();
                 if (ctrler)
                 {
                     Vector3 vt = target;
-                    vt.y = transform.position.y;
+                    vt.y = mypos.y;
 
-                    Quaternion qfrom = transform.rotation;
-                    Quaternion qto = Quaternion.LookRotation(vt - transform.position);
-                    transform.rotation = Quaternion.Slerp(qfrom, qto, _duration.progress);
+                    Quaternion qfrom = myrotation;
+                    Quaternion qto = Quaternion.LookRotation(vt - mypos);
+                    animator.rootRotation = Quaternion.Slerp(qfrom, qto, _duration.progress);
 
-                    Vector3 dir = target - transform.position;
+                    Vector3 dir = target - mypos;
                     dir.Normalize();
                     ctrler.SimpleMove(dir * speed);
 
                     if (Mathf.Pow(dir.x, 2) + Mathf.Pow(dir.z, 2) < 0.1f)
                     {
                         EndFinding();
-                    }
-                    else
-                    {
-                        Animation anim = GetComponentInParent<Animation>();
-                        if (anim != null)
-                            anim.CrossFade("run");
                     }
                 }
                 if (_duration.Advance(Time.deltaTime))

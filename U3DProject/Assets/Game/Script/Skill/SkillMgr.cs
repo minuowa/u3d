@@ -36,7 +36,7 @@ namespace Skill
             _skills = new Dictionary<int, Data>();
             Data data = new Data();
             data.id = 1001;
-            data.animition = "jump_pose";
+            data.animition = BeingAction.Jump;
             data.damage = new DamageData();
             data.damage.prefab = "Prefabs/GameObject/bullet";
             data.distance = 5f;

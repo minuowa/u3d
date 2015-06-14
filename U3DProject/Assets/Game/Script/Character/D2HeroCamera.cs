@@ -17,15 +17,17 @@ public class D2HeroCamera : MonoBehaviour
 
     private bool _end = false;
 
+    Animator _animator;
     void Start()
     {
         _camera = Camera.main;
+        _animator = GetComponentInChildren<Animator>();
         _camera.transform.position = new Vector3(
-            transform.position.x + xOffset
-            , transform.position.y + yOffset
-            , transform.position.z + zOffset
+            _animator.bodyPosition.x + xOffset
+            , _animator.bodyPosition.y + yOffset
+            , _animator.bodyPosition.z + zOffset
         );
-        _camera.transform.LookAt(transform.position);
+        _camera.transform.LookAt(_animator.bodyPosition);
     }
     void EndUpdate()
     {
@@ -39,19 +41,19 @@ public class D2HeroCamera : MonoBehaviour
     }
     void Update()
     {
-        if (_lastpos != transform.position && _end)
+        if (_lastpos != _animator.bodyPosition && _end)
             BeginUpdate();
 
         if (!_end)
         {
             float t = _elapsedTime / timeOfSmooth;
             Vector3 vfrom = _camera.transform.position;
-            Vector3 vto = transform.position + new Vector3(xOffset, yOffset, zOffset);
+            Vector3 vto = _animator.bodyPosition + new Vector3(xOffset, yOffset, zOffset);
 
             _camera.transform.position = Vector3.Slerp(vfrom, vto, t);
 
             Quaternion qfrom = _camera.transform.rotation;
-            Quaternion qto = Quaternion.LookRotation(transform.position - vto);
+            Quaternion qto = Quaternion.LookRotation(_animator.bodyPosition - vto);
             _camera.transform.rotation = Quaternion.Slerp(qfrom, qto, t);
 
             if (_elapsedTime >= timeOfSmooth)
@@ -61,6 +63,6 @@ public class D2HeroCamera : MonoBehaviour
 
         }
 
-        _lastpos = transform.position;
+        _lastpos = _animator.bodyPosition;
     }
 }

@@ -73,6 +73,7 @@
     <Compile Include="Assets\Game\Script\Character\PlayerStat.cs" />
     <Compile Include="Assets\Game\Script\Common\Duration.cs" />
     <Compile Include="Assets\Game\Script\Common\FlyerMove.cs" />
+    <Compile Include="Assets\Game\Script\Common\GameLayer.cs" />
     <Compile Include="Assets\Game\Script\Common\GroundMove.cs" />
     <Compile Include="Assets\Game\Script\Common\HeroClick.cs" />
     <Compile Include="Assets\Game\Script\Common\Index.cs" />

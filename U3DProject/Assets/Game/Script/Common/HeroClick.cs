@@ -28,8 +28,7 @@ public class HeroClick : MonoBehaviour
             if (Physics.Raycast(ray, out hit))
             {
                 GameObject hitObj=hit.transform.gameObject;
-                var com = hitObj.GetComponent<Terrain>();
-                if (com != null)
+                if (hitObj.layer==(int)GameLayer.Terrain)
                 {
                     GroundMove move = Hero.instance.TryGetComponent<GroundMove>();
                     move.target = hit.point;

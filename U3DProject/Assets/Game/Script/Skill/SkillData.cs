@@ -9,7 +9,7 @@ namespace Skill
     public class Data
     {
         public int id;
-        public double distance;
+        public float distance;
         public int animition;
 
         public RangeData range;
@@ -21,17 +21,15 @@ namespace Skill
             return Mgr.instance.Get(id);
         }
 
-        public void Execute(GameObject actor, GameObject victim)
+        public void Execute(GameObject actor, MissionSkill mission, GameObject victim)
         {
-            Do(actor, victim);
-            return;
             switch (range.type)
             {
                 case RangeType.Single:
                     {
-                        if (Vector3.Distance(actor.transform.position, victim.transform.position) <= distance)
+                        if (mission)
                         {
-                            Do(actor,victim);
+                            Do(actor, victim, mission.id);
                         }
                         else
                         {
@@ -39,33 +37,38 @@ namespace Skill
                             if (mgr == null)
                                 mgr = actor.AddComponent<MissionMgr>();
 
-                            MissionFindPos find = new MissionFindPos();
-                            find.target = victim.transform.position;
-                            find.onwer = actor;
-                            mgr.Add(find);
+                            GroundMove move = actor.gameObject.GetComponent<GroundMove>();
+                            if (move == null)
+                                move = actor.gameObject.AddComponent<GroundMove>();
+
+                            move.target = victim.gameObject.transform.position;
+                            move.miniDistance = distance;
+                            move.Work();
 
                             Executor executor = new Executor();
                             executor.skillid = id;
                             executor.actor = actor;
                             executor.victim = victim;
-
-                            MissionSkill missskill = new MissionSkill();
+                            MissionSkill missskill = actor.gameObject.GetComponent<MissionSkill>();
+                            if (missskill == null)
+                                missskill = actor.gameObject.AddComponent<MissionSkill>();
+                            executor.mission = missskill;
                             missskill.executor = executor;
-                            mgr.Add(missskill);
+                            missskill.Work();
                         }
                     }
                     break;
                 default:
                     {
-                        Do(actor, null);
+                        Do(actor, null,0);
                     }
                     break;
             }
         }
 
-        private void Do(GameObject actor, GameObject victim)
+        private void Do(GameObject actor, GameObject victim, int missionid)
         {
-            if(!actor)
+            if (!actor)
                 return;
 
             if (!string.IsNullOrEmpty(effect.name))
@@ -81,7 +84,7 @@ namespace Skill
             }
 
             //BeingStat stat = actor.GetComponent<BeingStat>();
-            DamageObject.Init(id, actor, victim);
+            DamageObject.Init(id, actor, victim,missionid);
         }
 
     }

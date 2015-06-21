@@ -12,18 +12,41 @@ public enum MissionTag
     Skill,
 }
 
-public class IMission
+public class IMission:MonoBehaviour
 {
     public delegate void EndDelegate(IMission mission);
     public EndDelegate OnEnd;
     public EndDelegate OnBegin;
 
+    public int id;
+
     protected bool _completed = false;
     protected bool _begin = false;
 
+    public MissionMgr Manager()
+    {
+        MissionMgr mgr = gameObject.GetComponent<MissionMgr>();
+        if (!mgr)
+            mgr = gameObject.AddComponent<MissionMgr>();
+        return mgr;
+    }
+
+    public void Work()
+    {
+        Manager().Add(this);
+    }
+
+    public void OnComplete()
+    {
+        _completed = true;
+    }
     public virtual bool Complete()
     {
         return _completed;
+    }
+    public void SetCompleted()
+    {
+        _completed = true;
     }
     public virtual float Progress()
     {
@@ -37,9 +60,7 @@ public class IMission
     {
         _begin = true;
         if (OnBegin != null)
-        {
             OnBegin(this);
-        }
     }
     public virtual MissionTag Tag()
     {
@@ -49,41 +70,6 @@ public class IMission
     {
 
     }
-}
-public class MissionFindPos : IMission
-{
-    public Vector3 target;
-    public GameObject onwer;
-
-    public override bool Complete()
-    {
-        _completed = Vector3.Distance(target, onwer.transform.position) < 0.01f;
-        return _completed;
-    }
-    public override float Progress()
-    {
-        return 0;
-    }
-    public override bool IsDoing()
-    {
-        return false;
-    }
-
-    public override MissionTag Tag()
-    {
-        return MissionTag.FindPos;
-    }
-    public override void Update()
-    {
-        if (_completed)
-        {
-            if (OnEnd != null)
-            {
-                OnEnd(this);
-            }
-        }
-    }
-
 }
 
 public class MissionSkill : IMission

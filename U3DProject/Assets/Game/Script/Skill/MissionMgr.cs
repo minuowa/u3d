@@ -9,30 +9,63 @@ public class MissionMgr : MonoBehaviour
 
     IMission _cur = null;
 
+    int _count = 0;
+
+    void OnDestroy()
+    {
+        foreach (IMission mi in _list)
+        {
+            GameObject.Destroy(mi);
+        }
+    }
+
+    public void OnComplate(int missionid)
+    {
+        foreach (IMission mi in _list)
+        {
+            if (mi.id == missionid)
+                mi.SetCompleted();
+        }
+    }
+
     public void Add(IMission mission)
     {
-        _list.Add(mission);
+        if (mission)
+        {
+            _list.Add(mission);
+            _count++;
+            mission.id = _count;
+        }
     }
 
     void Update()
     {
-        Next();
-
         if (_cur != null)
         {
             _cur.Update();
+            if (_cur.Complete())
+            {
+                _list.Remove(_cur);
+                GameObject.Destroy(_cur);
+                _cur = null;
+            }
         }
-        if (_cur.Complete())
-        {
-            _list.Remove(_cur);
-        }
+
+        Next();
     }
     void Next()
     {
-        if (_cur == null && _list.Count > 0)
+        if (_cur == null)
         {
-            _cur = _list[0];
-            _cur.Begin();
+            if (_list.Count > 0)
+            {
+                _cur = _list[0];
+                _cur.Begin();
+            }
+            else
+            {
+                GameObject.Destroy(this);
+            }
         }
     }
 }

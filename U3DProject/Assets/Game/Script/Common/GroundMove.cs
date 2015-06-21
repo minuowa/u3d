@@ -1,32 +1,42 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GroundMove : MonoBehaviour {
-    public int speed = 9;
+public class GroundMove :  IMission
+{
+    public int speed = 4;
     public float miniDistance = 0.7f;
 
 
     public Vector3 target;
 
     private bool _finding = false;
-
     Duration _duration;
     GameObject _goundFlag;
     Animator animator;
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
+        base.Begin();
+
         _finding = true;
         _duration = new Duration();
-        _duration.total = 1.5f;
-        GameObject preGroundObj=(GameObject)Resources.Load("Prefabs/GameObject/groundFlag",typeof(GameObject));
+        _duration.total = 0.5f;
+
+        GameObject preGroundObj = (GameObject)Resources.Load("Prefabs/GameObject/groundFlag", typeof(GameObject));
         _goundFlag = (GameObject)GameObject.Instantiate(preGroundObj);
         _goundFlag.transform.localPosition = target;
         _goundFlag.transform.localScale = preGroundObj.transform.localScale;
         _goundFlag.SetActive(true);
 
         animator = GetComponentInChildren<Animator>();
-        animator.SetInteger(BeingAction.action, BeingAction.Run);
-	}
+        animator.SetInteger(BeingAction.action, BeingAction.Run1);
+
+        CapsuleCollider collider = GetComponentInChildren<CapsuleCollider>();
+        if (collider)
+            target.y += (collider.height + collider.radius)*0.5f;
+
+        _completed = false;
+    }
 
     void OnDestroy()
     {
@@ -35,16 +45,18 @@ public class GroundMove : MonoBehaviour {
     // Update is called once per frame
     void EndFinding()
     {
+        _completed = true;
         _finding = false;
-        animator.SetInteger(BeingAction.action, BeingAction.Idle);
+        _duration.Reset();
+        animator.SetInteger(BeingAction.action, BeingAction.Idle1);
         GameObject.Destroy(this);
     }
-    void Update()
+    public override void Update()
     {
         if (_finding)
         {
             Vector3 mypos = animator.rootPosition;
-            Quaternion myrotation = animator.rootRotation;
+            Quaternion myrotation = transform.rotation;
             Vector3 v0 = mypos;
             Vector3 v1 = target;
             v0.y = 0;
@@ -66,7 +78,9 @@ public class GroundMove : MonoBehaviour {
 
                     Quaternion qfrom = myrotation;
                     Quaternion qto = Quaternion.LookRotation(vt - mypos);
-                    animator.rootRotation = Quaternion.Slerp(qfrom, qto, _duration.progress);
+                    //animator.rootRotation = qto;
+                    transform.rotation = qto;
+                    //animator.rootRotation = Quaternion.Slerp(qfrom, qto, _duration.progress);
 
                     Vector3 dir = target - mypos;
                     dir.Normalize();
@@ -79,9 +93,9 @@ public class GroundMove : MonoBehaviour {
                 }
                 if (_duration.Advance(Time.deltaTime))
                 {
-                    _duration.Reset();
                 }
             }
         }
     }
+
 }

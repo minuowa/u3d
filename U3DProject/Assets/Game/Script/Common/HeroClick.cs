@@ -43,6 +43,14 @@ public class HeroClick : MonoBehaviour
                             Hero.instance.target.Unselect();
                         Hero.instance.target = being;
                         being.Select();
+
+                        {
+                            Skill.Executor skillExecutor = new Skill.Executor();
+                            skillExecutor.skillid = 1001;
+                            skillExecutor.actor = Hero.instance.gameObject;
+                            skillExecutor.victim = Hero.instance.target.gameObject;
+                            skillExecutor.Execute();
+                        }
                         return;
                     }
                 }

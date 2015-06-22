@@ -30,8 +30,9 @@ public class HeroClick : MonoBehaviour
                 GameObject hitObj=hit.transform.gameObject;
                 if (hitObj.layer==(int)GameLayer.Terrain)
                 {
-                    GroundMove move = Hero.instance.TryGetComponent<GroundMove>();
+                    GroundMove move = Hero.instance.gameObject.AddComponent<GroundMove>();
                     move.target = hit.point;
+                    move.AddToWorkList();
                     return;
                 }
                 Being being=hitObj.GetComponent<Being>();

@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GroundMove :  IMission
+public class GroundMove : IMission
 {
     public int speed = 4;
-    public float miniDistance = 0.7f;
+    public float miniDistance = 0f;
 
 
     public Vector3 target;
@@ -33,7 +33,7 @@ public class GroundMove :  IMission
 
         CapsuleCollider collider = GetComponentInChildren<CapsuleCollider>();
         if (collider)
-            target.y += (collider.height + collider.radius)*0.5f;
+            target.y += (collider.height + collider.radius) * 0.5f;
 
         _completed = false;
     }
@@ -49,53 +49,61 @@ public class GroundMove :  IMission
         _finding = false;
         _duration.Reset();
         animator.SetInteger(BeingAction.action, BeingAction.Idle1);
-        GameObject.Destroy(this);
     }
     public override void Update()
     {
         if (_finding)
         {
-            Vector3 mypos = animator.rootPosition;
+            Vector3 mypos = transform.position;
             Quaternion myrotation = transform.rotation;
             Vector3 v0 = mypos;
             Vector3 v1 = target;
             v0.y = 0;
             v1.y = 0;
-            if (Vector3.Distance(mypos, target) < miniDistance
-                || Vector3.Distance(v0, v1) < 0.01f)
-            {
-                EndFinding();
-            }
-            else
-            {
-                Debug.DrawLine(target, mypos, Color.green);
 
-                CharacterController ctrler = GetComponentInParent<CharacterController>();
-                if (ctrler)
+            CharacterController ctrler = GetComponentInParent<CharacterController>();
+            if (ctrler)
+            {
+                Vector3 vt = target;
+                vt.y = mypos.y;
+
+                bool rotateOk = false;
+
+                if (Vector3.Distance(vt, mypos) == 0)
+                    rotateOk = true;
+
+                Quaternion qfrom=Quaternion.identity, qto=Quaternion.identity;
+                if (!rotateOk)
                 {
-                    Vector3 vt = target;
-                    vt.y = mypos.y;
-
-                    Quaternion qfrom = myrotation;
-                    Quaternion qto = Quaternion.LookRotation(vt - mypos);
-                    //animator.rootRotation = qto;
-                    transform.rotation = qto;
-                    //animator.rootRotation = Quaternion.Slerp(qfrom, qto, _duration.progress);
-
-                    Vector3 dir = target - mypos;
-                    dir.Normalize();
-                    ctrler.SimpleMove(dir * speed);
-
-                    if (Mathf.Pow(dir.x, 2) + Mathf.Pow(dir.z, 2) < 0.1f)
-                    {
-                        EndFinding();
-                    }
+                    qfrom = myrotation;
+                    qto = Quaternion.LookRotation(vt - mypos);
+                    rotateOk = qfrom == qto || qfrom.eulerAngles == qto.eulerAngles || qto == Quaternion.identity;
                 }
-                if (_duration.Advance(Time.deltaTime))
+
+
+                bool posOk = Vector3.Distance(mypos, target) <= miniDistance || v0 == v1;
+
+                if (posOk && rotateOk)
                 {
+                    EndFinding();
+                }
+                else
+                {
+                    Debug.DrawLine(target, mypos, Color.green);
+                    if (!rotateOk)
+                    {
+                        _duration.Advance(Time.deltaTime);
+                        transform.rotation = Quaternion.Slerp(qfrom, qto, _duration.progress);
+                    }
+
+                    if (!posOk)
+                    {
+                        Vector3 dir = target - mypos;
+                        dir.Normalize();
+                        ctrler.SimpleMove(dir * speed);
+                    }
                 }
             }
         }
     }
-
 }

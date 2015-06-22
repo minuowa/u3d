@@ -8,3 +8,4 @@ H:\github\u3d\U3DProject\Temp\UnityVS_bin\Debug\UnityEditor.xml
 H:\github\u3d\U3DProject\Temp\UnityVS_bin\Debug\UnityEngine.UI.xml
 H:\github\u3d\U3DProject\obj\Debug\Assembly-CSharp-firstpass.dll
 H:\github\u3d\U3DProject\obj\Debug\Assembly-CSharp-firstpass.pdb
+H:\github\u3d\U3DProject\obj\Debug\UnityVS.U3DProject.CSharp.Plugins.csprojResolveAssemblyReference.cache

@@ -31,7 +31,7 @@ public class Being : MonoBehaviour {
     {
         T com = gameObject.GetComponent<T>();
         if (com != null)
-            GameObject.Destroy(com);
+            GameObject.DestroyImmediate(com);
         com = gameObject.AddComponent<T>();
         return com;
     }

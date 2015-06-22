@@ -33,28 +33,20 @@ namespace Skill
                         }
                         else
                         {
-                            MissionMgr mgr = actor.GetComponent<MissionMgr>();
-                            if (mgr == null)
-                                mgr = actor.AddComponent<MissionMgr>();
-
-                            GroundMove move = actor.gameObject.GetComponent<GroundMove>();
-                            if (move == null)
-                                move = actor.gameObject.AddComponent<GroundMove>();
+                            GroundMove move = actor.gameObject.AddComponent<GroundMove>();
 
                             move.target = victim.gameObject.transform.position;
                             move.miniDistance = distance;
-                            move.Work();
+                            move.AddToWorkList();
 
                             Executor executor = new Executor();
                             executor.skillid = id;
                             executor.actor = actor;
                             executor.victim = victim;
-                            MissionSkill missskill = actor.gameObject.GetComponent<MissionSkill>();
-                            if (missskill == null)
-                                missskill = actor.gameObject.AddComponent<MissionSkill>();
+                            MissionSkill missskill = actor.gameObject.AddComponent<MissionSkill>();
                             executor.mission = missskill;
                             missskill.executor = executor;
-                            missskill.Work();
+                            missskill.AddToWorkList();
                         }
                     }
                     break;

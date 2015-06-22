@@ -55,17 +55,31 @@ public class MissionMgr : MonoBehaviour
     }
     void Next()
     {
-        if (_cur == null)
+        if (_cur == null && _list.Count > 0)
         {
-            if (_list.Count > 0)
+            _cur = _list[0];
+            while (_list.Count > 0 && !_cur)
             {
+                _list.RemoveAt(0);
                 _cur = _list[0];
-                _cur.Begin();
             }
-            else
+            if (_cur)
+                _cur.Begin();
+        }
+        if (!_cur && _list.Count == 0)
+            GameObject.DestroyImmediate(this);
+    }
+
+    public void ClearSameType(System.Type param1)
+    {
+        foreach (IMission mi in _list)
+        {
+            if (mi.GetType() == param1)
             {
-                GameObject.Destroy(this);
+                GameObject.DestroyImmediate(mi);
+                return;
             }
         }
     }
+
 }

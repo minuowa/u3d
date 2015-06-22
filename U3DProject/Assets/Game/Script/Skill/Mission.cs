@@ -31,8 +31,9 @@ public class IMission:MonoBehaviour
         return mgr;
     }
 
-    public void Work()
+    public void AddToWorkList()
     {
+        Manager().ClearSameType(GetType());
         Manager().Add(this);
     }
 

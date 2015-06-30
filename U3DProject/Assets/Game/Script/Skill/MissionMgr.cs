@@ -15,7 +15,7 @@ public class MissionMgr : MonoBehaviour
     {
         foreach (IMission mi in _list)
         {
-            GameObject.Destroy(mi);
+
         }
     }
 
@@ -24,14 +24,18 @@ public class MissionMgr : MonoBehaviour
         foreach (IMission mi in _list)
         {
             if (mi.id == missionid)
-                mi.SetCompleted();
+                mi.completed=true;
         }
     }
 
-    public void Add(IMission mission)
+    public void Add(IMission mission,bool removeSameType=false)
     {
         if (mission)
         {
+            if (removeSameType)
+            {
+                ClearSameType(mission.GetType());
+            }
             _list.Add(mission);
             _count++;
             mission.id = _count;
@@ -43,10 +47,9 @@ public class MissionMgr : MonoBehaviour
         if (_cur != null)
         {
             _cur.Update();
-            if (_cur.Complete())
+            if (_cur.completed)
             {
                 _list.Remove(_cur);
-                GameObject.Destroy(_cur);
                 _cur = null;
             }
         }
@@ -66,20 +69,27 @@ public class MissionMgr : MonoBehaviour
             if (_cur)
                 _cur.Begin();
         }
-        if (!_cur && _list.Count == 0)
-            GameObject.DestroyImmediate(this);
     }
 
-    public void ClearSameType(System.Type param1)
+    protected void ClearSameType(System.Type param1)
     {
         foreach (IMission mi in _list)
         {
             if (mi.GetType() == param1)
             {
-                GameObject.DestroyImmediate(mi);
+                mi.completed = true;
+                _list.Remove(mi);
+                if (_cur == mi)
+                    _cur = null;
                 return;
             }
         }
+    }
+
+    void OnDrawGizmos()
+    {
+        if (_cur)
+            _cur.OnDrawGizmos();
     }
 
 }

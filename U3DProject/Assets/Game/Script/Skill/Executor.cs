@@ -7,15 +7,14 @@ namespace Skill
 {
     public class Executor
     {
-        public GameObject actor;
-        public GameObject victim;
+        public Being actor;
+        public Being victim;
         public int skillid;
-        public MissionSkill mission;
         public void Execute()
         {
             Data data = Mgr.instance.Get(skillid);
             if (data!=null)
-                data.Execute(actor,mission, victim);
+                data.Execute(actor, victim);
         }
     }
 }

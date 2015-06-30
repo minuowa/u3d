@@ -12,7 +12,7 @@ public enum MissionTag
     Skill,
 }
 
-public class IMission:MonoBehaviour
+public class IMission:IParam
 {
     public delegate void EndDelegate(IMission mission);
     public EndDelegate OnEnd;
@@ -23,31 +23,33 @@ public class IMission:MonoBehaviour
     protected bool _completed = false;
     protected bool _begin = false;
 
-    public MissionMgr Manager()
+    public static implicit operator bool (IMission mi)
     {
-        MissionMgr mgr = gameObject.GetComponent<MissionMgr>();
-        if (!mgr)
-            mgr = gameObject.AddComponent<MissionMgr>();
-        return mgr;
+        return mi!=null;
     }
-
-    public void AddToWorkList()
+    public void AddToWorkList(MissionMgr mgr)
     {
-        Manager().ClearSameType(GetType());
-        Manager().Add(this);
+        mgr.Add(this);
     }
 
     public void OnComplete()
     {
         _completed = true;
     }
-    public virtual bool Complete()
+    public bool completed
     {
-        return _completed;
-    }
-    public void SetCompleted()
-    {
-        _completed = true;
+        get
+        {
+            return _completed;
+        }
+        set
+        {
+            if (value)
+            {
+                Destroy();
+            }
+            _completed = value;
+        }
     }
     public virtual float Progress()
     {
@@ -71,6 +73,14 @@ public class IMission:MonoBehaviour
     {
 
     }
+    public virtual void Destroy()
+    {
+
+    }
+    public virtual void OnDrawGizmos()
+    {
+
+    }
 }
 
 public class MissionSkill : IMission
@@ -80,8 +90,8 @@ public class MissionSkill : IMission
     public override void Begin()
     {
         base.Begin();
-
         executor.Execute();
+        completed = true;
     }
 
     public override MissionTag Tag()
@@ -90,8 +100,6 @@ public class MissionSkill : IMission
     }
     public override void Update()
     {
-        Complete();
-
         if (_completed)
         {
             if (OnEnd != null)

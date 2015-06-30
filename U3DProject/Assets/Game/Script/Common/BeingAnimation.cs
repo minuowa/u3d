@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BeingAction
+public class BeingAnimation
 {
     public static int Idle0 = 0;
     public static int Idle1 = 1;

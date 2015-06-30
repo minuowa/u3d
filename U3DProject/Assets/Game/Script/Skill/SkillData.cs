@@ -21,62 +21,51 @@ namespace Skill
             return Mgr.instance.Get(id);
         }
 
-        public void Execute(GameObject actor, MissionSkill mission, GameObject victim)
+        public bool IsInRange(Vector3 center, Vector3 pos)
         {
+            if (range.type == RangeType.Single)
+                return Vector3.Distance(center, pos) <= distance;
+            return true;
+        }
+
+        public void Execute(Being actor, Being victim)
+        {
+            Do(actor, victim, 0);
+
             switch (range.type)
             {
                 case RangeType.Single:
                     {
-                        if (mission)
-                        {
-                            Do(actor, victim, mission.id);
-                        }
-                        else
-                        {
-                            GroundMove move = actor.gameObject.AddComponent<GroundMove>();
 
-                            move.target = victim.gameObject.transform.position;
-                            move.miniDistance = distance;
-                            move.AddToWorkList();
-
-                            Executor executor = new Executor();
-                            executor.skillid = id;
-                            executor.actor = actor;
-                            executor.victim = victim;
-                            MissionSkill missskill = actor.gameObject.AddComponent<MissionSkill>();
-                            executor.mission = missskill;
-                            missskill.executor = executor;
-                            missskill.AddToWorkList();
-                        }
                     }
                     break;
                 default:
                     {
-                        Do(actor, null,0);
+                        Do(actor, null, 0);
                     }
                     break;
             }
         }
 
-        private void Do(GameObject actor, GameObject victim, int missionid)
+        private void Do(Being actor, Being victim, int missionid)
         {
             if (!actor)
                 return;
 
             if (!string.IsNullOrEmpty(effect.name))
             {
-                Effector effector = actor.AddComponent<Effector>();
+                Effector effector = actor.gameObject.AddComponent<Effector>();
                 effector.data = effect;
             }
 
             Animator anim = actor.GetComponentInChildren<Animator>();
             if (anim != null)
             {
-                anim.SetInteger(BeingAction.action, animition);
+                anim.SetInteger(BeingAnimation.action, animition);
             }
 
             //BeingStat stat = actor.GetComponent<BeingStat>();
-            DamageObject.Init(id, actor, victim,missionid);
+            DamageObject.Init(id, actor, victim, missionid);
         }
 
     }

@@ -36,7 +36,7 @@ namespace Skill
             }
             Animator anim = gameObject.GetComponent<Animator>();
             if (anim != null)
-                anim.StopPlayback();
+                anim.SetInteger(BeingAnimation.action, BeingAnimation.Joke1);
             transform.position -= transform.forward * 0.2f;
             Destroy(this);
         }
@@ -45,7 +45,7 @@ namespace Skill
     public class DamageReceiver : MonoBehaviour
     {
         public int skillid;
-        public GameObject sender;
+        public Being sender;
         public int missionid;
         public void OnEnd()
         {
@@ -57,7 +57,7 @@ namespace Skill
             }
             Animator anim = gameObject.GetComponent<Animator>();
             if (anim != null)
-                anim.StopPlayback();
+                anim.SetInteger(BeingAnimation.action, BeingAnimation.Joke1);
             transform.position -= transform.forward * 0.2f;
             Destroy(this);
         }
@@ -66,13 +66,13 @@ namespace Skill
     public class DamageObject : MonoBehaviour
     {
         public int skillid;
-        public GameObject sender;
-        public GameObject target;
+        public Being sender;
+        public Being target;
         public string start;
         public string end;
         public int missionid;
 
-        public static bool Init(int skillID, GameObject sender, GameObject victim, int missionid)
+        public static bool Init(int skillID, Being sender, Being victim, int missionid)
         {
             Data data = Data.Get(skillID);
             if (data == null)
@@ -81,42 +81,44 @@ namespace Skill
             GameObject obj = (GameObject)GameObject.Instantiate(prefab);
             if (!obj)
                 return false;
+            obj.transform.localPosition = prefab.transform.localPosition;
             obj.transform.localRotation = prefab.transform.rotation;
             DamageObject dameobj = obj.AddComponent<DamageObject>();
             dameobj.skillid = skillID;
             dameobj.sender = sender;
             dameobj.target = victim;
             dameobj.missionid = missionid;
+            sender.GetComponent<AnimationCallBack>().bullet = obj;
             return true;
         }
-
-        void Start()
+        public void Shot()
         {
-
-            transform.position = sender.transform.position;
-            transform.rotation = sender.transform.rotation;
+            transform.position = sender.transform.position + transform.localPosition;
+            transform.rotation = sender.transform.rotation * transform.localRotation;
 
             if (target)
             {
-                DamageReceiver receiver = target.AddComponent<DamageReceiver>();
+                DamageReceiver receiver = target.gameObject.AddComponent<DamageReceiver>();
                 receiver.sender = sender;
                 receiver.skillid = skillid;
                 receiver.missionid = missionid;
                 FlyerMove mvoe = gameObject.AddComponent<FlyerMove>();
                 Collider co = target.GetComponent<Collider>();
-                if (co)
-                {
-                    mvoe.target = co.bounds.center;
-                }
-                else
-                {
-                    mvoe.target = target.transform.position;
-                }
+                mvoe.target = target.transform.position;
+                //if (co)
+                //{
+                //    mvoe.target = co.bounds.center;
+                //}
+                //else
+                //{
+                //    mvoe.target = target.transform.position;
+                //}
                 mvoe.receiver = receiver;
             }
-
             gameObject.SetActive(true);
-
+        }
+        void Start()
+        {
         }
         void Update()
         {

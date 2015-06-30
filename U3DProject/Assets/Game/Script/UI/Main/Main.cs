@@ -22,11 +22,11 @@ public class Main : MonoBehaviour {
                 {
                     if (Hero.instance.target)
                     {
-                        Skill.Executor skillExecutor = new Skill.Executor();
-                        skillExecutor.skillid = 1001;
-                        skillExecutor.actor = Hero.instance.gameObject;
-                        skillExecutor.victim = Hero.instance.target.gameObject;
-                        skillExecutor.Execute();
+                        SkillParam param = new SkillParam();
+                        param.sender = Hero.instance;
+                        param.skillID = 1001;
+                        param.receiver = Hero.instance.target;
+                        Hero.instance.Do(ActionID.Skill, param);
                     }
                 }
                 break;

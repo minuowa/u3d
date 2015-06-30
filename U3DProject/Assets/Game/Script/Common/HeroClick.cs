@@ -30,9 +30,9 @@ public class HeroClick : MonoBehaviour
                 GameObject hitObj=hit.transform.gameObject;
                 if (hitObj.layer==(int)GameLayer.Terrain)
                 {
-                    GroundMove move = Hero.instance.gameObject.AddComponent<GroundMove>();
-                    move.target = hit.point;
-                    move.AddToWorkList();
+                    GroundMoveParam moveParam = new GroundMoveParam();
+                    moveParam.rawpos = hit.point;
+                    Hero.instance.Do(ActionID.MoveTo, moveParam);
                     return;
                 }
                 Being being=hitObj.GetComponent<Being>();
@@ -40,18 +40,14 @@ public class HeroClick : MonoBehaviour
                 {
                     if (hitObj != Hero.instance.gameObject)
                     {
-                        if (Hero.instance.target != null)
-                            Hero.instance.target.Unselect();
-                        Hero.instance.target = being;
-                        being.Select();
+                        SelectParam sleparam = new SelectParam();
+                        sleparam.receiver = being;
+                        Hero.instance.Do(ActionID.SelectTarget, sleparam);
 
-                        {
-                            Skill.Executor skillExecutor = new Skill.Executor();
-                            skillExecutor.skillid = 1001;
-                            skillExecutor.actor = Hero.instance.gameObject;
-                            skillExecutor.victim = Hero.instance.target.gameObject;
-                            skillExecutor.Execute();
-                        }
+                        SkillParam param=new SkillParam();
+                        param.skillID=1001;
+                        param.receiver = being;
+                        Hero.instance.Do(ActionID.Skill,param);
                         return;
                     }
                 }

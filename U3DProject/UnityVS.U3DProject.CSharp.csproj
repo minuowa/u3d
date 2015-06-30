@@ -68,13 +68,15 @@
     <Compile Include="Assets\Game\Script\AI\EnemyAI.cs" />
     <Compile Include="Assets\Game\Script\Character\Being.cs" />
     <Compile Include="Assets\Game\Script\Character\BeingStat.cs" />
+    <Compile Include="Assets\Game\Script\Character\Class1.cs" />
     <Compile Include="Assets\Game\Script\Character\D2HeroCamera.cs" />
     <Compile Include="Assets\Game\Script\Character\Hero.cs" />
     <Compile Include="Assets\Game\Script\Character\HeroStat.cs" />
     <Compile Include="Assets\Game\Script\Character\Player.cs" />
     <Compile Include="Assets\Game\Script\Character\PlayerStat.cs" />
     <Compile Include="Assets\Game\Script\Common\AnimationCallBack.cs" />
-    <Compile Include="Assets\Game\Script\Common\BeingAction.cs" />
+    <Compile Include="Assets\Game\Script\Common\BeingAnimation.cs" />
+    <Compile Include="Assets\Game\Script\Common\ActionID.cs" />
     <Compile Include="Assets\Game\Script\Common\Duration.cs" />
     <Compile Include="Assets\Game\Script\Common\FlyerMove.cs" />
     <Compile Include="Assets\Game\Script\Common\Fun.cs" />
@@ -82,6 +84,7 @@
     <Compile Include="Assets\Game\Script\Common\GroundMove.cs" />
     <Compile Include="Assets\Game\Script\Common\HeroClick.cs" />
     <Compile Include="Assets\Game\Script\Common\Index.cs" />
+    <Compile Include="Assets\Game\Script\Common\IParam.cs" />
     <Compile Include="Assets\Game\Script\Common\Move.cs" />
     <Compile Include="Assets\Game\Script\Common\NameCard.cs" />
     <Compile Include="Assets\Game\Script\Common\OnDamage.cs" />
@@ -95,7 +98,7 @@
     <Compile Include="Assets\Game\Script\Skill\SkillEffect.cs" />
     <Compile Include="Assets\Game\Script\Skill\SkillMgr.cs" />
     <Compile Include="Assets\Game\Script\Skill\SkillRange.cs" />
-    <Compile Include="Assets\Game\Script\Terrain\Terrain.cs" />
+    <Compile Include="Assets\Game\Script\Terrain\Map.cs" />
     <Compile Include="Assets\Game\Script\Test\Test.cs" />
     <Compile Include="Assets\Game\Script\UI\Main\Main.cs" />
     <Compile Include="Assets\Game\Script\Weapon\WeaponMgr.cs" />

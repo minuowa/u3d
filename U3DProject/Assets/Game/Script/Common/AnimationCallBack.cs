@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Skill;
 
 public class AnimationCallBack : MonoBehaviour {
 
 	// Use this for initialization
+    public GameObject bullet;
 	void Start () {
 	
 	}
@@ -15,6 +17,17 @@ public class AnimationCallBack : MonoBehaviour {
     public void OnJumpEnd()
     {
         Animator animator = gameObject.GetComponent<Animator>();
-        animator.SetInteger(BeingAction.action, BeingAction.Idle0);
+        animator.SetInteger(BeingAnimation.action, BeingAnimation.Idle0);
+    }
+    public void OnArcher()
+    {
+        if (bullet)
+        {
+            DamageObject damage = bullet.GetComponent<DamageObject>();
+            if (damage!=null)
+            {
+                damage.Shot();
+            }
+        }
     }
 }

@@ -7,16 +7,14 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{346CE0FE-9BDB-E921-EB00-9D3D14AF4CF6}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <AssemblyName>Assembly-CSharp</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>Android:13</UnityBuildTarget>
     <UnityVersion>4.6.0f3</UnityVersion>
@@ -74,22 +72,22 @@
     <Compile Include="Assets\Game\Script\Character\HeroStat.cs" />
     <Compile Include="Assets\Game\Script\Character\Player.cs" />
     <Compile Include="Assets\Game\Script\Character\PlayerStat.cs" />
-    <Compile Include="Assets\Game\Script\Common\AnimationCallBack.cs" />
-    <Compile Include="Assets\Game\Script\Common\BeingAnimation.cs" />
     <Compile Include="Assets\Game\Script\Common\ActionID.cs" />
+    <Compile Include="Assets\Game\Script\Common\BeingAnimation.cs" />
     <Compile Include="Assets\Game\Script\Common\Duration.cs" />
     <Compile Include="Assets\Game\Script\Common\FlyerMove.cs" />
     <Compile Include="Assets\Game\Script\Common\Fun.cs" />
     <Compile Include="Assets\Game\Script\Common\GameLayer.cs" />
     <Compile Include="Assets\Game\Script\Common\GroundMove.cs" />
     <Compile Include="Assets\Game\Script\Common\HeroClick.cs" />
-    <Compile Include="Assets\Game\Script\Common\Index.cs" />
     <Compile Include="Assets\Game\Script\Common\IParam.cs" />
+    <Compile Include="Assets\Game\Script\Common\Index.cs" />
     <Compile Include="Assets\Game\Script\Common\Move.cs" />
     <Compile Include="Assets\Game\Script\Common\NameCard.cs" />
     <Compile Include="Assets\Game\Script\Common\OnDamage.cs" />
     <Compile Include="Assets\Game\Script\Common\SelectFlag.cs" />
     <Compile Include="Assets\Game\Script\Common\Target.cs" />
+    <Compile Include="Assets\Game\Script\NewBehaviourScript.cs" />
     <Compile Include="Assets\Game\Script\Skill\Damage.cs" />
     <Compile Include="Assets\Game\Script\Skill\Executor.cs" />
     <Compile Include="Assets\Game\Script\Skill\Mission.cs" />
@@ -99,6 +97,7 @@
     <Compile Include="Assets\Game\Script\Skill\SkillMgr.cs" />
     <Compile Include="Assets\Game\Script\Skill\SkillRange.cs" />
     <Compile Include="Assets\Game\Script\Terrain\Map.cs" />
+    <Compile Include="Assets\Game\Script\Terrain\Terrain.cs" />
     <Compile Include="Assets\Game\Script\Test\Test.cs" />
     <Compile Include="Assets\Game\Script\UI\Main\Main.cs" />
     <Compile Include="Assets\Game\Script\Weapon\WeaponMgr.cs" />

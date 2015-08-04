@@ -17,22 +17,17 @@ public class NameCard : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
     }
     void OnGUI()
     {
-        CapsuleCollider collider = GetComponentInChildren<CapsuleCollider>();
+        CapsuleCollider collider = GetComponentInParent<CapsuleCollider>();
         Vector3 offset = Vector3.zero;
         if (collider)
             offset.y = collider.height;
         if (Camera.main)
         {
-            Animator animator = GetComponentInChildren<Animator>();
-            Vector3 mypos;
-            if (animator)
-                mypos = animator.rootPosition;
-            else
-                mypos = transform.position;
-            Vector3 pos = Camera.main.WorldToScreenPoint(mypos + offset);
+            Vector3 pos = Camera.main.WorldToScreenPoint(transform.position + offset);
             // shit....
             GUI.TextArea(new Rect(pos.x, Screen.height - pos.y, 0, 0), transform.name, style);
         }

@@ -7,9 +7,10 @@ namespace Skill
 {
     public class Executor
     {
-        public Being actor;
-        public Being victim;
+        public GameObject actor;
+        public GameObject victim;
         public int skillid;
+
         public void Execute()
         {
             Data data = Mgr.instance.Get(skillid);

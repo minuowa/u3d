@@ -28,11 +28,11 @@ public class HeroClick : MonoBehaviour
             if (Physics.Raycast(ray, out hit))
             {
                 GameObject hitObj=hit.transform.gameObject;
-                if (hitObj.layer==(int)GameLayer.Terrain)
+                var com = hitObj.GetComponent<Terrain>();
+                if (com != null)
                 {
-                    GroundMoveParam moveParam = new GroundMoveParam();
-                    moveParam.rawpos = hit.point;
-                    Hero.instance.Do(ActionID.MoveTo, moveParam);
+                    GroundMove move = Hero.instance.TryGetComponent<GroundMove>();
+                    move.target = hit.point;
                     return;
                 }
                 Being being=hitObj.GetComponent<Being>();
@@ -40,14 +40,10 @@ public class HeroClick : MonoBehaviour
                 {
                     if (hitObj != Hero.instance.gameObject)
                     {
-                        SelectParam sleparam = new SelectParam();
-                        sleparam.receiver = being;
-                        Hero.instance.Do(ActionID.SelectTarget, sleparam);
-
-                        SkillParam param=new SkillParam();
-                        param.skillID=1001;
-                        param.receiver = being;
-                        Hero.instance.Do(ActionID.Skill,param);
+                        if (Hero.instance.target != null)
+                            Hero.instance.target.Unselect();
+                        Hero.instance.target = being;
+                        being.Select();
                         return;
                     }
                 }

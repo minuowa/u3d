@@ -9,8 +9,8 @@ namespace Skill
     public class Data
     {
         public int id;
-        public float distance;
-        public int animition;
+        public double distance;
+        public string animition;
 
         public RangeData range;
         public EffectData effect;
@@ -21,51 +21,65 @@ namespace Skill
             return Mgr.instance.Get(id);
         }
 
-        public bool IsInRange(Vector3 center, Vector3 pos)
+        public void Execute(GameObject actor, GameObject victim)
         {
-            if (range.type == RangeType.Single)
-                return Vector3.Distance(center, pos) <= distance;
-            return true;
-        }
-
-        public void Execute(Being actor, Being victim)
-        {
-            Do(actor, victim, 0);
-
+            Do(actor, victim);
+            return;
             switch (range.type)
             {
                 case RangeType.Single:
                     {
+                        if (Vector3.Distance(actor.transform.position, victim.transform.position) <= distance)
+                        {
+                            Do(actor,victim);
+                        }
+                        else
+                        {
+                            MissionMgr mgr = actor.GetComponent<MissionMgr>();
+                            if (mgr == null)
+                                mgr = actor.AddComponent<MissionMgr>();
 
+                            MissionFindPos find = new MissionFindPos();
+                            find.target = victim.transform.position;
+                            find.onwer = actor;
+                            mgr.Add(find);
+
+                            Executor executor = new Executor();
+                            executor.skillid = id;
+                            executor.actor = actor;
+                            executor.victim = victim;
+
+                            MissionSkill missskill = new MissionSkill();
+                            missskill.executor = executor;
+                            mgr.Add(missskill);
+                        }
                     }
                     break;
                 default:
                     {
-                        Do(actor, null, 0);
+                        Do(actor, null);
                     }
                     break;
             }
         }
 
-        private void Do(Being actor, Being victim, int missionid)
+        private void Do(GameObject actor, GameObject victim)
         {
-            if (!actor)
+            if(!actor)
                 return;
 
             if (!string.IsNullOrEmpty(effect.name))
             {
-                Effector effector = actor.gameObject.AddComponent<Effector>();
+                Effector effector = actor.AddComponent<Effector>();
                 effector.data = effect;
             }
 
-            Animator anim = actor.GetComponentInChildren<Animator>();
+            Animation anim = actor.GetComponentInParent<Animation>();
             if (anim != null)
-            {
-                anim.SetInteger(BeingAnimation.action, animition);
-            }
+                anim.CrossFade(animition);
 
             //BeingStat stat = actor.GetComponent<BeingStat>();
-            DamageObject.Init(id, actor, victim, missionid);
+            DamageObject.Init(id, actor, victim);
         }
 
     }

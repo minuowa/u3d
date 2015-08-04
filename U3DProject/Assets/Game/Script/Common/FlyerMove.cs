@@ -14,7 +14,7 @@ public class FlyerMove : MonoBehaviour
     void Start()
     {
         _duration = new Duration();
-        _duration.total = 5f;
+        _duration.total = 10f;
     }
 
     void EndFinding()

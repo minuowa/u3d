@@ -36,10 +36,10 @@ namespace Skill
             _skills = new Dictionary<int, Data>();
             Data data = new Data();
             data.id = 1001;
-            data.animition = BeingAnimation.Attack1;
+            data.animition = "jump_pose";
             data.damage = new DamageData();
             data.damage.prefab = "Prefabs/GameObject/bullet";
-            data.distance = 10f;
+            data.distance = 5f;
             data.effect = new EffectData();
             data.range = new RangeData();
             data.range.ridus = 3;

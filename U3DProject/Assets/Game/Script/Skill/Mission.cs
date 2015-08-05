@@ -12,18 +12,44 @@ public enum MissionTag
     Skill,
 }
 
-public class IMission
+public class IMission:IParam
 {
     public delegate void EndDelegate(IMission mission);
     public EndDelegate OnEnd;
     public EndDelegate OnBegin;
 
+    public int id;
+
     protected bool _completed = false;
     protected bool _begin = false;
 
-    public virtual bool Complete()
+    public static implicit operator bool (IMission mi)
     {
-        return _completed;
+        return mi!=null;
+    }
+    public void AddToWorkList(MissionMgr mgr)
+    {
+        mgr.Add(this);
+    }
+
+    public void OnComplete()
+    {
+        _completed = true;
+    }
+    public bool completed
+    {
+        get
+        {
+            return _completed;
+        }
+        set
+        {
+            if (value)
+            {
+                Destroy();
+            }
+            _completed = value;
+        }
     }
     public virtual float Progress()
     {
@@ -37,9 +63,7 @@ public class IMission
     {
         _begin = true;
         if (OnBegin != null)
-        {
             OnBegin(this);
-        }
     }
     public virtual MissionTag Tag()
     {
@@ -49,41 +73,14 @@ public class IMission
     {
 
     }
-}
-public class MissionFindPos : IMission
-{
-    public Vector3 target;
-    public GameObject onwer;
+    public virtual void Destroy()
+    {
 
-    public override bool Complete()
-    {
-        _completed = Vector3.Distance(target, onwer.transform.position) < 0.01f;
-        return _completed;
     }
-    public override float Progress()
+    public virtual void OnDrawGizmos()
     {
-        return 0;
-    }
-    public override bool IsDoing()
-    {
-        return false;
-    }
 
-    public override MissionTag Tag()
-    {
-        return MissionTag.FindPos;
     }
-    public override void Update()
-    {
-        if (_completed)
-        {
-            if (OnEnd != null)
-            {
-                OnEnd(this);
-            }
-        }
-    }
-
 }
 
 public class MissionSkill : IMission
@@ -93,8 +90,8 @@ public class MissionSkill : IMission
     public override void Begin()
     {
         base.Begin();
-
         executor.Execute();
+        completed = true;
     }
 
     public override MissionTag Tag()
@@ -103,8 +100,6 @@ public class MissionSkill : IMission
     }
     public override void Update()
     {
-        Complete();
-
         if (_completed)
         {
             if (OnEnd != null)

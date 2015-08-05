@@ -1,87 +1,120 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GroundMove : MonoBehaviour {
-    public int speed = 9;
-    public float miniDistance = 0.7f;
-
-
-    public Vector3 target;
-
-    private bool _finding = false;
+public class GroundMove : IMission
+{
 
     Duration _duration;
     GameObject _goundFlag;
-	// Use this for initialization
-	void Start () {
+    Animator _animator;
+    public GroundMoveParam param;
+
+    private bool _finding = false;
+    public int speed = 4;
+
+    public override void Begin()
+    {
+        base.Begin();
+
         _finding = true;
         _duration = new Duration();
-        _duration.total = 1.5f;
-        GameObject preGroundObj=(GameObject)Resources.Load("Prefabs/GameObject/groundFlag",typeof(GameObject));
+        _duration.total = 0.3f;
+
+        GameObject preGroundObj = (GameObject)Resources.Load("Prefabs/GameObject/groundFlag", typeof(GameObject));
         _goundFlag = (GameObject)GameObject.Instantiate(preGroundObj);
-        _goundFlag.transform.localPosition = target;
+        _goundFlag.transform.localPosition = param.target;
         _goundFlag.transform.localScale = preGroundObj.transform.localScale;
         _goundFlag.SetActive(true);
-	}
 
-    void OnDestroy()
+        _animator = param.sender.gameObject.GetComponentInChildren<Animator>();
+        _animator.SetInteger(BeingAnimation.action, BeingAnimation.Run1);
+
+
+
+        _completed = false;
+    }
+
+    public override void Destroy()
     {
-        Destroy(_goundFlag);
+        if(_goundFlag)
+            GameObject.Destroy(_goundFlag);
     }
     // Update is called once per frame
     void EndFinding()
     {
-        Animation anim = GetComponentInParent<Animation>();
+        _completed = true;
         _finding = false;
-        if (anim != null)
-            anim.CrossFade("idle");
-        GameObject.Destroy(this);
+        _duration.Reset();
+        _animator.SetInteger(BeingAnimation.action, BeingAnimation.Idle1);
+        Destroy();
     }
-    void Update()
+    public override void OnDrawGizmos()
     {
+        Gizmos.color = Color.yellow;
+        Vector3 mypos = param.sender.gameObject.transform.position;
+        Gizmos.DrawWireSphere(mypos, param.miniDistance);
+    }
+    public override void Update()
+    {
+        if (!_begin)
+            return;
+
         if (_finding)
         {
-            Vector3 v0 = transform.position;
+            CapsuleCollider collider = param.sender.gameObject.GetComponentInChildren<CapsuleCollider>();
+            Vector3 target = param.target;
+            if (collider)
+                target.y += (collider.height + collider.radius) * 0.5f;
+
+            Vector3 mypos = param.sender.gameObject.transform.position;
+            Quaternion myrotation = param.sender.gameObject.transform.rotation;
+            Vector3 v0 = mypos;
             Vector3 v1 = target;
             v0.y = 0;
             v1.y = 0;
-            if (Vector3.Distance(transform.position, target) < miniDistance
-                || Vector3.Distance(v0, v1) < 0.01f)
-            {
-                EndFinding();
-            }
-            else
-            {
-                Debug.DrawLine(target, transform.position, Color.green);
 
-                CharacterController ctrler = GetComponentInParent<CharacterController>();
-                if (ctrler)
+            CharacterController ctrler = param.sender.gameObject.GetComponentInParent<CharacterController>();
+            if (ctrler)
+            {
+                Vector3 vt = target;
+                vt.y = mypos.y;
+
+                bool rotateOk = false;
+
+                if (Vector3.Distance(vt, mypos) == 0)
+                    rotateOk = true;
+
+                Quaternion qfrom=Quaternion.identity, qto=Quaternion.identity;
+                if (!rotateOk)
                 {
-                    Vector3 vt = target;
-                    vt.y = transform.position.y;
-
-                    Quaternion qfrom = transform.rotation;
-                    Quaternion qto = Quaternion.LookRotation(vt - transform.position);
-                    transform.rotation = Quaternion.Slerp(qfrom, qto, _duration.progress);
-
-                    Vector3 dir = target - transform.position;
-                    dir.Normalize();
-                    ctrler.SimpleMove(dir * speed);
-
-                    if (Mathf.Pow(dir.x, 2) + Mathf.Pow(dir.z, 2) < 0.1f)
-                    {
-                        EndFinding();
-                    }
-                    else
-                    {
-                        Animation anim = GetComponentInParent<Animation>();
-                        if (anim != null)
-                            anim.CrossFade("run");
-                    }
+                    qfrom = myrotation;
+                    qto = Quaternion.LookRotation(vt - mypos);
+                    rotateOk = qfrom == qto || qfrom.eulerAngles == qto.eulerAngles || qto == Quaternion.identity;
                 }
-                if (_duration.Advance(Time.deltaTime))
+
+
+                bool posOk = Vector3.Distance(mypos, target) <= param.miniDistance || Vector3.Distance(v0, v1) <= 0.1f;
+
+
+                if (posOk && rotateOk)
                 {
-                    _duration.Reset();
+                    EndFinding();
+                }
+                else
+                {
+                    Debug.DrawLine(target, mypos, Color.green);
+                    if (!rotateOk)
+                    {
+                        _duration.Advance(Time.deltaTime);
+                        param.sender.gameObject.transform.rotation = Quaternion.Slerp(qfrom, qto, _duration.progress);
+                    }
+
+                    if (!posOk)
+                    {
+                        Vector3 dir = target - mypos;
+                        dir.Normalize();
+                        ctrler.SimpleMove(dir * speed);
+                    }
                 }
             }
         }

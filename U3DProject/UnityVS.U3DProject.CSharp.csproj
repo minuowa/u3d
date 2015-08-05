@@ -73,6 +73,7 @@
     <Compile Include="Assets\Game\Script\Character\Player.cs" />
     <Compile Include="Assets\Game\Script\Character\PlayerStat.cs" />
     <Compile Include="Assets\Game\Script\Common\ActionID.cs" />
+    <Compile Include="Assets\Game\Script\Common\AnimationCallBack.cs" />
     <Compile Include="Assets\Game\Script\Common\BeingAnimation.cs" />
     <Compile Include="Assets\Game\Script\Common\Duration.cs" />
     <Compile Include="Assets\Game\Script\Common\FlyerMove.cs" />

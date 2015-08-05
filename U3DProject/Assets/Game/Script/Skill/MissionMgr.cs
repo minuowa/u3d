@@ -9,30 +9,87 @@ public class MissionMgr : MonoBehaviour
 
     IMission _cur = null;
 
-    public void Add(IMission mission)
+    int _count = 0;
+
+    void OnDestroy()
     {
-        _list.Add(mission);
+        foreach (IMission mi in _list)
+        {
+
+        }
+    }
+
+    public void OnComplate(int missionid)
+    {
+        foreach (IMission mi in _list)
+        {
+            if (mi.id == missionid)
+                mi.completed=true;
+        }
+    }
+
+    public void Add(IMission mission,bool removeSameType=false)
+    {
+        if (mission)
+        {
+            if (removeSameType)
+            {
+                ClearSameType(mission.GetType());
+            }
+            _list.Add(mission);
+            _count++;
+            mission.id = _count;
+        }
     }
 
     void Update()
     {
-        Next();
-
         if (_cur != null)
         {
             _cur.Update();
+            if (_cur.completed)
+            {
+                _list.Remove(_cur);
+                _cur = null;
+            }
         }
-        if (_cur.Complete())
-        {
-            _list.Remove(_cur);
-        }
+
+        Next();
     }
     void Next()
     {
         if (_cur == null && _list.Count > 0)
         {
             _cur = _list[0];
-            _cur.Begin();
+            while (_list.Count > 0 && !_cur)
+            {
+                _list.RemoveAt(0);
+                _cur = _list[0];
+            }
+            if (_cur)
+                _cur.Begin();
         }
     }
+
+    protected void ClearSameType(System.Type param1)
+    {
+        foreach (IMission mi in _list)
+        {
+            if (mi.GetType() == param1)
+            {
+                mi.completed = true;
+                _list.Remove(mi);
+                if (_cur == mi)
+                    _cur = null;
+                return;
+            }
+        }
+    }
+
+    void OnDrawGizmos()
+    {
+        if (_cur)
+            _cur.OnDrawGizmos();
+    }
+
 }

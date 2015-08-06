@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-public class Fun
+public static class Fun
 {
     public static Vector3 GetPostion(GameObject go)
     {
@@ -35,5 +35,17 @@ public class Fun
             animator.bodyRotation = rot;
         else
             go.transform.rotation = rot;
+    }
+    public static Dictionary<string, string> ParseMap(this string strMap, char keyValueSpriter = ':', char mapSpriter = ',')
+    {
+        return new Dictionary<string, string>();
+    }
+    public static string LoadFile(string file)
+    {
+        return string.Empty;
+    }
+    public static string GetDirectoryName(string file)
+    {
+        return string.Empty;
     }
 }

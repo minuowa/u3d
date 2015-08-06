@@ -24,7 +24,11 @@ public class RPG :Editor {
         //AddStateTransition("Assets/Resources/attack@attack.FBX", layer);
         //AddStateTransition("Assets/Resources/aersasi@Run.FBX", layer);
     }
-
+    [MenuItem("RPG/OpenStoryMaker")]
+    static public void OpenStoryPanel()
+    {
+        EditorWindow.GetWindow<StoryMaker>(false, "StoryMaker", true).Show();
+    }
     //private static void AddStateTransition(string path, AnimatorControllerLayer layer)
     //{
     //    //UnityEditorInternal.StateMachine sm = layer.stateMachine;

@@ -87,6 +87,7 @@
   <ItemGroup>
     <Compile Include="Assets\Editor\CreateAnimator.cs" />
     <Compile Include="Assets\Editor\RPG.cs" />
+    <Compile Include="Assets\Editor\StoryMaker.cs" />
     <Compile Include="Assets\Editor\Water (Pro Only)\Water4\GerstnerDisplaceEditor.cs" />
     <Compile Include="Assets\Editor\Water (Pro Only)\Water4\PlanarReflectionEditor.cs" />
     <Compile Include="Assets\Editor\Water (Pro Only)\Water4\SpecularLightingEditor.cs" />

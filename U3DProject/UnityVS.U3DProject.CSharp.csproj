@@ -63,7 +63,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Game\Script\AI\AISystem.cs" />
+    <Compile Include="Assets\Game\Script\AI\BallAIAgent.cs" />
     <Compile Include="Assets\Game\Script\AI\EnemyAI.cs" />
+    <Compile Include="Assets\Game\Script\Base\StreamManager.cs" />
     <Compile Include="Assets\Game\Script\Character\Being.cs" />
     <Compile Include="Assets\Game\Script\Character\BeingStat.cs" />
     <Compile Include="Assets\Game\Script\Character\Class1.cs" />
@@ -88,7 +91,17 @@
     <Compile Include="Assets\Game\Script\Common\OnDamage.cs" />
     <Compile Include="Assets\Game\Script\Common\SelectFlag.cs" />
     <Compile Include="Assets\Game\Script\Common\Target.cs" />
-    <Compile Include="Assets\Game\Script\NewBehaviourScript.cs" />
+    <Compile Include="Assets\Game\Script\Config\GameData.cs" />
+    <Compile Include="Assets\Game\Script\Config\MiniParser.cs" />
+    <Compile Include="Assets\Game\Script\Config\SecurityParser.cs" />
+    <Compile Include="Assets\Game\Script\Config\SmallXmlParser.cs" />
+    <Compile Include="Assets\Game\Script\Config\XMLParser.cs" />
+    <Compile Include="Assets\Game\Script\GameMode.cs" />
+    <Compile Include="Assets\Game\Script\Log.cs" />
+    <Compile Include="Assets\Game\Script\MY.cs" />
+    <Compile Include="Assets\Game\Script\Net\ICommand.cs" />
+    <Compile Include="Assets\Game\Script\Net\MainSocket.cs" />
+    <Compile Include="Assets\Game\Script\Net\Net.cs" />
     <Compile Include="Assets\Game\Script\Skill\Damage.cs" />
     <Compile Include="Assets\Game\Script\Skill\Executor.cs" />
     <Compile Include="Assets\Game\Script\Skill\Mission.cs" />
@@ -97,6 +110,24 @@
     <Compile Include="Assets\Game\Script\Skill\SkillEffect.cs" />
     <Compile Include="Assets\Game\Script\Skill\SkillMgr.cs" />
     <Compile Include="Assets\Game\Script\Skill\SkillRange.cs" />
+    <Compile Include="Assets\Game\Script\Story\Attack.cs" />
+    <Compile Include="Assets\Game\Script\Story\Create.cs" />
+    <Compile Include="Assets\Game\Script\Story\DequeueGeneral.cs" />
+    <Compile Include="Assets\Game\Script\Story\Move.cs" />
+    <Compile Include="Assets\Game\Script\Story\OpenUI.cs" />
+    <Compile Include="Assets\Game\Script\Story\Play.cs" />
+    <Compile Include="Assets\Game\Script\Story\PlayAdviserSkill.cs" />
+    <Compile Include="Assets\Game\Script\Story\Story.cs" />
+    <Compile Include="Assets\Game\Script\Story\StoryFrame.cs" />
+    <Compile Include="Assets\Game\Script\Story\Talk.cs" />
+    <Compile Include="Assets\Game\Script\Story\WarGuide.cs" />
+    <Compile Include="Assets\Game\Script\Task\AllMainTask.cs" />
+    <Compile Include="Assets\Game\Script\Task\IdleManager.cs" />
+    <Compile Include="Assets\Game\Script\Task\Task.cs" />
+    <Compile Include="Assets\Game\Script\Task\TaskManager.cs" />
+    <Compile Include="Assets\Game\Script\Task\TaskOperType.cs" />
+    <Compile Include="Assets\Game\Script\Task\TaskPoint.cs" />
+    <Compile Include="Assets\Game\Script\Task\TaskState.cs" />
     <Compile Include="Assets\Game\Script\Terrain\Map.cs" />
     <Compile Include="Assets\Game\Script\Terrain\Terrain.cs" />
     <Compile Include="Assets\Game\Script\Test\Test.cs" />

@@ -1,15 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(MissionMgr))]
+[RequireComponent(typeof(NameCard))]
+[RequireComponent(typeof(StatBeing))]
+[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(OnDamage))]
+[RequireComponent(typeof(NavMeshAgent))]
 public class Being : MonoBehaviour
 {
-
-    public string displayName = string.Empty;
-    protected NameCard _nameCard;
-    protected BeingStat _beingStat;
-    protected MissionMgr _missionMgr;
-    protected Animator _animator;
-    protected BeingState _state;
+    protected NameCard mNameCard;
+    protected StatBeing mStatBeing;
+    protected MissionMgr mMissionMgr;
+    protected Animator mAnimator;
+    protected NavMeshAgent mPathFinder;
 
     public float rotateSpeed = 3.0f;
     [HideInInspector]
@@ -38,7 +42,7 @@ public class Being : MonoBehaviour
                     GroundMoveParam param = para as GroundMoveParam;
                     GroundMove move = new GroundMove();
                     move.param = param;
-                    _missionMgr.Add(move, true);
+                    mMissionMgr.Add(move, true);
                 }
                 break;
             case ActionID.Skill:
@@ -51,7 +55,7 @@ public class Being : MonoBehaviour
                     moveParam.miniDistance = param.data.distance;
                     GroundMove move = new GroundMove();
                     move.param = moveParam;
-                    _missionMgr.Add(move, true);
+                    mMissionMgr.Add(move, true);
 
                     Skill.Executor executor = new Skill.Executor();
                     executor.skillid = param.skillID;
@@ -59,19 +63,20 @@ public class Being : MonoBehaviour
                     executor.victim = param.receiver;
                     MissionSkill missskill = new MissionSkill();
                     missskill.executor = executor;
-                    _missionMgr.Add(missskill, true);
+                    mMissionMgr.Add(missskill, true);
                 }
                 break;
         }
     }
     public virtual void Start()
     {
-        _nameCard = gameObject.AddComponent<NameCard>();
-        _beingStat = gameObject.AddComponent<BeingStat>();
-        _animator = GetComponentInChildren<Animator>();
-        if (_animator == null)
-            _animator = gameObject.AddComponent<Animator>();
-        _missionMgr = gameObject.AddComponent<MissionMgr>();
+        mNameCard = gameObject.GetComponent<NameCard>();
+        mStatBeing = gameObject.GetComponent<StatBeing>();
+        mAnimator = GetComponentInChildren<Animator>();
+        if (mAnimator == null)
+            mAnimator = gameObject.GetComponent<Animator>();
+        mMissionMgr = gameObject.GetComponent<MissionMgr>();
+        mPathFinder = gameObject.GetComponent<NavMeshAgent>();
     }
 
     public T GetNewComponent<T>() where T : Component

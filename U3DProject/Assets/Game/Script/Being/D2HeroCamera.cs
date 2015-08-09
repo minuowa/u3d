@@ -14,7 +14,7 @@ public class D2HeroCamera : MonoBehaviour
 
     public readonly float minDistance = 1f;
 
-    public float timeOfSmooth = 3f;
+    public float timeOfSmooth = 0.3f;
 
     private float _elapsedTime = 0;
 

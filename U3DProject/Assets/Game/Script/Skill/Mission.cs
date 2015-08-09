@@ -20,8 +20,8 @@ public class IMission:IParam
 
     public int id;
 
-    protected bool _completed = false;
-    protected bool _begin = false;
+    protected bool mCompleted = false;
+    protected bool mBegin = false;
 
     public static implicit operator bool (IMission mi)
     {
@@ -34,13 +34,13 @@ public class IMission:IParam
 
     public void OnComplete()
     {
-        _completed = true;
+        mCompleted = true;
     }
     public bool completed
     {
         get
         {
-            return _completed;
+            return mCompleted;
         }
         set
         {
@@ -48,7 +48,7 @@ public class IMission:IParam
             {
                 Destroy();
             }
-            _completed = value;
+            mCompleted = value;
         }
     }
     public virtual float Progress()
@@ -57,11 +57,11 @@ public class IMission:IParam
     }
     public virtual bool IsDoing()
     {
-        return _begin && !_completed;
+        return mBegin && !mCompleted;
     }
     public virtual void Begin()
     {
-        _begin = true;
+        mBegin = true;
         if (OnBegin != null)
             OnBegin(this);
     }
@@ -100,7 +100,7 @@ public class MissionSkill : IMission
     }
     public override void Update()
     {
-        if (_completed)
+        if (mCompleted)
         {
             if (OnEnd != null)
             {

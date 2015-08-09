@@ -10,7 +10,7 @@ public enum BeingType
     Npc = 4,
     Monster = 8 | Npc,
 }
-public class BeingStat : MonoBehaviour
+public class StatBeing : MonoBehaviour
 {
     public int globalID;
     public BeingType beingType;

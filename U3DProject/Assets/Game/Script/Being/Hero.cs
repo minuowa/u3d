@@ -1,6 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(HeroClick))]
+[RequireComponent(typeof(D2HeroCamera))]
+[RequireComponent(typeof(AnimationCallBack))]
+[RequireComponent(typeof(CharacterController))]
+[AddComponentMenu("RPG/Obj/Hero")]
 public class Hero : Player
 {
     public static Hero instance
@@ -12,18 +17,17 @@ public class Hero : Player
     }
     private static Hero _instance = null;
 
-    protected HeroStat _heroStat;
+    protected StatHero mStatHero;
 
     public Hero()
     {
-        _instance = this;
-        UnityEngine.Debug.Log("Hero()");
     }
 
     public override void Start()
     {
+        _instance = this;
         base.Start();
-        _heroStat = gameObject.AddComponent<HeroStat>();
+        mStatHero = gameObject.GetComponent<StatHero>();
     }
 
     // Update is called once per frame

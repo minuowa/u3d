@@ -72,6 +72,24 @@
     <Reference Include="UnityVS.VersionSpecific">
       <HintPath>Assets\UnityVS\Editor\UnityVS.VersionSpecific.dll</HintPath>
     </Reference>
+    <Reference Include="NSubstitute">
+      <HintPath>Assets\Game\Script\AI\behaviac\UnityTestTools\UnitTesting\Editor\NSubstitute\NSubstitute.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil.Mdb">
+      <HintPath>Assets\Game\Script\AI\behaviac\UnityTestTools\UnitTesting\Editor\NUnit\Libs\Mono.Cecil.Mdb.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.core">
+      <HintPath>Assets\Game\Script\AI\behaviac\UnityTestTools\UnitTesting\Editor\NUnit\Libs\nunit.core.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.core.interfaces">
+      <HintPath>Assets\Game\Script\AI\behaviac\UnityTestTools\UnitTesting\Editor\NUnit\Libs\nunit.core.interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>Assets\Game\Script\AI\behaviac\UnityTestTools\UnitTesting\Editor\NUnit\Libs\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil">
+      <HintPath>Assets\Game\Script\AI\behaviac\UnityTestTools\UnitTesting\Editor\NUnit\Libs\Mono.Cecil.dll</HintPath>
+    </Reference>
     <Reference Include="Assembly-UnityScript-firstpass">
       <HintPath>Library\ScriptAssemblies\Assembly-UnityScript-firstpass.dll</HintPath>
     </Reference>
@@ -98,6 +116,60 @@
     <Compile Include="Assets\Editor\Water (Pro Only)\Water4\SpecularLightingEditor.cs" />
     <Compile Include="Assets\Editor\Water (Pro Only)\Water4\WaterBaseEditor.cs" />
     <Compile Include="Assets\Editor\Water (Pro Only)\Water4\WaterEditorUtility.cs" />
+    <Compile Include="Assets\Game\Script\AI\behaviac\BehaviacUnitTest\Editor\BehaviacFileManager.cs" />
+    <Compile Include="Assets\Game\Script\AI\behaviac\BehaviacUnitTest\Editor\BehaviacSystem.cs" />
+    <Compile Include="Assets\Game\Script\AI\behaviac\BehaviacUnitTest\Editor\BehaviorNodeTest\DecorationNodeTest.cs" />
+    <Compile Include="Assets\Game\Script\AI\behaviac\BehaviacUnitTest\Editor\BehaviorNodeTest\EnterExitActionUnitTest.cs" />
+    <Compile Include="Assets\Game\Script\AI\behaviac\BehaviacUnitTest\Editor\BehaviorNodeTest\EventUnitTest.cs" />
+    <Compile Include="Assets\Game\Script\AI\behaviac\BehaviacUnitTest\Editor\BehaviorNodeTest\NodeUnitTest.cs" />
+    <Compile Include="Assets\Game\Script\AI\behaviac\BehaviacUnitTest\Editor\BehaviorNodeTest\ParallelNodeTest.cs" />
+    <Compile Include="Assets\Game\Script\AI\behaviac\BehaviacUnitTest\Editor\BehaviorNodeTest\PredicateUnitTest.cs" />
+    <Compile Include="Assets\Game\Script\AI\behaviac\BehaviacUnitTest\Editor\BehaviorNodeTest\QueryUnitTest.cs" />
+    <Compile Include="Assets\Game\Script\AI\behaviac\BehaviacUnitTest\Editor\ParUnitTest\CustomPropertyUnitTest.cs" />
+    <Compile Include="Assets\Game\Script\AI\behaviac\BehaviacUnitTest\Editor\ParUnitTest\OtherUnitTest.cs" />
+    <Compile Include="Assets\Game\Script\AI\behaviac\BehaviacUnitTest\Editor\ParUnitTest\ParUnitTest.cs" />
+    <Compile Include="Assets\Game\Script\AI\behaviac\BehaviacUnitTest\Editor\Singleton.cs" />
+    <Compile Include="Assets\Game\Script\AI\behaviac\BehaviacUnitTest\Editor\UnitTestBase_0.cs" />
+    <Compile Include="Assets\Game\Script\AI\behaviac\Editor\BehaviacMenus.cs" />
+    <Compile Include="Assets\Game\Script\AI\behaviac\UnityTestTools\Assertions\Editor\AssertionComponentEditor.cs" />
+    <Compile Include="Assets\Game\Script\AI\behaviac\UnityTestTools\Assertions\Editor\AssertionExplorerWindow.cs" />
+    <Compile Include="Assets\Game\Script\AI\behaviac\UnityTestTools\Assertions\Editor\AssertionListRenderer.cs" />
+    <Compile Include="Assets\Game\Script\AI\behaviac\UnityTestTools\Assertions\Editor\AssertionStripper.cs" />
+    <Compile Include="Assets\Game\Script\AI\behaviac\UnityTestTools\Assertions\Editor\DropDownControl.cs" />
+    <Compile Include="Assets\Game\Script\AI\behaviac\UnityTestTools\Assertions\Editor\GroupByComparerRenderer.cs" />
+    <Compile Include="Assets\Game\Script\AI\behaviac\UnityTestTools\Assertions\Editor\GroupByExecutionMethodRenderer.cs" />
+    <Compile Include="Assets\Game\Script\AI\behaviac\UnityTestTools\Assertions\Editor\GroupByGORenderer.cs" />
+    <Compile Include="Assets\Game\Script\AI\behaviac\UnityTestTools\Assertions\Editor\GroupByNothingRenderer.cs" />
+    <Compile Include="Assets\Game\Script\AI\behaviac\UnityTestTools\Assertions\Editor\GroupByTestsRenderer.cs" />
+    <Compile Include="Assets\Game\Script\AI\behaviac\UnityTestTools\Assertions\Editor\PropertyPathSelector.cs" />
+    <Compile Include="Assets\Game\Script\AI\behaviac\UnityTestTools\Assertions\Editor\PropertyResolver.cs" />
+    <Compile Include="Assets\Game\Script\AI\behaviac\UnityTestTools\Common\Editor\Icons.cs" />
+    <Compile Include="Assets\Game\Script\AI\behaviac\UnityTestTools\Common\Editor\Styles.cs" />
+    <Compile Include="Assets\Game\Script\AI\behaviac\UnityTestTools\IntegrationTestsFramework\TestRunner\Editor\Batch.cs" />
+    <Compile Include="Assets\Game\Script\AI\behaviac\UnityTestTools\IntegrationTestsFramework\TestRunner\Editor\IntegrationTestsRunnerWindow.cs" />
+    <Compile Include="Assets\Game\Script\AI\behaviac\UnityTestTools\IntegrationTestsFramework\TestRunner\Editor\PlatformRunner\PlatformRunner.cs" />
+    <Compile Include="Assets\Game\Script\AI\behaviac\UnityTestTools\IntegrationTestsFramework\TestRunner\Editor\PlatformRunner\PlatformRunnerSettingsWindow.cs" />
+    <Compile Include="Assets\Game\Script\AI\behaviac\UnityTestTools\IntegrationTestsFramework\TestRunner\Editor\Renderer\IntegrationTestGroupLine.cs" />
+    <Compile Include="Assets\Game\Script\AI\behaviac\UnityTestTools\IntegrationTestsFramework\TestRunner\Editor\Renderer\IntegrationTestLine.cs" />
+    <Compile Include="Assets\Game\Script\AI\behaviac\UnityTestTools\IntegrationTestsFramework\TestRunner\Editor\Renderer\IntegrationTestRendererBase.cs" />
+    <Compile Include="Assets\Game\Script\AI\behaviac\UnityTestTools\IntegrationTestsFramework\TestRunner\Editor\TestComponentEditor.cs" />
+    <Compile Include="Assets\Game\Script\AI\behaviac\UnityTestTools\UnitTesting\Editor\Batch.cs" />
+    <Compile Include="Assets\Game\Script\AI\behaviac\UnityTestTools\UnitTesting\Editor\NUnit\Renderer\GroupLine.cs" />
+    <Compile Include="Assets\Game\Script\AI\behaviac\UnityTestTools\UnitTesting\Editor\NUnit\Renderer\RenderingOptions.cs" />
+    <Compile Include="Assets\Game\Script\AI\behaviac\UnityTestTools\UnitTesting\Editor\NUnit\Renderer\TestLine.cs" />
+    <Compile Include="Assets\Game\Script\AI\behaviac\UnityTestTools\UnitTesting\Editor\NUnit\Renderer\UnitTestRendererLine.cs" />
+    <Compile Include="Assets\Game\Script\AI\behaviac\UnityTestTools\UnitTesting\Editor\TestRunner\BackgroundRunner.cs" />
+    <Compile Include="Assets\Game\Script\AI\behaviac\UnityTestTools\UnitTesting\Editor\TestRunner\GuiHelper.cs" />
+    <Compile Include="Assets\Game\Script\AI\behaviac\UnityTestTools\UnitTesting\Editor\TestRunner\ITestRunnerCallback.cs" />
+    <Compile Include="Assets\Game\Script\AI\behaviac\UnityTestTools\UnitTesting\Editor\TestRunner\IUnitTestEngine.cs" />
+    <Compile Include="Assets\Game\Script\AI\behaviac\UnityTestTools\UnitTesting\Editor\TestRunner\NUnitExtensions.cs" />
+    <Compile Include="Assets\Game\Script\AI\behaviac\UnityTestTools\UnitTesting\Editor\TestRunner\NUnitTestEngine.cs" />
+    <Compile Include="Assets\Game\Script\AI\behaviac\UnityTestTools\UnitTesting\Editor\TestRunner\TestRunner.cs" />
+    <Compile Include="Assets\Game\Script\AI\behaviac\UnityTestTools\UnitTesting\Editor\TestRunner\TestRunnerCallbackList.cs" />
+    <Compile Include="Assets\Game\Script\AI\behaviac\UnityTestTools\UnitTesting\Editor\TestRunner\UnitTestInfo.cs" />
+    <Compile Include="Assets\Game\Script\AI\behaviac\UnityTestTools\UnitTesting\Editor\TestRunner\UnitTestResult.cs" />
+    <Compile Include="Assets\Game\Script\AI\behaviac\UnityTestTools\UnitTesting\Editor\TestRunner\UnitTestView.cs" />
+    <Compile Include="Assets\Game\Script\AI\behaviac\UnityTestTools\UnitTesting\Editor\UnityUnitTest.cs" />
     <Compile Include="Assets\NGUI\Scripts\Editor\ActiveAnimationEditor.cs" />
     <Compile Include="Assets\NGUI\Scripts\Editor\BMFontReader.cs" />
     <Compile Include="Assets\NGUI\Scripts\Editor\ComponentSelector.cs" />
@@ -181,6 +253,11 @@
     <Compile Include="Assets\NGUI\Scripts\Editor\UIWrapContentEditor.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Game\BehaviourTrees\UGame.workspace.xml" />
+    <None Include="Assets\Game\BehaviourTrees\behaviors\Npc.xml" />
+    <None Include="Assets\Game\BehaviourTrees\xmlmeta\bt_meta.xml" />
+    <None Include="Assets\Game\Script\AI\behaviac\UnityTestTools\LICENSE.txt" />
+    <None Include="Assets\Game\Script\AI\behaviac\UnityTestTools\changelog.txt" />
     <None Include="Assets\NGUI\ReadMe - 3.7.6.txt" />
     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Premultiplied Colored (TextureClip).shader" />
     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Premultiplied Colored 1.shader" />
@@ -204,6 +281,10 @@
     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Packed.shader" />
     <None Include="Assets\Resources\UI\UI_Atlases\AddMesh2.txt" />
     <None Include="Assets\Resources\UI\p3182_sc.jb51.net\素材之家(sc.jb51.net).txt" />
+    <None Include="Assets\Resources\data\BehaviourTreesExported\Npc.xml" />
+    <None Include="Assets\Resources\data\BehaviourTreesExported\behaviors.dbg.xml" />
+    <None Include="Assets\Resources\data\ObjBaseDesc.xml" />
+    <None Include="Assets\Resources\data\ObjectBase.xml" />
     <None Include="Assets\Standard Assets (Mobile)\Shaders\Lightmap Shaders (Legacy)\Mobile Lightmap AlphaTest.shader" />
     <None Include="Assets\Standard Assets (Mobile)\Shaders\Lightmap Shaders (Legacy)\Mobile Lightmap Only.shader" />
     <None Include="Assets\Standard Assets (Mobile)\Shaders\Lightmap Shaders (Legacy)\Mobile Lightmap Reflective.shader" />

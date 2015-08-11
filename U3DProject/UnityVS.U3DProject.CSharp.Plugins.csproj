@@ -85,6 +85,11 @@
     <Compile Include="Assets\Standard Assets\Water (Pro Only)\Water4\Sources\Scripts\WaterTile.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Game\BehaviourTrees\UGame.workspace.xml" />
+    <None Include="Assets\Game\BehaviourTrees\behaviors\Npc.xml" />
+    <None Include="Assets\Game\BehaviourTrees\xmlmeta\bt_meta.xml" />
+    <None Include="Assets\Game\Script\AI\behaviac\UnityTestTools\LICENSE.txt" />
+    <None Include="Assets\Game\Script\AI\behaviac\UnityTestTools\changelog.txt" />
     <None Include="Assets\NGUI\ReadMe - 3.7.6.txt" />
     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Premultiplied Colored (TextureClip).shader" />
     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Premultiplied Colored 1.shader" />
@@ -108,6 +113,10 @@
     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Packed.shader" />
     <None Include="Assets\Resources\UI\UI_Atlases\AddMesh2.txt" />
     <None Include="Assets\Resources\UI\p3182_sc.jb51.net\素材之家(sc.jb51.net).txt" />
+    <None Include="Assets\Resources\data\BehaviourTreesExported\Npc.xml" />
+    <None Include="Assets\Resources\data\BehaviourTreesExported\behaviors.dbg.xml" />
+    <None Include="Assets\Resources\data\ObjBaseDesc.xml" />
+    <None Include="Assets\Resources\data\ObjectBase.xml" />
     <None Include="Assets\Standard Assets (Mobile)\Shaders\Lightmap Shaders (Legacy)\Mobile Lightmap AlphaTest.shader" />
     <None Include="Assets\Standard Assets (Mobile)\Shaders\Lightmap Shaders (Legacy)\Mobile Lightmap Only.shader" />
     <None Include="Assets\Standard Assets (Mobile)\Shaders\Lightmap Shaders (Legacy)\Mobile Lightmap Reflective.shader" />

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Test : MonoBehaviour {
+public class TestObj : MonoBehaviour {
 
     public GameObject obj;
 

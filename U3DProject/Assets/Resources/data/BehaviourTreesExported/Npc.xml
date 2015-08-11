@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
+<!--Source File: Npc.xml-->
+<behavior name="Npc" agenttype="Being" version="1">
+  <node class="True" version="0" id="0" />
+</behavior>

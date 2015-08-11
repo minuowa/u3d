@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+
+	<record cap="1" desc="10154" icon="108" id="1" itemType="1" lvLimit="1" name="元宝(1)" price="1" props="5-3-50-0-5" quality="1"/>
+
+	<record cap="1" desc="10154" icon="109" id="2" itemType="2" lvLimit="1" name="银两(1)" price="1" props="5-3-50-0-5" quality="2"/>
+
+	<record cap="999" desc="10154" icon="110" id="100" itemType="3" lvLimit="1" name="低级武将经验丹" price="1" props="5-3-50-0-5" quality="3"/>
+
+	<record cap="999" desc="10154" icon="111" id="101" itemType="3" lvLimit="1" name="高级武将经验丹" price="1" props="5-3-50-0-5" quality="4"/>
+
+	<record cap="999" desc="10154" icon="111" id="102" itemType="3" lvLimit="1" name="1礼金(旧)" price="1" props="5-3-50-0-5" quality="5"/>
+
+	<record cap="999" desc="10154" icon="111" id="970" itemType="3" lvLimit="1" name="铜矿" price="1" props="5-3-50-0-5" quality="1"/>
+
+	<record cap="999" desc="10154" icon="111" id="971" itemType="3" lvLimit="1" name="铁矿" price="1" props="5-3-50-0-5" quality="1"/>
+
+	<record cap="999" desc="10154" icon="111" id="972" itemType="3" lvLimit="1" name="银矿" price="1" props="5-3-50-0-5" quality="1"/>
+
+	<record cap="999" desc="10154" icon="111" id="973" itemType="3" lvLimit="1" name="亚麻" price="1" props="5-3-50-0-5" quality="1"/>
+
+	<record cap="999" desc="10154" icon="111" id="974" itemType="3" lvLimit="1" name="棉花" price="1" props="5-3-50-0-5" quality="1"/>
+
+	<record cap="999" desc="10154" icon="111" id="975" itemType="3" lvLimit="1" name="蚕丝" price="1" props="5-3-50-0-5" quality="1"/>
+
+	<record cap="999" desc="10154" icon="111" id="976" itemType="3" lvLimit="1" name="绿水晶" price="1" props="5-3-50-0-5" quality="1"/>
+
+	<record cap="999" desc="10154" icon="111" id="977" itemType="3" lvLimit="1" name="紫水晶" price="1" props="5-3-50-0-5" quality="1"/>
+
+	<record cap="999" desc="10154" icon="111" id="978" itemType="3" lvLimit="1" name="一阶锻造石" price="1" props="5-3-50-0-5" quality="1"/>
+
+	<record cap="999" desc="10154" icon="111" id="979" itemType="3" lvLimit="1" name="二阶锻造石" price="1" props="5-3-50-0-5" quality="1"/>
+
+	<record cap="999" desc="10154" icon="111" id="980" itemType="3" lvLimit="1" name="三阶锻造石" price="1" props="5-3-50-0-5" quality="1"/>
+
+	<record cap="999" desc="10154" icon="111" id="981" itemType="3" lvLimit="1" name="玄铁石" price="1" props="5-3-50-0-5" quality="1"/>
+
+	<record cap="999" desc="10154" icon="111" id="982" itemType="3" lvLimit="1" name="金晶" price="1" props="5-3-50-0-5" quality="1"/>
+
+	<record cap="1" desc="10154" icon="111" id="1009" itemType="3" lvLimit="1" name="侠客-胡铁花" price="1" props="5-3-50-0-5" quality="1"/>
+
+	<record cap="1" desc="10154" icon="111" id="1010" itemType="3" lvLimit="1" name="侠客-宋甜儿" price="1" props="5-3-50-0-5" quality="1"/>
+
+	<record cap="1" desc="10154" icon="111" id="1011" itemType="3" lvLimit="1" name="侠客-中原一点红" price="1" props="5-3-50-0-5" quality="1"/>
+
+	<record cap="1" desc="10154" icon="111" id="1012" itemType="3" lvLimit="1" name="侠客-薛衣人" price="1" props="5-3-50-0-5" quality="1"/>
+
+	<record cap="99" desc="10154" icon="111" id="1100" itemType="3" lvLimit="1" name="侠客碎片礼包" price="1" props="5-3-50-0-5" quality="1"/>
+
+	<record cap="1" desc="10154" icon="111" id="1101" itemType="3" lvLimit="1" name="关羽侠客卡" price="1" props="5-3-50-0-5" quality="1"/>
+
+	<record cap="1" desc="10154" icon="111" id="1102" itemType="3" lvLimit="1" name="吕布侠客卡" price="1" props="5-3-50-0-5" quality="1"/>
+
+	<record cap="1" desc="10154" icon="111" id="1103" itemType="3" lvLimit="1" name="甘宁侠客卡" price="1" props="5-3-50-0-5" quality="1"/>
+
+	<record cap="99" desc="10154" icon="111" id="1104" itemType="3" lvLimit="1" name="胡铁花信物" price="1" props="5-3-50-0-5" quality="1"/>
+
+	<record cap="99" desc="10154" icon="111" id="1105" itemType="3" lvLimit="1" name="宋甜儿信物" price="1" props="5-3-50-0-5" quality="1"/>
+
+	<record cap="99" desc="10154" icon="111" id="1106" itemType="3" lvLimit="1" name="中原一点红信物" price="1" props="5-3-50-0-5" quality="1"/>
+
+	<record cap="99" desc="10154" icon="111" id="1107" itemType="3" lvLimit="1" name="薛衣人信物" price="1" props="5-3-50-0-5" quality="1"/>
+
+	<record cap="99" desc="10154" icon="111" id="1108" itemType="3" lvLimit="1" name="苏蓉蓉信物" price="1" props="5-3-50-0-5" quality="1"/>
+
+	<record cap="99" desc="10154" icon="111" id="1109" itemType="3" lvLimit="1" name="苏蓉蓉信物" price="1" props="5-3-50-0-5" quality="1"/>
+
+	<record cap="99" desc="10154" icon="111" id="1110" itemType="3" lvLimit="1" name="苏蓉蓉信物" price="1" props="5-3-50-0-5" quality="1"/>
+
+	<record cap="99" desc="10154" icon="111" id="1111" itemType="3" lvLimit="1" name="苏蓉蓉信物" price="1" props="5-3-50-0-5" quality="1"/>
+
+	<record cap="99" desc="10154" icon="111" id="1112" itemType="3" lvLimit="1" name="苏蓉蓉信物" price="1" props="5-3-50-0-5" quality="1"/>
+
+	<record cap="99" desc="10154" icon="111" id="1113" itemType="3" lvLimit="1" name="苏蓉蓉信物" price="1" props="5-3-50-0-5" quality="1"/>
+
+	<record cap="99" desc="10154" icon="111" id="1114" itemType="3" lvLimit="1" name="苏蓉蓉信物" price="1" props="5-3-50-0-5" quality="1"/>
+
+	<record cap="99" desc="10154" icon="111" id="1115" itemType="3" lvLimit="1" name="苏蓉蓉信物" price="1" props="5-3-50-0-5" quality="1"/>
+
+</root>

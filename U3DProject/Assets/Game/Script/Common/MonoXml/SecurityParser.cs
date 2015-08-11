@@ -90,7 +90,11 @@ namespace Mono.Xml {
 			// attributes
 			int n = attrs.Length;
 			for (int i=0; i < n; i++)
-				current.AddAttribute (attrs.GetName (i), attrs.GetValue (i));
+			{
+				string attrName = SecurityElement.Escape (attrs.GetName (i));
+				string attrValue = SecurityElement.Escape (attrs.GetValue (i));
+				current.AddAttribute (attrName, attrValue);
+			}
 		}
 
 		public void OnEndElement (string name)

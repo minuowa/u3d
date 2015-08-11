@@ -10,7 +10,6 @@ public class GroundMove : IMission
     NavMeshAgent mPathfinder;
     public GroundMoveParam param;
 
-    private bool mFinding = false;
     public int speed = 4;
 
     bool mMoving = false;
@@ -20,7 +19,6 @@ public class GroundMove : IMission
     {
         base.Begin();
 
-        mFinding = true;
         mDuration = new Duration();
         mDuration.total = 0.3f;
 

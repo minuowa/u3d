@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by wt (zt) -->
+<config>
+	<!-- 
+字段顺序必与结构中定义的一样
+name 字段名字
+type 字段类型：（缺省 int ）
+	string	字符串(size 缺省 16); 
+	int		整数（根据size决定其位数,缺省 4，base：进制，缺省 10）;
+	float	浮点数（size = 4 单精度，size = 8 双精度,缺省 4）
+default 缺省值
+-->
+	<table name="ObjectBase" ExcelFile="道具表_Mobile.xls">
+		<fields>
+			<field name="道具ID" type="int" member="id" size=""/>
+			<field name="道具名称" type="string" member="name" size="64"/>
+			<field name="道具类型" type="int" member="itemType"/>
+			<field name="icon" type="int" member="icon"/>			
+			<field name="等级限制" type="int" member="lvLimit"/>
+			<field name="叠加上限" type="int" member="cap"/>
+			<field name="装备品质" type="int" member="quality"/>
+			<field name="物品说明" type="int" member="desc"/>
+			<field name="附加属性" type="string" member="props"/>
+            <field name="出售价格" type="int" member="price"/>
+		</fields>
+	</table>
+</config>

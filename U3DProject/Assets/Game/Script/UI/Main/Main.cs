@@ -20,12 +20,12 @@ public class Main : MonoBehaviour {
         {
             case 0:
                 {
-                    if (Hero.instance.target)
+                    if (Hero.instance.mTarget)
                     {
                         SkillParam param = new SkillParam();
                         param.sender = Hero.instance;
                         param.skillID = 1001;
-                        param.receiver = Hero.instance.target;
+                        param.receiver = Hero.instance.mTarget;
                         Hero.instance.Do(ActionID.Skill, param);
                     }
                 }

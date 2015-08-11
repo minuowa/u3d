@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<workspace name="UGame" xmlmetafolder="xmlmeta" folder="behaviors" export="..\..\Resources\data\BehaviourTreesExported">
+  <xmlmeta>bt_meta.xml</xmlmeta>
+  <export>
+    <bson>
+      <isexported>False</isexported>
+      <filename>generated_behaviors</filename>
+    </bson>
+    <cpp>
+      <isexported>False</isexported>
+      <filename>generated_behaviors</filename>
+    </cpp>
+  </export>
+</workspace>

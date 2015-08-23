@@ -343,8 +343,6 @@
     <None Include="Assets\Resources\config\TaskData.xml" />
     <None Include="Assets\Resources\data\BehaviourTreesExported\Npc.xml" />
     <None Include="Assets\Resources\data\BehaviourTreesExported\behaviors.dbg.xml" />
-    <None Include="Assets\Resources\data\ObjBaseDesc.xml" />
-    <None Include="Assets\Resources\data\ObjectBase.xml" />
     <None Include="Assets\Resources\mapdata\100_objects.xml" />
     <None Include="Assets\Resources\mapdata\100_scene.xml" />
     <None Include="Assets\Standard Assets (Mobile)\Shaders\Lightmap Shaders (Legacy)\Mobile Lightmap AlphaTest.shader" />

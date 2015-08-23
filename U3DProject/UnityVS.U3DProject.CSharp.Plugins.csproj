@@ -88,8 +88,6 @@
     <None Include="Assets\Game\BehaviourTrees\UGame.workspace.xml" />
     <None Include="Assets\Game\BehaviourTrees\behaviors\Npc.xml" />
     <None Include="Assets\Game\BehaviourTrees\xmlmeta\bt_meta.xml" />
-    <None Include="Assets\Game\Script\AI\behaviac\UnityTestTools\LICENSE.txt" />
-    <None Include="Assets\Game\Script\AI\behaviac\UnityTestTools\changelog.txt" />
     <None Include="Assets\NGUI\ReadMe - 3.7.6.txt" />
     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Premultiplied Colored (TextureClip).shader" />
     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Premultiplied Colored 1.shader" />

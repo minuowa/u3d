@@ -11,9 +11,9 @@ public class Npc : Being
         base.Start();
         mStatNpc = GetComponent<StatNpc>();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+
+    // Update is called once per frame
+    public override void Update () {
+        base.Update();
 	}
 }

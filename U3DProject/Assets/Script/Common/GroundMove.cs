@@ -3,7 +3,6 @@ using System.Collections;
 
 public class GroundMove : IMission
 {
-
     Duration mDuration;
     GameObject mGroundFlag;
     Animator mAnimator;
@@ -38,6 +37,7 @@ public class GroundMove : IMission
         mCompleted = false;
         mMoving = true;
         mRotating = true;
+
     }
 
     public override void Destroy()

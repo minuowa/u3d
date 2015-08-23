@@ -10,9 +10,9 @@ public class Player : Being
         base.Start();
         mStatPlayer = GetComponent<StatPlayer>();
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    public override void Update () {
 	
 	}
 }

@@ -35,11 +35,25 @@ public class Being : behaviac.Agent
     {
     }
 
-    void Update()
+    public virtual void Update()
     {
+        UpdateAround();
         btexec();
     }
-
+    void UpdateAround()
+    {
+        if (string.IsNullOrEmpty(mStatBeing.ai))
+            return;
+        mBeings.Clear();
+        Being[] alls = (Being[])GameObject.FindObjectsOfType(typeof(Being));
+        foreach (var be in alls)
+        {
+            if (be.Equals(this))
+                continue;
+            if (Vector3.Distance(be.transform.localPosition, transform.localPosition) < mStatBeing.aiRange)
+                mBeings.Add(be);
+        }
+    }
     [behaviac.MethodMetaInfo()]
     public behaviac.EBTStatus RandomStart()
     {
@@ -50,13 +64,23 @@ public class Being : behaviac.Agent
     {
         return mBeings[index];
     }
+    [behaviac.MethodMetaInfo()]
     public bool IsBeingAround()
     {
         return BeingCountAround() > 0;
     }
+
+    [behaviac.MethodMetaInfo()]
+    public void GoToFirst()
+    {
+        GroundMoveParam moveParam = new GroundMoveParam();
+        Being being = mBeings[0];
+        moveParam.rawpos = being.transform.position;
+        Do(ActionID.MoveTo, moveParam);
+    }
     public int BeingCountAround()
     {
-        return 0;
+        return mBeings.Count;
     }
     public bool IsEnemy(int idx)
     {
@@ -176,18 +200,20 @@ public class Being : behaviac.Agent
     }
     public virtual void Start()
     {
-        base.Init();
-        MS<AISystem>.Instance.Load(this, MS<AISystem>.Instance.ballAI);
-
         mNameCard = gameObject.GetComponent<NameCard>();
         mStatBeing = gameObject.GetComponent<StatBeing>();
         mAnimator = GetComponentInChildren<Animator>();
-        if (mAnimator == null)
-            mAnimator = gameObject.GetComponent<Animator>();
         mMissionMgr = gameObject.GetComponent<MissionMgr>();
         mPathFinder = gameObject.GetComponent<NavMeshAgent>();
-    }
 
+        base.Init();
+        ReloadAI();
+    }
+    void ReloadAI()
+    {
+        if(!string.IsNullOrEmpty(mStatBeing.ai))
+            MS<AISystem>.Instance.Load(this, mStatBeing.ai);
+    }
     public T GetNewComponent<T>() where T : Component
     {
         T com = gameObject.GetComponent<T>();

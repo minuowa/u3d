@@ -50,7 +50,7 @@ public class Scene : MonoBehaviour
         Fun.DestoryChildren(npcroot);
         npcroot = new GameObject(name);
 
-        for (int i = 0; i < 300; ++i)
+        for (int i = 0; i < 20; ++i)
         {
             GameObject go = AResource.Instance("Prefabs/GameObject/Npc");
             go.name = "xiao" + i.ToString();

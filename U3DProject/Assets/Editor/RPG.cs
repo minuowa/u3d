@@ -29,6 +29,35 @@ public class RPG :Editor {
     {
         EditorWindow.GetWindow<StoryMaker>(false, "StoryMaker", true).Show();
     }
+
+    [MenuItem("RPG/Test/TestConfig")]
+    static public void TestConfig()
+    {
+        Config.TaskData.recordMap = null;
+        Config.TaskData data = Config.TaskData.Get(1000);
+        Log.Assert(data, "Config Field!");
+    }
+
+    [MenuItem("RPG/Scene/RandomGenerateNpcs")]
+    static public void RandomGenerateNpcs()
+    {
+        MS<Scene>.Instance.RandomGenerateNpcs();
+    }
+    [MenuItem("RPG/Scene/ExportObjects")]
+    static public void ExportObjects()
+    {
+        MS<Scene>.Instance.ExportObjects();
+    }
+    [MenuItem("RPG/Scene/ReloadObjects")]
+    static public void ReloadObjects()
+    {
+        MS<Scene>.Instance.ReloadObjects();
+    }
+    [MenuItem("RPG/Scene/ExportNavigation")]
+    static public void ExportNavigation()
+    {
+        MS<Scene>.Instance.ExportNavigation();
+    }
     //private static void AddStateTransition(string path, AnimatorControllerLayer layer)
     //{
     //    //UnityEditorInternal.StateMachine sm = layer.stateMachine;

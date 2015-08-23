@@ -14,7 +14,7 @@
 //    void Start()
 //    {
 //        base.Init();
-//        MY<AISystem>.Instance.Load(this, MY<AISystem>.Instance.ballAI);
+//        MS<AISystem>.Instance.Load(this, MS<AISystem>.Instance.ballAI);
 //        rigidbody.velocity = new Vector3(0.5f, 0, 1).normalized * speed;
 //    }
 

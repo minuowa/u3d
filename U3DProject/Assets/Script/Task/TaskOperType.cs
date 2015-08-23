@@ -8,4 +8,5 @@ public enum TaskOperType
     None,
     Collect,
     Kill,
+    BuyFromShop,
 }

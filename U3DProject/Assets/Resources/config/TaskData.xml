@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--日常任务-->
+<!--
+    public enum TaskType
+    {
+        None,               ///无
+        Daily,              ///日常
+    }
+    public enum TaskOperator
+    {
+        None,                   ///无     
+        BuyFromShop,            ///从商城购买
+        Count,
+    }
+      <record>
+      <id>任务id</id>
+        <childs>
+          <item_ childID="任务子id" name="任务名称" type="任务类型" oper="任务操作类型" maxNum="最大操作数" icon="类型图标" desc="任务描述">
+            <reward desc="奖励描述">
+              <rewardItem_ id="奖励道具id" count="奖励道具数量"/>
+            </reward>
+          </item_>
+          </childs>
+        </record>
+-->
+
+<root>
+  <record id="1000">
+    <childs>
+      <item_ childID="1" name="10190" type="Daily" oper="BuyFromShop" maxNum="5" icon="108" desc="10191">
+        <reward desc="10194">
+          <rewardItem_ id="1001" count="1"/>
+          <rewardItem_ id="1002" count="2"/>
+        </reward>
+      </item_>
+
+      <item_ childID="2" name="10192" type="Daily" oper="None" maxNum="0" icon="108" desc="10193">
+        <reward desc="10195">
+          <rewardItem_ id="1002" count="2"/>
+          <rewardItem_ id="1003" count="3"/>
+        </reward>
+      </item_>
+
+    </childs>
+  </record>
+
+  <record id="1001">
+    <childs>
+
+      <item_ childID="1" name="10196" type="Daily" oper="None" maxNum="5" icon="108" desc="10197">
+        <reward desc="10198">
+          <rewardItem_ id="1001" count="1"/>
+          <rewardItem_ id="1002" count="2"/>
+        </reward>
+      </item_>
+
+    </childs>
+  </record>
+
+</root>

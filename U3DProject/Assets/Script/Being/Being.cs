@@ -177,7 +177,7 @@ public class Being : behaviac.Agent
     public virtual void Start()
     {
         base.Init();
-        MY<AISystem>.Instance.Load(this, MY<AISystem>.Instance.ballAI);
+        MS<AISystem>.Instance.Load(this, MS<AISystem>.Instance.ballAI);
 
         mNameCard = gameObject.GetComponent<NameCard>();
         mStatBeing = gameObject.GetComponent<StatBeing>();

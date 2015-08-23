@@ -6,6 +6,17 @@ using UnityEngine;
 
 public static class Fun
 {
+    public static void DoSthAfterTime(float time, Action act)
+    {
+        Clock c = MS<ClockMgr>.Instance.Require();
+        c.Begin(time, (Clock clock) =>
+        {
+            if (act != null)
+                act();
+            clock.Destory();
+        }
+        );
+    }
     public static Vector3 GetPostion(GameObject go)
     {
         Animator animator = go.GetComponentInChildren<Animator>();
@@ -35,6 +46,35 @@ public static class Fun
             animator.bodyRotation = rot;
         else
             go.transform.rotation = rot;
+    }
+    public static void DestoryChildren(GameObject obj)
+    {
+        if (obj)
+        {
+            for (int i = 0; i < obj.transform.childCount; ++i)
+            {
+                if (Application.isPlaying)
+                    UnityEngine.Object.Destroy(obj.transform.GetChild(i).gameObject);
+                else
+                    UnityEngine.Object.DestroyImmediate(obj.transform.GetChild(i).gameObject);
+            }
+        }
+    }
+
+    public static void SetLayer(GameObject go, int layer, bool changeChildren = true)
+    {
+        if (go)
+        {
+            go.layer = layer;
+
+            if (changeChildren)
+            {
+                for (int i = 0; i < go.transform.childCount; ++i)
+                {
+                    SetLayer(go.transform.GetChild(i).gameObject, layer, changeChildren);
+                }
+            }
+        }
     }
     public static Dictionary<string, string> ParseMap(this string strMap, char keyValueSpriter = ':', char mapSpriter = ',')
     {

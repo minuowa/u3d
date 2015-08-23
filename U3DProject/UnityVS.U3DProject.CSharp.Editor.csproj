@@ -208,10 +208,13 @@
     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Packed.shader" />
     <None Include="Assets\Resources\UI\UI_Atlases\AddMesh2.txt" />
     <None Include="Assets\Resources\UI\p3182_sc.jb51.net\素材之家(sc.jb51.net).txt" />
+    <None Include="Assets\Resources\config\TaskData.xml" />
     <None Include="Assets\Resources\data\BehaviourTreesExported\Npc.xml" />
     <None Include="Assets\Resources\data\BehaviourTreesExported\behaviors.dbg.xml" />
     <None Include="Assets\Resources\data\ObjBaseDesc.xml" />
     <None Include="Assets\Resources\data\ObjectBase.xml" />
+    <None Include="Assets\Resources\mapdata\100_objects.xml" />
+    <None Include="Assets\Resources\mapdata\100_scene.xml" />
     <None Include="Assets\Standard Assets (Mobile)\Shaders\Lightmap Shaders (Legacy)\Mobile Lightmap AlphaTest.shader" />
     <None Include="Assets\Standard Assets (Mobile)\Shaders\Lightmap Shaders (Legacy)\Mobile Lightmap Only.shader" />
     <None Include="Assets\Standard Assets (Mobile)\Shaders\Lightmap Shaders (Legacy)\Mobile Lightmap Reflective.shader" />

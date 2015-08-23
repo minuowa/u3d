@@ -137,7 +137,7 @@ public class Clock
     public void Destory()
     {
         mEnd = true;
-        MY<ClockMgr>.Instance.Remove(this);
+        MS<ClockMgr>.Instance.Remove(this);
     }
 }
 public class ClockMgr : MonoBehaviour

@@ -1,9 +1,18 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.IO;
-//using System.Reflection;
-//using System.Text;
-//using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
+using System.Text;
+using UnityEngine;
+
+public class Net : MonoBehaviour
+{
+    public void Send(byte[] cmd)
+    {
+
+    }
+}
+
 //public enum CLIENT_MESSAGE
 //{
 //    Login,

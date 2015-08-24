@@ -20,3 +20,14 @@ H:\github\u3d\U3DProject\Temp\UnityVS_bin\Debug\UnityEngine.UI.xml
 H:\github\u3d\U3DProject\obj\Debug\UnityVS.U3DProject.CSharp.Plugins.csprojResolveAssemblyReference.cache
 H:\github\u3d\U3DProject\obj\Debug\Assembly-CSharp-firstpass.dll
 H:\github\u3d\U3DProject\obj\Debug\Assembly-CSharp-firstpass.pdb
+D:\u3d\u3d\U3DProject\Temp\UnityVS_bin\Debug\Assembly-CSharp-firstpass.dll
+D:\u3d\u3d\U3DProject\Temp\UnityVS_bin\Debug\Assembly-CSharp-firstpass.pdb
+D:\u3d\u3d\U3DProject\Temp\UnityVS_bin\Debug\UnityEditor.dll
+D:\u3d\u3d\U3DProject\Temp\UnityVS_bin\Debug\UnityEngine.dll
+D:\u3d\u3d\U3DProject\Temp\UnityVS_bin\Debug\UnityEngine.UI.dll
+D:\u3d\u3d\U3DProject\Temp\UnityVS_bin\Debug\UnityEngine.xml
+D:\u3d\u3d\U3DProject\Temp\UnityVS_bin\Debug\UnityEditor.xml
+D:\u3d\u3d\U3DProject\Temp\UnityVS_bin\Debug\UnityEngine.UI.xml
+D:\u3d\u3d\U3DProject\obj\Debug\UnityVS.U3DProject.CSharp.Plugins.csprojResolveAssemblyReference.cache
+D:\u3d\u3d\U3DProject\obj\Debug\Assembly-CSharp-firstpass.dll
+D:\u3d\u3d\U3DProject\obj\Debug\Assembly-CSharp-firstpass.pdb

@@ -1,0 +1,10 @@
+/u3dproject/Assets/UnityVS/Editor
+/U3DProject/UnityVS.U3DProject.CSharp.Plugins.csproj
+/U3DProject/UnityVS.U3DProject.sln
+/U3DProject/U3DProject-csharp.sln
+/U3DProject/UnityVS.U3DProject.CSharp.csproj
+/U3DProject/UnityVS.U3DProject.CSharp.Editor.csproj
+/U3DProject/Library/metadata
+/U3DProject/Temp
+*.meta
+/U3DProject/Library/ShaderCache

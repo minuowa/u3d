@@ -1,0 +1,14 @@
+D:\u3d\u3d\U3DProject\Temp\bin\Debug\Assembly-CSharp.dll
+D:\u3d\u3d\U3DProject\Temp\bin\Debug\Assembly-CSharp.pdb
+D:\u3d\u3d\U3DProject\Temp\bin\Debug\Assembly-UnityScript-firstpass.dll
+D:\u3d\u3d\U3DProject\Temp\bin\Debug\UnityEditor.dll
+D:\u3d\u3d\U3DProject\Temp\bin\Debug\UnityEngine.dll
+D:\u3d\u3d\U3DProject\Temp\bin\Debug\UnityEngine.UI.dll
+D:\u3d\u3d\U3DProject\Temp\bin\Debug\Mono.Cecil.dll
+D:\u3d\u3d\U3DProject\Temp\bin\Debug\nunit.framework.dll
+D:\u3d\u3d\U3DProject\Temp\bin\Debug\Unity.DataContract.dll
+D:\u3d\u3d\U3DProject\Temp\bin\Debug\ICSharpCode.NRefactory.dll
+D:\u3d\u3d\U3DProject\Temp\bin\Debug\Assembly-CSharp-firstpass.pdb
+D:\u3d\u3d\U3DProject\obj\Debug\Assembly-CSharp-vs.csprojResolveAssemblyReference.cache
+D:\u3d\u3d\U3DProject\obj\Debug\Assembly-CSharp.dll
+D:\u3d\u3d\U3DProject\obj\Debug\Assembly-CSharp.pdb

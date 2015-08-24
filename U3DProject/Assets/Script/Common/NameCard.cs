@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+[ExecuteInEditMode]
 public class NameCard : MonoBehaviour
 {
     public GUIStyle style;
+    public Texture blood;
     // Use this for initialization
     void Start()
     {
@@ -29,7 +30,10 @@ public class NameCard : MonoBehaviour
         {
             Vector3 pos = Camera.main.WorldToScreenPoint(transform.position + offset);
             // shit....
-            GUI.TextArea(new Rect(pos.x, Screen.height - pos.y, 0, 0), transform.name, style);
+            Rect rc=new Rect(pos.x, Screen.height - pos.y, 0, 0);
+            GUI.TextArea(rc, transform.name, style);
+            if (blood)
+                GUI.DrawTexture(rc, blood);
         }
     }
 }

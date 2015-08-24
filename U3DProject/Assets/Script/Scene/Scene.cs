@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-public class ExportNavigationData:XMLFile
+public class ExportNavigationData : XMLFile
 {
     public List<int> indices;
     public List<Vector3> verts;
@@ -20,21 +20,17 @@ public class SceneOjbects : XMLFile
 public class Scene : MonoBehaviour
 {
     public int sceneID = 100;
-    
+
     public void ReloadObjects()
     {
-        string name = "npcroot";
-        GameObject npcroot = GameObject.Find(name);
-        Fun.DestoryChildren(npcroot);
-        npcroot = new GameObject(name);
-
+        GameObject npcroot = RecreateNpcRoot();
 
         string outfile = MS<Setting>.Instance.ScenePath + sceneID.ToString() + "_objects";
         SceneOjbects scene = AResource.LoadXML<SceneOjbects>(outfile);
 
         foreach (var data in scene.npcs)
         {
-            GameObject go = AResource.Instance("Prefabs/GameObject/Npc");
+            GameObject go = AResource.Instance("Prefabs/npcs/Npc");
             go.name = data.name;
             go.transform.localPosition = data.pos;
             go.transform.parent = npcroot.transform;
@@ -43,18 +39,27 @@ public class Scene : MonoBehaviour
             stat.globalID = data.npcid;
         }
     }
+    GameObject RecreateNpcRoot()
+    {
+        string name = "npcroot";
+        GameObject npcroot = GameObject.Find(name);
+        GameObject.DestroyImmediate(npcroot);
+        return new GameObject(name);
+    }
     public void RandomGenerateNpcs()
     {
-        string name="npcroot";
-        GameObject npcroot = GameObject.Find(name);
-        Fun.DestoryChildren(npcroot);
-        npcroot = new GameObject(name);
+        GameObject npcroot = RecreateNpcRoot();
+
+        Terrain terrain = Terrain.activeTerrain;
 
         for (int i = 0; i < 20; ++i)
         {
-            GameObject go = AResource.Instance("Prefabs/GameObject/Npc");
+            GameObject go = AResource.Instance("Prefabs/npcs/Npc");
             go.name = "xiao" + i.ToString();
-            go.transform.localPosition = new Vector3(Random.Range(0, 2000), 0, Random.Range(0, 2000));
+            float x = Random.Range(0f, terrain.terrainData.size.x);
+            float z = Random.Range(0f, terrain.terrainData.size.z);
+            float y = terrain.terrainData.GetInterpolatedHeight(x, z);
+            go.transform.localPosition = new Vector3(x, y, z);
             go.transform.parent = npcroot.transform;
             go.AddComponent<Being>();
             StatBeing stat = go.GetComponent<StatBeing>();
@@ -90,7 +95,7 @@ public class Scene : MonoBehaviour
         nav.verts = new List<Vector3>();
         nav.indices.AddRange(trianglations.indices);
         nav.verts.AddRange(trianglations.vertices);
-        string outfile = MS<Setting>.Instance.ScenePath + sceneID.ToString()+"_scene";
+        string outfile = MS<Setting>.Instance.ScenePath + sceneID.ToString() + "_scene";
         AResource.SaveXML(nav, outfile);
     }
 }

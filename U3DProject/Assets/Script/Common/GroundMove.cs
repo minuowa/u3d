@@ -44,13 +44,15 @@ public class GroundMove : IMission
     {
         if (mGroundFlag)
             GameObject.Destroy(mGroundFlag);
-    }
-    void EndMove()
-    {
-        if(mAnimator)
+
+        if (mAnimator)
             mAnimator.SetInteger(BeingAnimation.action, BeingAnimation.Idle1);
         if (mPathfinder)
             mPathfinder.Stop();
+    }
+    void EndMove()
+    {
+        Destroy();
     }
 
     bool NeedMove()

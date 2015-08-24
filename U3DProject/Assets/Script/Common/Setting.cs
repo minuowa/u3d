@@ -9,5 +9,5 @@ public class Setting : MonoBehaviour
     public string XMLExtension = ".xml";
     public string DataPath = "Assets/";
     public string ResourcePath = "Assets/Resources/";
-    public string ScenePath = "Assets/Resources/scene/";
+    public string ScenePath = "Assets/Resources/mapdata/";
 }

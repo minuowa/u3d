@@ -28,6 +28,19 @@ public class MissionMgr : MonoBehaviour
         }
     }
 
+    public T GetMission<T>() where T : IMission
+    {
+        Type type = typeof(T);
+        foreach (IMission mi in _list)
+        {
+            if (mi.GetType() == type)
+            {
+                return (T)mi;
+            }
+        }
+        return null;
+    }
+
     public void Add(IMission mission,bool removeSameType=false)
     {
         if (mission)
@@ -85,6 +98,7 @@ public class MissionMgr : MonoBehaviour
             }
         }
     }
+
 
     void OnDrawGizmos()
     {

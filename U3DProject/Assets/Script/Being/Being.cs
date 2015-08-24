@@ -76,6 +76,7 @@ public class Being : behaviac.Agent
         GroundMoveParam moveParam = new GroundMoveParam();
         Being being = mBeings[0];
         moveParam.rawpos = being.transform.position;
+        moveParam.auto = true;
         Do(ActionID.MoveTo, moveParam);
     }
     public int BeingCountAround()
@@ -172,6 +173,7 @@ public class Being : behaviac.Agent
                     GroundMoveParam param = para as GroundMoveParam;
                     GroundMove move = new GroundMove();
                     move.param = param;
+
                     mMissionMgr.Add(move, true);
                 }
                 break;

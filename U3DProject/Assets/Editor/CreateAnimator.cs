@@ -10,7 +10,7 @@ using System.IO;
 
 public class CreateAnimator : Editor
 {
-    [MenuItem("RPG/CreateAnimator")]
+    [MenuItem("Tools/CreateAnimator")]
     static void DoCreateAnimationAssets()
     {
         string fullname = AssetDatabase.GetAssetPath(Selection.activeObject);

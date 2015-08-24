@@ -16,6 +16,7 @@ public class GroundMoveParam : IParam
 {
     public Vector3 rawpos;
     public float miniDistance = 1.7f;
+    public bool auto = false;
     public Vector3 target
     {
         get

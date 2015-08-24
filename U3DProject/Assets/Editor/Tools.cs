@@ -53,7 +53,7 @@ public class Tools :Editor {
     {
         MS<Scene>.Instance.ReloadObjects();
     }
-    [MenuItem("RPG/Scene/ExportNavigation")]
+    [MenuItem("Tools/Scene/ExportNavigation")]
     static public void ExportNavigation()
     {
         MS<Scene>.Instance.ExportNavigation();

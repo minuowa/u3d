@@ -37,7 +37,5 @@ public class BeingAnimation
 
     public void Make()
     {
-        Animator animator = new Animator();
-        //animator.add
     }
 }

@@ -54,8 +54,6 @@ D:\u3d\u3d\U3DProject\Temp\UnityVS_bin\Debug\UnityEditor.UI.dll
 D:\u3d\u3d\U3DProject\Temp\UnityVS_bin\Debug\UnityEngine.dll
 D:\u3d\u3d\U3DProject\Temp\UnityVS_bin\Debug\UnityEngine.UI.dll
 D:\u3d\u3d\U3DProject\Temp\UnityVS_bin\Debug\UnityVS.VersionSpecific.dll
-D:\u3d\u3d\U3DProject\Temp\UnityVS_bin\Debug\Assembly-CSharp.pdb
-D:\u3d\u3d\U3DProject\Temp\UnityVS_bin\Debug\Assembly-CSharp-firstpass.pdb
 D:\u3d\u3d\U3DProject\Temp\UnityVS_bin\Debug\UnityEngine.xml
 D:\u3d\u3d\U3DProject\Temp\UnityVS_bin\Debug\UnityEditor.xml
 D:\u3d\u3d\U3DProject\Temp\UnityVS_bin\Debug\UnityEngine.UI.xml
@@ -64,3 +62,5 @@ D:\u3d\u3d\U3DProject\Temp\UnityVS_bin\Debug\UnityEditor.Graphs.xml
 D:\u3d\u3d\U3DProject\obj\Debug\UnityVS.U3DProject.CSharp.Editor.csprojResolveAssemblyReference.cache
 D:\u3d\u3d\U3DProject\obj\Debug\Assembly-CSharp-Editor.dll
 D:\u3d\u3d\U3DProject\obj\Debug\Assembly-CSharp-Editor.pdb
+D:\u3d\u3d\U3DProject\Temp\UnityVS_bin\Debug\Assembly-CSharp-firstpass.pdb
+D:\u3d\u3d\U3DProject\Temp\UnityVS_bin\Debug\Assembly-CSharp.pdb

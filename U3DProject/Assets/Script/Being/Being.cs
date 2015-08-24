@@ -205,6 +205,8 @@ public class Being : behaviac.Agent
         mAnimator = GetComponentInChildren<Animator>();
         mMissionMgr = gameObject.GetComponent<MissionMgr>();
         mPathFinder = gameObject.GetComponent<NavMeshAgent>();
+        mPathFinder.angularSpeed = 720;
+        mPathFinder.acceleration = 1000;
 
         base.Init();
         ReloadAI();

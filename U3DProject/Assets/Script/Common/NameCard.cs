@@ -4,8 +4,9 @@ using System.Collections;
 public class NameCard : MonoBehaviour
 {
     public GUIStyle style;
-    public Texture blood;
-    // Use this for initialization
+    public Texture2D blood;
+
+    Vector3 mPos;
     void Start()
     {
         style = new GUIStyle();
@@ -28,12 +29,24 @@ public class NameCard : MonoBehaviour
             offset.y = collider.height;
         if (Camera.main)
         {
-            Vector3 pos = Camera.main.WorldToScreenPoint(transform.position + offset);
+            mPos = Camera.main.WorldToScreenPoint(transform.position + offset);
             // shit....
-            Rect rc=new Rect(pos.x, Screen.height - pos.y, 0, 0);
+            Rect rc = new Rect(mPos.x, Screen.height - mPos.y, 0, 0);
             GUI.TextArea(rc, transform.name, style);
+            int w = 100;
+            int h = 20;
+            rc.x = mPos.x - w / 2;
+            rc.y = Screen.height - mPos.y - 30;
+            rc.width = w;
+            rc.height = h;
             if (blood)
                 GUI.DrawTexture(rc, blood);
         }
+    }
+    public  void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        if (mPos != null)
+            Gizmos.DrawWireSphere(mPos, 5);
     }
 }

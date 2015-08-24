@@ -8,3 +8,6 @@
 /U3DProject/Temp
 *.meta
 /U3DProject/Library/ShaderCache
+/U3DProject/Library/ScriptAssemblies
+*.suo
+/U3DProject/Library/UnityAssemblies

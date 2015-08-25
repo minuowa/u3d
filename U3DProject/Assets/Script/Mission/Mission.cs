@@ -11,10 +11,19 @@ public enum MissionTag
     FindObject,
     Skill,
 }
-
-public class IMission:IParam
+public enum MissionOption
 {
-    public delegate void EndDelegate(IMission mission);
+    None,
+    Recreate,
+    SetParam,
+}
+public interface ISetParam
+{
+    void OnParam(IMissionParam param);
+}
+public class Mission : ISetParam
+{
+    public delegate void EndDelegate(Mission mission);
     public EndDelegate OnEnd;
     public EndDelegate OnBegin;
 
@@ -23,13 +32,9 @@ public class IMission:IParam
     protected bool mCompleted = false;
     protected bool mBegin = false;
 
-    public static implicit operator bool (IMission mi)
+    public static implicit operator bool (Mission mi)
     {
         return mi!=null;
-    }
-    public void AddToWorkList(MissionMgr mgr)
-    {
-        mgr.Add(this);
     }
 
     public void OnComplete()
@@ -81,9 +86,15 @@ public class IMission:IParam
     {
 
     }
+
+    public virtual void OnParam(IMissionParam param)
+    {
+
+    }
+
 }
 
-public class MissionSkill : IMission
+public class MissionSkill : Mission
 {
     public Skill.Executor executor;
 

@@ -153,7 +153,7 @@ public class Being : behaviac.Agent
     {
     }
     #endregion
-    public void Do(ActionID action, IParam para)
+    public void Do(ActionID action, IMissionParam para)
     {
         para.sender = this;
 
@@ -172,9 +172,8 @@ public class Being : behaviac.Agent
                 {
                     GroundMoveParam param = para as GroundMoveParam;
                     GroundMove move = new GroundMove();
-                    move.param = param;
 
-                    mMissionMgr.Add(move, true);
+                    mMissionMgr.Add(move, param, MissionOption.SetParam);
                 }
                 break;
             case ActionID.Skill:
@@ -187,15 +186,15 @@ public class Being : behaviac.Agent
                     moveParam.miniDistance = param.data.distance;
                     GroundMove move = new GroundMove();
                     move.param = moveParam;
-                    mMissionMgr.Add(move, true);
+                    mMissionMgr.Add(move, moveParam, MissionOption.SetParam);
 
                     Skill.Executor executor = new Skill.Executor();
                     executor.skillid = param.skillID;
-                    executor.actor = this;
-                    executor.victim = param.receiver;
+                    executor.sender = this;
+                    executor.receiver = param.receiver;
                     MissionSkill missskill = new MissionSkill();
                     missskill.executor = executor;
-                    mMissionMgr.Add(missskill, true);
+                    mMissionMgr.Add(missskill, executor);
                 }
                 break;
         }

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GroundMove : IMission
+public class GroundMove : Mission
 {
     GameObject mGroundFlag;
     Animator mAnimator;
@@ -12,28 +12,28 @@ public class GroundMove : IMission
 
     public override void Begin()
     {
+        if (!NeedMove())
+            return;
+
         base.Begin();
 
-        if (!NeedMove())
+        if (!mGroundFlag)
         {
-            return;
+            GameObject preGroundObj = (GameObject)Resources.Load("Prefabs/GameObject/groundFlag", typeof(GameObject));
+            mGroundFlag = (GameObject)GameObject.Instantiate(preGroundObj);
+            mGroundFlag.transform.localScale = preGroundObj.transform.localScale;
+            mGroundFlag.transform.parent = Garbage.Instance.root.transform;
         }
 
-        if (!garbage)
-        {
-            garbage = new GameObject("garbage");
-        }
-        GameObject preGroundObj = (GameObject)Resources.Load("Prefabs/GameObject/groundFlag", typeof(GameObject));
-        mGroundFlag = (GameObject)GameObject.Instantiate(preGroundObj);
         mGroundFlag.transform.localPosition = param.target;
-        mGroundFlag.transform.localScale = preGroundObj.transform.localScale;
         mGroundFlag.SetActive(true);
-        mGroundFlag.transform.parent = garbage.transform;
 
-        mAnimator = param.sender.gameObject.GetComponentInChildren<Animator>();
-        mAnimator.SetInteger(BeingAnimation.action, BeingAnimation.Run1);
-
-        mPathfinder = param.sender.GetComponent<NavMeshAgent>();
+        if (!mAnimator)
+            mAnimator = param.sender.gameObject.GetComponentInChildren<Animator>();
+        if (!mPathfinder)
+            mPathfinder = param.sender.GetComponent<NavMeshAgent>();
+        if (mAnimator)
+            mAnimator.SetInteger(BeingAnimation.action, BeingAnimation.Run1);
         if(mPathfinder)
             mPathfinder.SetDestination(param.target);
 
@@ -89,5 +89,13 @@ public class GroundMove : IMission
             if (!NeedMove())
                 EndMove();
         }
+    }
+
+    public override void OnParam(IMissionParam param)
+    {
+        bool start = this.param != null;
+        this.param = (GroundMoveParam)param;
+        if (start)
+            this.Begin();
     }
 }

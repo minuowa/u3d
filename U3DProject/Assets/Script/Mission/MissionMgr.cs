@@ -2,18 +2,17 @@
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
-
 public class MissionMgr : MonoBehaviour
 {
-    List<IMission> _list = new List<IMission>();
+    List<Mission> mList = new List<Mission>();
 
-    IMission _cur = null;
+    Mission mCur = null;
 
-    int _count = 0;
+    int mCount = 0;
 
     void OnDestroy()
     {
-        foreach (IMission mi in _list)
+        foreach (Mission mi in mList)
         {
 
         }
@@ -21,49 +20,74 @@ public class MissionMgr : MonoBehaviour
 
     public void OnComplate(int missionid)
     {
-        foreach (IMission mi in _list)
+        foreach (Mission mi in mList)
         {
             if (mi.id == missionid)
                 mi.completed=true;
         }
     }
 
-    public T GetMission<T>() where T : IMission
+    public T GetMission<T>() where T : Mission
     {
         Type type = typeof(T);
-        foreach (IMission mi in _list)
+        foreach (Mission mi in mList)
         {
             if (mi.GetType() == type)
             {
                 return (T)mi;
             }
         }
+        return (T)GetMission(typeof(T));
+    }
+
+    public Mission GetMission(Type type)
+    {
+        foreach (Mission mi in mList)
+        {
+            if (mi.GetType() == type)
+            {
+                return mi;
+            }
+        }
         return null;
     }
 
-    public void Add(IMission mission,bool removeSameType=false)
+    public void Add(Mission mission, IMissionParam param, MissionOption option = MissionOption.None)
     {
         if (mission)
         {
-            if (removeSameType)
+            if (option == MissionOption.Recreate)
             {
                 ClearSameType(mission.GetType());
+                mCount++;
+                mission.id = mCount;
+                mList.Add(mission);
+                mission.OnParam(param);
             }
-            _list.Add(mission);
-            _count++;
-            mission.id = _count;
+            else if (option == MissionOption.SetParam)
+            {
+                Mission old = GetMission(mission.GetType());
+                if(old)
+                    old.OnParam(param);
+                else
+                {
+                    mission.id = mCount;
+                    mList.Add(mission);
+                    mission.OnParam(param);
+                }
+            }
         }
     }
 
     void Update()
     {
-        if (_cur != null)
+        if (mCur != null)
         {
-            _cur.Update();
-            if (_cur.completed)
+            mCur.Update();
+            if (mCur.completed)
             {
-                _list.Remove(_cur);
-                _cur = null;
+                mList.Remove(mCur);
+                mCur = null;
             }
         }
 
@@ -71,29 +95,29 @@ public class MissionMgr : MonoBehaviour
     }
     void Next()
     {
-        if (_cur == null && _list.Count > 0)
+        if (mCur == null && mList.Count > 0)
         {
-            _cur = _list[0];
-            while (_list.Count > 0 && !_cur)
+            mCur = mList[0];
+            while (mList.Count > 0 && !mCur)
             {
-                _list.RemoveAt(0);
-                _cur = _list[0];
+                mList.RemoveAt(0);
+                mCur = mList[0];
             }
-            if (_cur)
-                _cur.Begin();
+            if (mCur)
+                mCur.Begin();
         }
     }
 
     protected void ClearSameType(System.Type param1)
     {
-        foreach (IMission mi in _list)
+        foreach (Mission mi in mList)
         {
             if (mi.GetType() == param1)
             {
                 mi.completed = true;
-                _list.Remove(mi);
-                if (_cur == mi)
-                    _cur = null;
+                mList.Remove(mi);
+                if (mCur == mi)
+                    mCur = null;
                 return;
             }
         }
@@ -102,8 +126,8 @@ public class MissionMgr : MonoBehaviour
 
     void OnDrawGizmos()
     {
-        if (_cur)
-            _cur.OnDrawGizmos();
+        if (mCur)
+            mCur.OnDrawGizmos();
     }
 
 }

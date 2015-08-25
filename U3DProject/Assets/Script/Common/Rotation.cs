@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Rotation : IMission
+public class Rotation : Mission
 {
     Duration mDuration;
     public GroundMoveParam param;

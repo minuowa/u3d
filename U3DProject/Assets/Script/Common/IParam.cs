@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-public class IParam
+public class IMissionParam
 {
     public Being receiver;
     public Being sender;
 }
-public class SelectParam : IParam
+public class SelectParam : IMissionParam
 {
 }
-public class GroundMoveParam : IParam
+public class GroundMoveParam : IMissionParam
 {
     public Vector3 rawpos;
     public float miniDistance = 1.7f;
@@ -27,7 +27,7 @@ public class GroundMoveParam : IParam
         }
     }
 }
-public class SkillParam : IParam
+public class SkillParam : IMissionParam
 {
     public int skillID;
 

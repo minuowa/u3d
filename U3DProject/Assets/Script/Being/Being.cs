@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 [RequireComponent(typeof(MissionMgr))]
-[RequireComponent(typeof(NameCard))]
+//[RequireComponent(typeof(NameCard))]
 [RequireComponent(typeof(StatBeing))]
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(OnDamage))]
@@ -200,16 +200,44 @@ public class Being : behaviac.Agent
     }
     public virtual void Start()
     {
-        mNameCard = gameObject.GetComponent<NameCard>();
         mStatBeing = gameObject.GetComponent<StatBeing>();
         mAnimator = GetComponentInChildren<Animator>();
         mMissionMgr = gameObject.GetComponent<MissionMgr>();
         mPathFinder = gameObject.GetComponent<NavMeshAgent>();
         mPathFinder.angularSpeed = 720;
         mPathFinder.acceleration = 1000;
+        UpdateHead();
 
         base.Init();
         ReloadAI();
+    }
+    void UpdateHead()
+    {
+        if (!mNameCard)
+        {
+            Transform nameposObj = gameObject.transform.Find("namePos");
+            GameObject nameCardObj = AResource.Instance("Prefabs/nameCard/nameRoot");
+            if (nameCardObj)
+            {
+                if (nameposObj)
+                {
+                    nameCardObj.transform.parent = nameposObj.transform;
+                }
+                else
+                {
+                    nameCardObj.transform.parent = transform;
+                }
+                nameCardObj.transform.localPosition = Vector3.zero;
+                nameCardObj.transform.localScale = new Vector3(7, 7, 7f);
+                mNameCard = nameCardObj.GetComponent<NameCard>();
+            }
+        }
+
+        if (mNameCard)
+        {
+            mNameCard.displayName = gameObject.name;
+        }
+
     }
     void ReloadAI()
     {

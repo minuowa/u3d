@@ -18,8 +18,8 @@ public class HeroClick : MonoBehaviour
         {
             if (UICamera.hoveredObject != null && UICamera.hoveredObject.layer == 5)
             {
-                if(UICamera.hoveredObject.tag!="UIRoot")
-                    return;
+                //if(UICamera.hoveredObject.tag!="UIRoot")
+                //    return;
             }
             if (Camera.main == null)
                 return;

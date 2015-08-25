@@ -88,4 +88,48 @@ public static class Fun
     {
         return string.Empty;
     }
+
+    public static void SetFirstChild(GameObject go, string name, bool vis)
+    {
+        GameObject ch = FindFirstChild(go, name);
+        if (ch)
+            ch.SetActive(vis);
+    }
+    public static void SetFirstChild(GameObject go, string name, string text)
+    {
+        GameObject ch = FindFirstChild(go, name);
+        if (ch)
+        {
+            var v = ch.GetComponent<UILabel>();
+            if (v != null)
+                v.text = text;
+        }
+    }
+    public static void SetFirstChild(GameObject go, string name, Texture text)
+    {
+        GameObject ch = FindFirstChild(go, name);
+        if (ch)
+        {
+            var v = ch.GetComponent<UITexture>();
+            if (v != null)
+                v.mainTexture = text;
+        }
+    }
+    public static GameObject FindFirstChild(GameObject parent, string name)
+    {
+        if (parent.name == name)
+            return parent;
+        if (parent)
+        {
+            Int32 cnt = parent.transform.childCount;
+            for (int i = 0; i < cnt; ++i)
+            {
+                Transform c = parent.transform.GetChild(i);
+                GameObject tar = FindFirstChild(c.gameObject, name);
+                if (tar != null)
+                    return tar.gameObject;
+            }
+        }
+        return null;
+    }
 }

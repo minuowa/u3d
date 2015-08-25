@@ -15,6 +15,8 @@ public class StatBeing : MonoBehaviour
     public int globalID;
     public BeingType beingType;
     public BeingGroup group = BeingGroup.None;
+    public int maxHp = 100;
+    public int hp = 0;
     public float aiRange = 50.0f;
     public string ai = string.Empty;
 }

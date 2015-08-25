@@ -38,8 +38,7 @@ public class Mission
                 this.Destroy();
                 return;
             }
-            if (hasbegin)
-                this.Restart();
+            this.Restart();
         }
     }
     protected IMissionParam mParam;

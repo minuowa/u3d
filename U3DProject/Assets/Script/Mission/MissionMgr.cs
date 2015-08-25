@@ -61,7 +61,9 @@ public class MissionMgr : MonoBehaviour
             {
                 Mission old = GetMission(mission.GetType());
                 if (old)
+                {
                     old.param = param;
+                }
                 else
                 {
                     AddInner(mission, param);
@@ -104,7 +106,7 @@ public class MissionMgr : MonoBehaviour
                 mList.RemoveAt(0);
                 mCur = mList[0];
             }
-            if (mCur)
+            if (!mCur.CheckCompleted())
                 mCur.Restart();
         }
     }

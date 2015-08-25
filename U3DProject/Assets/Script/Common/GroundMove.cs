@@ -53,6 +53,8 @@ public class GroundMove : Mission
             mAnimator.SetInteger(BeingAnimation.action, BeingAnimation.Idle1);
         if (mPathfinder)
             mPathfinder.Stop();
+
+        mBegin = false;
     }
     void EndMove()
     {
@@ -61,10 +63,7 @@ public class GroundMove : Mission
 
     public override bool CheckCompleted()
     {
-        Rotation rot = param.sender.gameObject.GetComponent<Rotation>();
-        if (!rot)
-            rot = param.sender.gameObject.AddComponent<Rotation>();
-        rot.param = mMoveParam;
+
 
         CapsuleCollider collider = mMoveParam.sender.gameObject.GetComponentInChildren<CapsuleCollider>();
         Vector3 target = mMoveParam.target;
@@ -79,6 +78,15 @@ public class GroundMove : Mission
         v1.y = 0;
 
         completed = Vector3.Distance(mypos, target) <= mMoveParam.miniDistance || Vector3.Distance(v0, v1) <= 0.1f;
+
+        if (completed)
+        {
+            Rotation rot = param.sender.gameObject.GetComponent<Rotation>();
+            if (!rot)
+                rot = param.sender.gameObject.AddComponent<Rotation>();
+            rot.param = mMoveParam;
+        }
+
         return completed;
     }
 
@@ -95,5 +103,7 @@ public class GroundMove : Mission
 
         if (!mCompleted)
             CheckCompleted();
+        else
+            this.Destroy();
     }
 }

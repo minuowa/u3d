@@ -13,12 +13,7 @@ public class Rotation : MonoBehaviour
         mDuration.total = 0.3f;
     }
 
-    public void OnDrawGizmos()
-    {
-        Gizmos.color = Color.yellow;
-        Vector3 mypos = param.sender.gameObject.transform.position;
-        Gizmos.DrawWireSphere(mypos, param.miniDistance);
-    }
+
     public void Update()
     {
         if (!mCompleted)

@@ -16,15 +16,15 @@ public class NameCard : MonoBehaviour
         }
     }
     string mDisplayName;
-    private Camera camera;
+    Camera mCamera;
     void Start()
     {
-        camera = Camera.main;
+        mCamera = Camera.main;
     }
 
     void Update()
     {
-        transform.rotation = camera.transform.rotation;
+        transform.rotation = mCamera.transform.rotation;
     }
     void OnBecameVisible()
     {

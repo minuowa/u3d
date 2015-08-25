@@ -12,10 +12,6 @@ public class MissionMgr : MonoBehaviour
 
     void OnDestroy()
     {
-        foreach (Mission mi in mList)
-        {
-
-        }
     }
 
     public void OnComplate(int missionid)
@@ -23,7 +19,7 @@ public class MissionMgr : MonoBehaviour
         foreach (Mission mi in mList)
         {
             if (mi.id == missionid)
-                mi.completed=true;
+                mi.completed = true;
         }
     }
 
@@ -59,26 +55,31 @@ public class MissionMgr : MonoBehaviour
             if (option == MissionOption.Recreate)
             {
                 ClearSameType(mission.GetType());
-                mCount++;
-                mission.id = mCount;
-                mList.Add(mission);
-                mission.OnParam(param);
+                AddInner(mission, param);
             }
             else if (option == MissionOption.SetParam)
             {
                 Mission old = GetMission(mission.GetType());
-                if(old)
-                    old.OnParam(param);
+                if (old)
+                    old.param = param;
                 else
                 {
-                    mission.id = mCount;
-                    mList.Add(mission);
-                    mission.OnParam(param);
+                    AddInner(mission, param);
                 }
+            }
+            else
+            {
+                AddInner(mission, param);
             }
         }
     }
-
+    void AddInner(Mission mi, IMissionParam param)
+    {
+        mCount++;
+        mi.id = mCount;
+        mi.param = param;
+        mList.Add(mi);
+    }
     void Update()
     {
         if (mCur != null)
@@ -104,7 +105,7 @@ public class MissionMgr : MonoBehaviour
                 mCur = mList[0];
             }
             if (mCur)
-                mCur.Begin();
+                mCur.Restart();
         }
     }
 

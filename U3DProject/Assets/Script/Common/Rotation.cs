@@ -6,9 +6,9 @@ public class Rotation : Mission
     Duration mDuration;
     public GroundMoveParam param;
 
-    public override void Begin()
+    public override void Restart()
     {
-        base.Begin();
+        base.Restart();
         mDuration = new Duration();
         mDuration.total = 0.3f;
         mCompleted = false;

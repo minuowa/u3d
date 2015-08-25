@@ -17,15 +17,32 @@ public enum MissionOption
     Recreate,
     SetParam,
 }
-public interface ISetParam
-{
-    void OnParam(IMissionParam param);
-}
-public class Mission : ISetParam
+
+public class Mission 
 {
     public delegate void EndDelegate(Mission mission);
     public EndDelegate OnEnd;
     public EndDelegate OnBegin;
+    public IMissionParam param
+    {
+        get
+        {
+            return mParam;
+        }
+        set
+        {
+            bool hasbegin = mBegin;
+            mParam = value;
+            if (CheckCompleted())
+            {
+                this.Destroy();
+                return;
+            }
+            if (hasbegin)
+                this.Restart();
+        }
+    }
+    protected IMissionParam mParam;
 
     public int id;
 
@@ -40,6 +57,10 @@ public class Mission : ISetParam
     public void OnComplete()
     {
         mCompleted = true;
+    }
+    public virtual bool CheckCompleted()
+    {
+        return false;
     }
     public bool completed
     {
@@ -64,7 +85,7 @@ public class Mission : ISetParam
     {
         return mBegin && !mCompleted;
     }
-    public virtual void Begin()
+    public virtual void Restart()
     {
         mBegin = true;
         if (OnBegin != null)
@@ -86,21 +107,21 @@ public class Mission : ISetParam
     {
 
     }
-
-    public virtual void OnParam(IMissionParam param)
-    {
-
-    }
-
 }
 
 public class MissionSkill : Mission
 {
-    public Skill.Executor executor;
-
-    public override void Begin()
+    public Skill.Executor executor
     {
-        base.Begin();
+        get
+        {
+            return mParam as Skill.Executor;
+        }
+    }
+
+    public override void Restart()
+    {
+        base.Restart();
         executor.Execute();
         completed = true;
     }
@@ -119,5 +140,4 @@ public class MissionSkill : Mission
             }
         }
     }
-
 }

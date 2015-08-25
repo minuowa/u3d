@@ -193,7 +193,6 @@ public class Being : behaviac.Agent
                     executor.sender = this;
                     executor.receiver = param.receiver;
                     MissionSkill missskill = new MissionSkill();
-                    missskill.executor = executor;
                     mMissionMgr.Add(missskill, executor);
                 }
                 break;

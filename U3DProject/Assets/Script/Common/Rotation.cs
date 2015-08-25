@@ -1,30 +1,26 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Rotation : Mission
+public class Rotation : MonoBehaviour
 {
     Duration mDuration;
     public GroundMoveParam param;
+    bool mCompleted = false;
 
-    public override void Restart()
+    void Start()
     {
-        base.Restart();
         mDuration = new Duration();
         mDuration.total = 0.3f;
-        mCompleted = false;
     }
 
-    public override void OnDrawGizmos()
+    public void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
         Vector3 mypos = param.sender.gameObject.transform.position;
         Gizmos.DrawWireSphere(mypos, param.miniDistance);
     }
-    public override void Update()
+    public void Update()
     {
-        if (!mBegin)
-            return;
-
         if (!mCompleted)
         {
             CapsuleCollider collider = param.sender.gameObject.GetComponentInChildren<CapsuleCollider>();
@@ -53,9 +49,9 @@ public class Rotation : Mission
                 {
                     qfrom = myrotation;
                     qto = Quaternion.LookRotation(vt - mypos);
-                    mCompleted = mCompleted || qfrom != qto;
-                    mCompleted = mCompleted || Vector3.Distance(qfrom.eulerAngles, qto.eulerAngles) > 0.0001f;
-                    mCompleted = mCompleted || qto != Quaternion.identity;
+                    mCompleted = mCompleted || qfrom == qto;
+                    mCompleted = mCompleted || Vector3.Distance(qfrom.eulerAngles, qto.eulerAngles) < 0.0001f;
+                    mCompleted = mCompleted || qto == Quaternion.identity;
                 }
 
                 if (!mCompleted)
@@ -66,5 +62,7 @@ public class Rotation : Mission
                 }
             }
         }
+        if (mCompleted)
+            GameObject.Destroy(this);
     }
 }

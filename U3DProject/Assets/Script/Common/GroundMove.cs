@@ -61,6 +61,11 @@ public class GroundMove : Mission
 
     public override bool CheckCompleted()
     {
+        Rotation rot = param.sender.gameObject.GetComponent<Rotation>();
+        if (!rot)
+            rot = param.sender.gameObject.AddComponent<Rotation>();
+        rot.param = mMoveParam;
+
         CapsuleCollider collider = mMoveParam.sender.gameObject.GetComponentInChildren<CapsuleCollider>();
         Vector3 target = mMoveParam.target;
         if (collider)

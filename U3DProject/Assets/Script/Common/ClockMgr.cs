@@ -144,8 +144,6 @@ public class ClockMgr : MonoBehaviour
 {
     Dictionary<int, Clock> mTimerList;
 
-    object mLock = new object();
-
     int mCount;
 
     public ClockMgr()

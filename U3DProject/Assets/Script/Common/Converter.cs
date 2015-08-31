@@ -112,7 +112,10 @@ public class Converter
     {
         return float.Parse(value);
     }
-
+    public static object GetValue_Single(Type type, String value)
+    {
+        return float.Parse(value);
+    }
     public static object GetValue_byte(Type type, String value)
     {
         return byte.Parse(value);
@@ -133,7 +136,6 @@ public class Converter
     public static object GetValue_Int16(Type type, String value)
     {
         return Int16.Parse(value);
-
     }
 
     public static object GetValue_Int64(Type type, String value)

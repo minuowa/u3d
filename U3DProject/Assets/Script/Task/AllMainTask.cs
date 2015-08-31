@@ -11,7 +11,7 @@ public class AllMainTask
 
     public AllMainTask()
     {
-        taskList = new List<TaskMain>();
+        taskList = new List<TaskMain>(); 
     }
 
     public TaskBase Next()

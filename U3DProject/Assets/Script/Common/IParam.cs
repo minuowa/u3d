@@ -31,11 +31,11 @@ public class SkillParam : IMissionParam
 {
     public int skillID;
 
-    public Skill.Data data
+    public Config.SkillData data
     {
         get
         {
-            return Skill.Data.Get(skillID);
+            return Config.SkillData.Get(skillID);
         }
     }
 }

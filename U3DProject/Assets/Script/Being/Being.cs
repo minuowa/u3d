@@ -8,6 +8,7 @@ using System.Collections.Generic;
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(OnDamage))]
 [RequireComponent(typeof(NavMeshAgent))]
+[RequireComponent(typeof(CapsuleCollider))]
 
 [behaviac.TypeMetaInfo("生物","带AI的生物")]
 public class Being : behaviac.Agent
@@ -29,7 +30,6 @@ public class Being : behaviac.Agent
     {
         mBeings = new List<Being>();
     }
-
 
     void Awake()
     {
@@ -153,6 +153,19 @@ public class Being : behaviac.Agent
     {
     }
     #endregion
+
+    public Vector3 GetArcherShotPos()
+    {
+        Vector3 v = transform.localPosition;
+        CapsuleCollider collider = gameObject.GetComponent<CapsuleCollider>();
+        if(collider)
+        {
+            v.y += collider.height * 0.8f;
+            return v;
+        }
+        return v;
+    }
+
     public void Do(ActionID action, IMissionParam para)
     {
         para.sender = this;
@@ -215,7 +228,7 @@ public class Being : behaviac.Agent
     {
         if (!mNameCard)
         {
-            Transform nameposObj = gameObject.transform.Find("namePos");
+            Transform nameposObj = gameObject.transform.Find("namepos");
             GameObject nameCardObj = AResource.Instance("Prefabs/nameCard/nameRoot");
             if (nameCardObj)
             {

@@ -8,6 +8,7 @@ public class ExportNavigationData : XMLFile
 }
 public class NpcData
 {
+    public int modelID;
     public Vector3 pos;
     public int npcid = 0;
     public int ai = 0;
@@ -23,6 +24,8 @@ public class Scene : MonoBehaviour
 
     public void ReloadObjects()
     {
+        Config.ModelData.recordMap = null;
+
         GameObject npcroot = RecreateNpcRoot();
 
         string outfile = MS<Setting>.Instance.ScenePath + sceneID.ToString() + "_objects";
@@ -30,13 +33,15 @@ public class Scene : MonoBehaviour
 
         foreach (var data in scene.npcs)
         {
-            GameObject go = AResource.Instance("Prefabs/npcs/Npc");
+            Config.ModelData model = Config.ModelData.Get(data.modelID);
+            GameObject go = model.GenerateModel();
             go.name = data.name;
-            go.transform.localPosition = data.pos;
+            go.transform.position = data.pos;
             go.transform.parent = npcroot.transform;
             go.AddComponent<Npc>();
             StatBeing stat = go.GetComponent<StatBeing>();
-            stat.globalID = data.npcid;
+            stat.npcid = data.npcid;
+            stat.modelID = data.modelID;
         }
     }
     GameObject RecreateNpcRoot()
@@ -63,7 +68,7 @@ public class Scene : MonoBehaviour
             go.transform.parent = npcroot.transform;
             go.AddComponent<Being>();
             StatBeing stat = go.GetComponent<StatBeing>();
-            stat.globalID = i;
+            stat.npcid = i;
         }
     }
     public void ExportObjects()
@@ -78,8 +83,9 @@ public class Scene : MonoBehaviour
             StatBeing stat = being.GetComponent<StatBeing>();
             NpcData data = new NpcData();
             data.pos = being.gameObject.transform.localPosition;
-            data.npcid = stat.globalID;
+            data.npcid = stat.npcid;
             data.ai = 0;
+            data.modelID = stat.modelID;
             data.name = being.gameObject.name;
             objects.npcs.Add(data);
         }

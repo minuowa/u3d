@@ -10,8 +10,8 @@ namespace Skill
         public int skillid;
         public void Execute()
         {
-            Data data = Mgr.instance.Get(skillid);
-            if (data!=null)
+            Config.SkillData data = Config.SkillData.Get(skillid);
+            if (data != null)
                 data.Execute(sender, receiver);
         }
     }

@@ -19,7 +19,6 @@ public class Streamer : MemoryStream
 
     public void Read(ref int data)
     {
-        byte[] bf = this.GetBuffer();
         data = BitConverter.ToInt32(this.GetBuffer(), (int)this.Position);
         this.Seek(4, SeekOrigin.Current);
     }

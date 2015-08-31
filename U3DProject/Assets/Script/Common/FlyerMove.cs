@@ -15,6 +15,7 @@ public class FlyerMove : MonoBehaviour
     {
         _duration = new Duration();
         _duration.total = 5f;
+        transform.rotation = Quaternion.LookRotation(target - transform.position); ;
     }
 
     void EndFinding()
@@ -35,18 +36,7 @@ public class FlyerMove : MonoBehaviour
         else
         {
             Debug.DrawLine(target, transform.position, Color.green);
-
-            {
-                Vector3 vt = target;
-                vt.y = transform.position.y;
-
-                Quaternion qfrom = transform.rotation;
-                Quaternion qto = Quaternion.LookRotation(vt - transform.position);
-                transform.rotation = Quaternion.Slerp(qfrom, qto, _duration.progress);
-                Vector3 dir = target - transform.position;
-                dir.Normalize();
-                transform.position += dir * speed;
-            }
+            transform.position += transform.forward * speed;
             if (_duration.Advance(Time.deltaTime))
                 _duration.Reset();
         }

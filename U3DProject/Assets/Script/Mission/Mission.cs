@@ -31,14 +31,15 @@ public class Mission
         }
         set
         {
-            bool hasbegin = mBegin;
+            bool hasbegin = mParam != null;
             mParam = value;
             if (CheckCompleted())
             {
                 this.Destroy();
                 return;
             }
-            this.Restart();
+            if(hasbegin)
+                this.Restart();
         }
     }
     protected IMissionParam mParam;

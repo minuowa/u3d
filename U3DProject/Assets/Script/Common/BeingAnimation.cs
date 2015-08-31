@@ -30,7 +30,14 @@ public class BeingAnimation
     public static int Laugh1 = 60;
     public static int Laugh2 = 61;
 
-    public static int Death1 = 70;
+    public static int BeAttack1 = 70;
+    public static int BeAttack2 = 71;
+    public static int BeAttack3 = 72;
+    public static int BeAttack4 = 73;
+    public static int BeAttack5 = 74;
+    public static int BeAttack6 = 75;
+
+    public static int Death1 = 100;
     public static int Count = 4;
 
     public static string action = "Action";

@@ -63,15 +63,12 @@ public class GroundMove : Mission
 
     public override bool CheckCompleted()
     {
-
-
         CapsuleCollider collider = mMoveParam.sender.gameObject.GetComponentInChildren<CapsuleCollider>();
         Vector3 target = mMoveParam.target;
         if (collider)
             target.y += (collider.height + collider.radius) * 0.5f;
 
         Vector3 mypos = param.sender.gameObject.transform.position;
-        Quaternion myrotation = param.sender.gameObject.transform.rotation;
         Vector3 v0 = mypos;
         Vector3 v1 = target;
         v0.y = 0;

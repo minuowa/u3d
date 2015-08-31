@@ -33,9 +33,17 @@ public class Tools :Editor {
     [MenuItem("Tools/Test/TestConfig")]
     static public void TestConfig()
     {
-        Config.TaskData.recordMap = null;
-        Config.TaskData data = Config.TaskData.Get(1000);
-        Log.Assert(data, "Config Field!");
+        //Config.TaskData.recordMap = null;
+        //Config.TaskData data = Config.TaskData.Get(1000);
+        //Log.Assert(data, "Config Field!");
+
+        //ModelData data = new ModelData();
+        ////data.id = 1;
+        //data.position = new Vector3(1f, 2f, 3f);
+        //data.rotation = new Vector3(1f, 2f, 3f);
+        //data.scale = new Vector3(1f, 2f, 3f);
+        //data.prefab = "ttt";
+        //AResource.SaveXML(data, "Assets/Resources/config/ModelData.xml");
     }
 
     [MenuItem("Tools/Scene/RandomGenerateNpcs")]

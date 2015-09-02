@@ -11,7 +11,8 @@ public class NpcData
     public int modelID;
     public Vector3 pos;
     public int npcid = 0;
-    public int ai = 0;
+    public string ai = string.Empty;
+    public float aiRange = 15;
     public string name;
 }
 public class SceneOjbects : XMLFile
@@ -38,10 +39,10 @@ public class Scene : MonoBehaviour
             go.name = data.name;
             go.transform.position = data.pos;
             go.transform.parent = npcroot.transform;
-            go.AddComponent<Npc>();
-            StatBeing stat = go.GetComponent<StatBeing>();
-            stat.npcid = data.npcid;
-            stat.modelID = data.modelID;
+            Npc npc = go.GetComponent<Npc>();
+            npc.statBeing.modelID = data.modelID;
+            npc.statNpc.npcid = data.npcid;
+            npc.statNpc.orignalPos = data.pos;
         }
     }
     GameObject RecreateNpcRoot()
@@ -66,9 +67,8 @@ public class Scene : MonoBehaviour
             float y = terrain.terrainData.GetInterpolatedHeight(x, z);
             go.transform.localPosition = new Vector3(x, y, z);
             go.transform.parent = npcroot.transform;
-            go.AddComponent<Being>();
-            StatBeing stat = go.GetComponent<StatBeing>();
-            stat.npcid = i;
+            Npc npc = go.AddComponent<Npc>();
+            npc.statNpc.npcid = i;
         }
     }
     public void ExportObjects()
@@ -80,12 +80,12 @@ public class Scene : MonoBehaviour
 
         foreach (var being in beings)
         {
-            StatBeing stat = being.GetComponent<StatBeing>();
             NpcData data = new NpcData();
             data.pos = being.gameObject.transform.localPosition;
-            data.npcid = stat.npcid;
-            data.ai = 0;
-            data.modelID = stat.modelID;
+            data.npcid = being.statNpc.npcid;
+            data.ai = being.statNpc.ai;
+            data.aiRange = being.statNpc.aiRange;
+            data.modelID = being.statBeing.modelID;
             data.name = being.gameObject.name;
             objects.npcs.Add(data);
         }

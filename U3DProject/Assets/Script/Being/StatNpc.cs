@@ -1,10 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class StatNpc : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
+[DisallowMultipleComponent]
+public class StatNpc : MonoBehaviour
+{
+    public Vector3 orignalPos;
+    public int npcid;
+    [SerializeField, Range(5,25)]
+    public float aiRange = 25f;
+    public string ai;
+    void Start()
+    {
 	
 	}
 	

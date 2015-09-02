@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--EXPORTED BY TOOL, DON'T MODIFY IT!-->
+<!--Source File: NpcGoToFirst.xml-->
+<behavior name="NpcGoToFirst" agenttype="Being" version="1">
+  <node class="DecoratorLoop" version="1" id="0">
+    <property Count="const int -1" />
+    <property DecorateWhenChildEnds="true" />
+    <node class="Condition" version="1" id="1">
+      <property EnterAction="Self.Being::GoToFirst()" />
+      <property Operator="Equal" />
+      <property Opl="Self.Being::IsBeingAround()" />
+      <property Opr="const bool true" />
+    </node>
+  </node>
+</behavior>

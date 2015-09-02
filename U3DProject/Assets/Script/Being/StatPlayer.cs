@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class StatPlayer :MonoBehaviour {
+[DisallowMultipleComponent]
+public class StatPlayer : MonoBehaviour
+{
 
 	void Start () {
 	}

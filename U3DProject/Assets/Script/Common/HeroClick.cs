@@ -32,6 +32,7 @@ public class HeroClick : MonoBehaviour
                 {
                     GroundMoveParam moveParam = new GroundMoveParam();
                     moveParam.rawpos = hit.point;
+                    moveParam.visible = true;
                     Hero.instance.Do(ActionID.MoveTo, moveParam);
                     return;
                 }
@@ -45,7 +46,7 @@ public class HeroClick : MonoBehaviour
                         Hero.instance.Do(ActionID.SelectTarget, sleparam);
 
                         SkillParam param=new SkillParam();
-                        param.skillID=1001;
+                        param.skillID = 1001;
                         param.receiver = being;
                         Hero.instance.Do(ActionID.Skill,param);
                         return;

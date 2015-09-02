@@ -11,10 +11,19 @@
   </types>
   <agents>
     <agent classfullname="behaviac::Agent" inherited="true" DisplayName="" Desc="" Namespace="behaviac" />
-    <agent classfullname="Being" base="behaviac::Agent" DisplayName="生物" Desc="带AI的生物">
-      <Method Name="RandomStart" DisplayName="" Desc="" ReturnType="behaviac::EBTStatus" Class="Being" Public="true" />
+    <agent classfullname="Being" base="behaviac::Agent" DisplayName="生物" Desc="基本生物">
+      <Method Name="IsMoving" DisplayName="" Desc="" ReturnType="bool" Class="Being" Public="true" />
+      <Method Name="IsSkilling" DisplayName="" Desc="" ReturnType="bool" Class="Being" Public="true" />
       <Method Name="IsBeingAround" DisplayName="" Desc="" ReturnType="bool" Class="Being" Public="true" />
+      <Method Name="IsDoingTask" DisplayName="" Desc="" ReturnType="bool" Class="Being" Public="true" />
+      <Method Name="HasTarget" DisplayName="" Desc="" ReturnType="bool" Class="Being" Public="true" />
       <Method Name="GoToFirst" DisplayName="" Desc="" ReturnType="void" Class="Being" Public="true" />
+    </agent>
+    <agent classfullname="Npc" base="Being" DisplayName="Npc" Desc="Npc">
+      <Method Name="RandomStart" DisplayName="" Desc="" ReturnType="behaviac::EBTStatus" Class="Npc" Public="true" />
+      <Method Name="RandomMove" DisplayName="" Desc="" ReturnType="behaviac::EBTStatus" Class="Npc" Public="true" />
+      <Method Name="Stand" DisplayName="" Desc="" ReturnType="bool" Class="Npc" Public="true" />
+      <Method Name="AttackTarget" DisplayName="" Desc="" ReturnType="behaviac::EBTStatus" Class="Npc" Public="true" />
     </agent>
   </agents>
 </metas>

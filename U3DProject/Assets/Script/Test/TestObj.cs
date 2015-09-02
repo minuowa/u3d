@@ -12,7 +12,7 @@ public class TestObj : MonoBehaviour {
     }
 	// Use this for initialization
 	void Start () {
-        GameObject preGroundObj = (GameObject)Resources.Load("Prefabs/GameObject/groundFlag", typeof(GameObject));
+        GameObject preGroundObj = (GameObject)Resources.Load("Prefabs/sceneObjects/groundFlag", typeof(GameObject));
         obj = (GameObject)GameObject.Instantiate(preGroundObj);
         obj.transform.parent = gameObject.transform;
         obj.transform.localPosition = Vector3.zero;

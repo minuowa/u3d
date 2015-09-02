@@ -4,12 +4,11 @@ using Skill;
 
 public class FlyerMove : MonoBehaviour
 {
-
     public float speed = 0.1f;
     public float miniDistance = 0.7f;
     public Vector3 target;
     Duration _duration;
-    public DamageReceiver receiver;
+    public OneDamage receiver;
     bool _end = false;
     void Start()
     {
@@ -20,7 +19,7 @@ public class FlyerMove : MonoBehaviour
 
     void EndFinding()
     {
-        if (receiver)
+        if (receiver != null)
             receiver.OnEnd();
         _end = true;
         Destroy(gameObject);

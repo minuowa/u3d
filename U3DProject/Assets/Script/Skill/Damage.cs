@@ -16,10 +16,7 @@ namespace Skill
 
         }
     }
-    public interface IReceiver
-    {
-        void OnEnd();
-    }
+
 
     public class DamageSender : MonoBehaviour
     {
@@ -42,26 +39,7 @@ namespace Skill
         }
     }
 
-    public class DamageReceiver : MonoBehaviour
-    {
-        public int skillid;
-        public Being sender;
-        public int missionid;
-        public void OnEnd()
-        {
-            if (sender)
-            {
-                MissionMgr mgr = sender.GetComponent<MissionMgr>();
-                if (mgr)
-                    mgr.OnComplate(missionid);
-            }
-            Animator anim = gameObject.GetComponent<Animator>();
-            if (anim != null)
-                anim.SetInteger(BeingAnimation.action, BeingAnimation.BeAttack1);
-            transform.position -= transform.forward * 0.2f;
-            Destroy(this);
-        }
-    }
+
 
     public class DamageObject : MonoBehaviour
     {
@@ -69,12 +47,11 @@ namespace Skill
         public Being sender;
         public Being target;
         public int missionid;
-
+        public OneDamage damage;
         public void Shot()
         {
             gameObject.SetActive(true);
             transform.position = sender.GetArcherShotPos();
-            //transform.rotation = sender.transform.rotation * transform.localRotation;
 
             if (target)
             {
@@ -89,7 +66,7 @@ namespace Skill
                 {
                     mvoe.target = target.transform.position;
                 }
-                mvoe.receiver = target.gameObject.GetComponent<DamageReceiver>();
+                mvoe.receiver = damage;
             }
             gameObject.SetActive(true);
         }

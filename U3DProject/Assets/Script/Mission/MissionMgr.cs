@@ -13,7 +13,10 @@ public class MissionMgr : MonoBehaviour
     void OnDestroy()
     {
     }
-
+    public bool IsDoing()
+    {
+        return mCur != null || mList.Count > 0;
+    }
     public void OnComplate(int missionid)
     {
         foreach (Mission mi in mList)
@@ -93,8 +96,10 @@ public class MissionMgr : MonoBehaviour
                 mCur = null;
             }
         }
-
-        Next();
+        else
+        {
+            Next();
+        }
     }
     void Next()
     {

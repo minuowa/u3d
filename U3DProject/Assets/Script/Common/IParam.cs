@@ -16,7 +16,7 @@ public class GroundMoveParam : IMissionParam
 {
     public Vector3 rawpos;
     public float miniDistance = 1.7f;
-    public bool auto = false;
+    public bool visible = false;
     public Vector3 target
     {
         get
@@ -30,7 +30,7 @@ public class GroundMoveParam : IMissionParam
 public class SkillParam : IMissionParam
 {
     public int skillID;
-
+    public int step;
     public Config.SkillData data
     {
         get

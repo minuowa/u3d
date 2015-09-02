@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--技能-->
+<!--
+        public enum RangeType
+    {
+        Single,
+        Quad,
+        Circle,
+        Sector,
+    }
+-->
+
+<root>
+  <record id="1000" distance="5" animition="40">
+    <range type="Single" ridus="15"/>
+    <effect name=""/>
+    <objects normal="Prefabs/sceneObjects/normal_attack_effect" />
+  </record>
+
+  <record id="1001" distance="8" animition="41">
+    <range type="Single" ridus="15"/>
+    <effect name=""/>
+    <objects bullet="Prefabs/sceneObjects/bullet" />
+  </record>
+
+</root>

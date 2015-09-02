@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<record id="0" prefab="Prefabs/models/npc/Npc" position="0,0,0" rotation="0,0,0" scale="1,1,1"/>
+	<record id="1" prefab="Prefabs/models/npc/female_01" position="0,0,0" rotation="0,0,0" scale="1,1,1"/>
+	<record id="2" prefab="Prefabs/models/npc/female_02" position="0,0,0" rotation="0,0,0" scale="1,1,1"/>
+	<record id="3" prefab="Prefabs/models/npc/female_03" position="0,0,0" rotation="0,0,0" scale="1,1,1"/>
+	<record id="4" prefab="Prefabs/models/npc/female_04" position="0,0,0" rotation="0,0,0" scale="1,1,1"/>
+</root>

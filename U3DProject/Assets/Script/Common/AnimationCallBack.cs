@@ -6,6 +6,7 @@ public class AnimationCallBack : MonoBehaviour {
 
 	// Use this for initialization
     public GameObject bullet;
+    public GameObject normalAttackEffect;
 	void Start () {
 	
 	}

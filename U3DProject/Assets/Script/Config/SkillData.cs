@@ -69,6 +69,7 @@ namespace Config
             {
                 anim.SetInteger(BeingAnimation.action, animition);
             }
+            DamageObject dameobj=null;
             if (!string.IsNullOrEmpty(objects.bullet))
             {
                 GameObject prefab = (GameObject)Resources.Load(objects.bullet, typeof(GameObject));
@@ -93,15 +94,13 @@ namespace Config
                     receiver.damageList.Add(data);
                 }
 
-                DamageObject dameobj = obj.AddComponent<DamageObject>();
+                dameobj = obj.AddComponent<DamageObject>();
                 dameobj.skillid = id;
                 dameobj.sender = actor;
                 dameobj.target = victim;
                 dameobj.missionid = missionid;
                 dameobj.type = DamageObjectType.Bullet;
-                //Fun.DoSthAfterTime(this.objects.delay, dameobj.Shot);
                 dameobj.Take(this.objects.delay);
-
                 //actor.GetComponent<AnimationCallBack>().bullet = obj;
             }
             else if (!string.IsNullOrEmpty(objects.normal))
@@ -114,7 +113,7 @@ namespace Config
                 obj.transform.localRotation = prefab.transform.localRotation;
                 obj.transform.localScale = prefab.transform.localScale;
                 obj.transform.parent = Garbage.Instance.root.transform;
-                //obj.SetActive(false);
+                obj.SetActive(false);
 
                 OneDamage data = null;
                 if (victim)
@@ -128,12 +127,16 @@ namespace Config
                     receiver.damageList.Add(data);
                 }
 
-                DamageObject dameobj = obj.AddComponent<DamageObject>();
+                dameobj = obj.AddComponent<DamageObject>();
                 dameobj.skillid = id;
                 dameobj.sender = actor;
                 dameobj.target = victim;
                 dameobj.missionid = missionid;
-                actor.GetComponent<AnimationCallBack>().normalAttackEffect = obj;
+                dameobj.type = DamageObjectType.Normal;
+            }
+            if (dameobj != null)
+            {
+                dameobj.Take(this.objects.delay);
             }
         }
     }

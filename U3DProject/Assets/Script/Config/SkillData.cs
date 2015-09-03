@@ -12,6 +12,7 @@ public class SkillObjects
 {
     public string normal;
     public string bullet;
+    public float delay;
 }
 namespace Config
 {
@@ -86,7 +87,7 @@ namespace Config
                     DamageReceiver receiver = victim.gameObject.GetComponent<DamageReceiver>();
                     data = new OneDamage();
                     data.sender = actor;
-                    data.skill = new SkillParam();
+                    data.skill = new Skill.Executor();
                     data.skill.skillID = id;
                     data.missionid = missionid;
                     receiver.damageList.Add(data);
@@ -97,7 +98,11 @@ namespace Config
                 dameobj.sender = actor;
                 dameobj.target = victim;
                 dameobj.missionid = missionid;
-                actor.GetComponent<AnimationCallBack>().bullet = obj;
+                dameobj.type = DamageObjectType.Bullet;
+                //Fun.DoSthAfterTime(this.objects.delay, dameobj.Shot);
+                dameobj.Take(this.objects.delay);
+
+                //actor.GetComponent<AnimationCallBack>().bullet = obj;
             }
             else if (!string.IsNullOrEmpty(objects.normal))
             {
@@ -109,7 +114,7 @@ namespace Config
                 obj.transform.localRotation = prefab.transform.localRotation;
                 obj.transform.localScale = prefab.transform.localScale;
                 obj.transform.parent = Garbage.Instance.root.transform;
-                obj.SetActive(false);
+                //obj.SetActive(false);
 
                 OneDamage data = null;
                 if (victim)
@@ -117,7 +122,7 @@ namespace Config
                     DamageReceiver receiver = victim.gameObject.GetComponent<DamageReceiver>();
                     data = new OneDamage();
                     data.sender = actor;
-                    data.skill = new SkillParam();
+                    data.skill = new Skill.Executor();
                     data.skill.skillID = id;
                     data.missionid = missionid;
                     receiver.damageList.Add(data);

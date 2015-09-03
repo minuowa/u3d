@@ -51,46 +51,57 @@ public class MissionMgr : MonoBehaviour
         return null;
     }
 
-    public void Add(Mission mission, IMissionParam param, MissionOption option = MissionOption.None)
+    public void Add(IMissionParam param, MissionOption option = MissionOption.None)
     {
-        if (mission)
+        Mission mission = param.Create();
+        switch (option)
         {
-            if (option == MissionOption.Recreate)
-            {
-                ClearSameType(mission.GetType());
-                AddInner(mission, param);
-            }
-            else if (option == MissionOption.SetParam)
-            {
-                Mission old = GetMission(mission.GetType());
-                if (old)
+            case MissionOption.ClearList:
                 {
-                    old.param = param;
+                    if (mCur)
+                        mCur.Discard();
+                    mCur = null;
+                    mList.Clear();
+                    AddInner(mission);
                 }
-                else
+                break;
+            case MissionOption.Recreate:
                 {
-                    AddInner(mission, param);
+                    ClearSameType(mission.GetType());
+                    AddInner(mission);
                 }
-            }
-            else
-            {
-                AddInner(mission, param);
-            }
+                break;
+            case MissionOption.SetParam:
+                {
+                    Mission old = GetMission(mission.GetType());
+                    if (old)
+                    {
+                        old.param = param;
+                    }
+                    else
+                    {
+                        AddInner(mission);
+                    }
+                }
+                break;
+            default:
+                {
+                    AddInner(mission);
+                }
+                break;
         }
     }
-    void AddInner(Mission mi, IMissionParam param)
+    void AddInner(Mission mi)
     {
         mCount++;
         mi.id = mCount;
-        mi.param = param;
         mList.Add(mi);
     }
     void Update()
     {
-        if (mCur != null)
+        if (mCur)
         {
-            mCur.Update();
-            if (mCur.completed)
+            if (!mCur.Update())
             {
                 mList.Remove(mCur);
                 mCur = null;
@@ -105,14 +116,21 @@ public class MissionMgr : MonoBehaviour
     {
         if (mCur == null && mList.Count > 0)
         {
+            //递归删除空值
             mCur = mList[0];
             while (mList.Count > 0 && !mCur)
             {
                 mList.RemoveAt(0);
                 mCur = mList[0];
             }
-            if (!mCur.CheckCompleted())
-                mCur.Restart();
+            if (mCur)
+            {
+                mCur.begined = true;
+                if (mCur.CheckCompleted())
+                    mCur.Discard();
+                else
+                    mCur.Restart();
+            }
         }
     }
 

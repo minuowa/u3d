@@ -27,7 +27,6 @@ public class AnimationCallBack : MonoBehaviour {
             DamageObject damage = bullet.GetComponent<DamageObject>();
             if (damage!=null)
             {
-                damage.Shot();
             }
         }
     }

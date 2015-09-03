@@ -40,6 +40,12 @@ namespace Skill
     }
 
 
+    public enum DamageObjectType
+    {
+        None,
+        Normal,
+        Bullet,
+    }
 
     public class DamageObject : MonoBehaviour
     {
@@ -48,6 +54,32 @@ namespace Skill
         public Being target;
         public int missionid;
         public OneDamage damage;
+        public DamageObjectType type;
+        Clock mDelayTimer;
+
+        public void Take(float time)
+        {
+            //尚未激活，不可用协成。。
+            mDelayTimer = MS<ClockMgr>.Instance.Require();
+            mDelayTimer.interval = 0.1;
+            mDelayTimer.Begin(time, OnTimeEnd);
+        }
+        public void OnTimeEnd(Clock c)
+        {
+            switch (type)
+            {
+                case DamageObjectType.Bullet:
+                    {
+                        Shot();
+                    }
+                    break;
+                case DamageObjectType.Normal:
+                    {
+
+                    }
+                    break;
+            }
+        }
         public void Shot()
         {
             gameObject.SetActive(true);

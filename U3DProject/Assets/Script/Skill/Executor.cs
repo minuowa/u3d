@@ -7,12 +7,25 @@ namespace Skill
 {
     public class Executor:IMissionParam
     {
-        public int skillid;
+        public int skillID;
+        public int step;
+        public Config.SkillData data
+        {
+            get
+            {
+                return Config.SkillData.Get(skillID);
+            }
+        }
         public void Execute()
         {
-            Config.SkillData data = Config.SkillData.Get(skillid);
             if (data != null)
                 data.Execute(sender, receiver);
+        }
+        public override Mission Create()
+        {
+            var mission = new MissionSkill();
+            mission.param = this;
+            return mission;
         }
     }
 }

@@ -21,7 +21,7 @@ public class OneDamage : IReceiver
 {
     public Being sender;
     public Being vicitim;
-    public SkillParam skill;
+    public Skill.Executor skill;
     public int missionid;
 
     public override void OnEnd()

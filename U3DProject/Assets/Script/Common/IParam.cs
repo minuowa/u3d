@@ -8,6 +8,10 @@ public class IMissionParam
 {
     public Being receiver;
     public Being sender;
+    public virtual Mission Create()
+    {
+        return null;
+    }
 }
 public class SelectParam : IMissionParam
 {
@@ -15,7 +19,7 @@ public class SelectParam : IMissionParam
 public class GroundMoveParam : IMissionParam
 {
     public Vector3 rawpos;
-    public float miniDistance = 1.7f;
+    public float miniDistance = 0.55f;
     public bool visible = false;
     public Vector3 target
     {
@@ -26,16 +30,11 @@ public class GroundMoveParam : IMissionParam
             return rawpos;
         }
     }
-}
-public class SkillParam : IMissionParam
-{
-    public int skillID;
-    public int step;
-    public Config.SkillData data
+
+    public override Mission Create()
     {
-        get
-        {
-            return Config.SkillData.Get(skillID);
-        }
+        var mission = new GroundMove();
+        mission.param = this;
+        return mission;
     }
 }

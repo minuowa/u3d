@@ -6,7 +6,6 @@ public class GroundMove : Mission
     GameObject mGroundFlag;
     Animator mAnimator;
     NavMeshAgent mPathfinder;
-
     protected GroundMoveParam moveParam
     {
         get
@@ -14,8 +13,6 @@ public class GroundMove : Mission
             return (GroundMoveParam)mParam;
         }
     }
-
-    public static GameObject garbage;
 
     public override void Restart()
     {
@@ -28,21 +25,20 @@ public class GroundMove : Mission
             mGroundFlag.transform.localScale = preGroundObj.transform.localScale;
             mGroundFlag.transform.parent = Garbage.Instance.root.transform;
         }
+        if (mGroundFlag)
+        {
+            mGroundFlag.SetActive(moveParam.visible);
+            mGroundFlag.transform.localPosition = moveParam.target;
+        }
 
-        mGroundFlag.transform.localPosition = moveParam.target;
-        mGroundFlag.SetActive(moveParam.visible);
-
-        if (!mAnimator)
-            mAnimator = moveParam.sender.gameObject.GetComponentInChildren<Animator>();
-        if (!mPathfinder)
-            mPathfinder = param.sender.GetComponent<NavMeshAgent>();
         if (mAnimator)
             mAnimator.SetInteger(BeingAnimation.action, BeingAnimation.Run1);
-        if (mPathfinder)
-        {
-            mPathfinder.Resume();
-            mPathfinder.SetDestination(moveParam.target);
-        }
+
+        Rotation rot = param.sender.gameObject.GetComponent<Rotation>();
+        if (rot)
+            GameObject.Destroy(rot);
+
+        UpdateTargetPosition();
 
         mCompleted = false;
     }
@@ -51,29 +47,40 @@ public class GroundMove : Mission
     {
         if (mGroundFlag && moveParam != null)
             mGroundFlag.transform.localPosition = moveParam.target;
-        if (mPathfinder)
-            mPathfinder.SetDestination(moveParam.target);
-    }
+        if (!mPathfinder)
+            mPathfinder = param.sender.GetComponent<NavMeshAgent>();
 
-    public override void Destroy()
+        mPathfinder.SetDestination(moveParam.target);
+        mPathfinder.destination = moveParam.target;
+        mPathfinder.Resume();
+        mPathfinder.updateRotation = true;
+        mPathfinder.updatePosition = true;
+
+        if (!mAnimator)
+            mAnimator = moveParam.sender.gameObject.GetComponentInChildren<Animator>();
+    }
+    public void UpdateRotation()
+    {
+        Rotation rot = param.sender.gameObject.GetComponent<Rotation>();
+        if (!rot)
+            rot = param.sender.gameObject.AddComponent<Rotation>();
+        rot.param = moveParam;
+    }
+    public override void Discard()
     {
         if (mGroundFlag)
             GameObject.Destroy(mGroundFlag);
 
-        if (mAnimator)
-            mAnimator.SetInteger(BeingAnimation.action, BeingAnimation.Idle1);
-        if (mPathfinder)
-            mPathfinder.Stop();
+        UpdateRotation();
 
-        mBegin = false;
-    }
-    void EndMove()
-    {
-        Destroy();
+        mAnimator.SetInteger(BeingAnimation.action, BeingAnimation.Idle1);
+        mPathfinder.Stop();
     }
 
     public override bool CheckCompleted()
     {
+        UpdateTargetPosition();
+
         CapsuleCollider collider = moveParam.sender.gameObject.GetComponentInChildren<CapsuleCollider>();
         Vector3 target = moveParam.target;
         if (collider)
@@ -85,17 +92,12 @@ public class GroundMove : Mission
         v0.y = 0;
         v1.y = 0;
 
-        completed = Vector3.Distance(mypos, target) <= moveParam.miniDistance || Vector3.Distance(v0, v1) <= 0.2f;
-
-        if (completed)
-        {
-            Rotation rot = param.sender.gameObject.GetComponent<Rotation>();
-            if (!rot)
-                rot = param.sender.gameObject.AddComponent<Rotation>();
-            rot.param = moveParam;
-        }
-
+        completed = Vector3.Distance(mypos, target) <= moveParam.miniDistance || Vector3.Distance(v0, v1) <= mPathfinder.radius;
         return completed;
+        //bool comp = mPathfinder.remainingDistance <= moveParam.miniDistance
+        //    || mPathfinder.remainingDistance <= mPathfinder.radius;
+
+        //return comp;
     }
 
     public override void OnDrawGizmos()
@@ -103,15 +105,5 @@ public class GroundMove : Mission
         Gizmos.color = Color.yellow;
         Vector3 mypos = param.sender.gameObject.transform.position;
         Gizmos.DrawWireSphere(mypos, moveParam.miniDistance);
-    }
-    public override void Update()
-    {
-        if (!mBegin)
-            return;
-        UpdateTargetPosition();
-        if (!mCompleted)
-            CheckCompleted();
-        else
-            this.Destroy();
     }
 }

@@ -22,7 +22,7 @@ public class Main : MonoBehaviour {
                 {
                     if (Hero.instance.mTarget)
                     {
-                        SkillParam param = new SkillParam();
+                        Skill.Executor param = new Skill.Executor();
                         param.sender = Hero.instance;
                         param.skillID = 1001;
                         param.receiver = Hero.instance.mTarget;

@@ -11,16 +11,16 @@
 -->
 
 <root>
-  <record id="1000" distance="5" animition="40">
+  <record id="1000" distance="2.5" animition="40">
     <range type="Single" ridus="15"/>
     <effect name=""/>
-    <objects normal="Prefabs/sceneObjects/normal_attack_effect" />
+    <objects normal="Prefabs/sceneObjects/normal_attack_effect" delay="0.11"/>
   </record>
 
   <record id="1001" distance="8" animition="41">
     <range type="Single" ridus="15"/>
     <effect name=""/>
-    <objects bullet="Prefabs/sceneObjects/bullet" />
+    <objects bullet="Prefabs/sceneObjects/bullet" delay="0.6"/>
   </record>
 
 </root>

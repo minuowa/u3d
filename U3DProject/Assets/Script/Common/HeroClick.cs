@@ -45,7 +45,7 @@ public class HeroClick : MonoBehaviour
                         sleparam.receiver = being;
                         Hero.instance.Do(ActionID.SelectTarget, sleparam);
 
-                        SkillParam param=new SkillParam();
+                        Skill.Executor param=new Skill.Executor();
                         param.skillID = 1001;
                         param.receiver = being;
                         Hero.instance.Do(ActionID.Skill,param);

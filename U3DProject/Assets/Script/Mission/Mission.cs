@@ -14,6 +14,7 @@ public enum MissionTag
 public enum MissionOption
 {
     None,
+    ClearList,
     Recreate,
     SetParam,
 }
@@ -35,11 +36,13 @@ public class Mission
             mParam = value;
             if (CheckCompleted())
             {
-                this.Destroy();
-                return;
+                this.Discard();
             }
-            if(hasbegin)
-                this.Restart();
+            else
+            {
+                if (hasbegin)
+                    this.Restart();
+            }
         }
     }
     protected IMissionParam mParam;
@@ -47,20 +50,27 @@ public class Mission
     public int id;
 
     protected bool mCompleted = false;
-    protected bool mBegin = false;
+    private bool mBegin = false;
 
     public static implicit operator bool (Mission mi)
     {
         return mi!=null;
     }
 
-    public void OnComplete()
-    {
-        mCompleted = true;
-    }
     public virtual bool CheckCompleted()
     {
         return false;
+    }
+    public bool begined
+    {
+        get
+        {
+            return mBegin;
+        }
+        set
+        {
+            mBegin = value;
+        }
     }
     public bool completed
     {
@@ -70,10 +80,6 @@ public class Mission
         }
         set
         {
-            if (value)
-            {
-                Destroy();
-            }
             mCompleted = value;
         }
     }
@@ -95,11 +101,21 @@ public class Mission
     {
         return MissionTag.None;
     }
-    public virtual void Update()
+    public bool Update()
     {
-
+        if (mCompleted || !mBegin)
+            return false;
+        mCompleted = CheckCompleted();
+        if (mCompleted)
+        {
+            if (OnEnd != null)
+                OnEnd(this);
+            this.Discard();
+            return false;
+        }
+        return true;
     }
-    public virtual void Destroy()
+    public virtual void Discard()
     {
 
     }
@@ -130,14 +146,5 @@ public class MissionSkill : Mission
     {
         return MissionTag.Skill;
     }
-    public override void Update()
-    {
-        if (mCompleted)
-        {
-            if (OnEnd != null)
-            {
-                OnEnd(this);
-            }
-        }
-    }
+
 }

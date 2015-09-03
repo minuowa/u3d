@@ -10,7 +10,7 @@ public class Rotation : MonoBehaviour
     void Start()
     {
         mDuration = new Duration();
-        mDuration.total = 0.3f;
+        mDuration.total = 0.15f;
     }
 
 

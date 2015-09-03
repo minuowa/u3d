@@ -142,7 +142,7 @@ public class Being : behaviac.Agent
         if (!obj)
             return;
 
-        SkillParam param = new SkillParam();
+        Skill.Executor param = new Skill.Executor();
         param.skillID = skillid;
         param.receiver = obj;
         this.Do(ActionID.Skill, param);
@@ -164,31 +164,18 @@ public class Being : behaviac.Agent
                 break;
             case ActionID.MoveTo:
                 {
-                    GroundMoveParam param = para as GroundMoveParam;
-                    GroundMove move = new GroundMove();
-                    //move.param = param;
-                    missionMgr.Add(move, param, MissionOption.SetParam);
+                    missionMgr.Add(para, MissionOption.ClearList);
                 }
                 break;
             case ActionID.Skill:
                 {
-                    SkillParam param = (SkillParam)para;
-
+                    Skill.Executor param = (Skill.Executor)para;
                     GroundMoveParam moveParam = new GroundMoveParam();
                     moveParam.receiver = param.receiver;
                     moveParam.sender = this;
                     moveParam.miniDistance = param.data.distance;
-                    GroundMove move = new GroundMove();
-                    move.param = moveParam;
-                    missionMgr.Add(move, moveParam, MissionOption.SetParam);
-
-                    Skill.Executor executor = new Skill.Executor();
-                    executor.skillid = param.skillID;
-                    executor.sender = this;
-                    executor.receiver = param.receiver;
-                    MissionSkill missskill = new MissionSkill();
-                    //missionMgr.Add(missskill, executor, MissionOption.SetParam);
-                    missionMgr.Add(missskill, executor);
+                    missionMgr.Add(moveParam, MissionOption.ClearList);
+                    missionMgr.Add(param);
                 }
                 break;
         }

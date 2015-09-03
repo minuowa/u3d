@@ -138,6 +138,7 @@ namespace Config
             {
                 dameobj.Take(this.objects.delay);
             }
+
         }
     }
 }

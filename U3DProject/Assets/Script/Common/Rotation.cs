@@ -16,7 +16,7 @@ public class Rotation : MonoBehaviour
 
     public void Update()
     {
-        if (!mCompleted)
+        if (!mCompleted && param != null)
         {
             CapsuleCollider collider = param.sender.gameObject.GetComponentInChildren<CapsuleCollider>();
             Vector3 target = param.target;
@@ -24,6 +24,7 @@ public class Rotation : MonoBehaviour
                 target.y += (collider.height + collider.radius) * 0.5f;
 
             Vector3 mypos = param.sender.gameObject.transform.position;
+            //Quaternion myrotation = Fun.GetRotation(param.sender.gameObject);
             Quaternion myrotation = param.sender.gameObject.transform.rotation;
             Vector3 v0 = mypos;
             Vector3 v1 = target;
@@ -53,11 +54,13 @@ public class Rotation : MonoBehaviour
                 {
                     Debug.DrawLine(target, mypos, Color.green);
                     mDuration.Advance(Time.deltaTime);
+                    Quaternion qdest=Quaternion.Slerp(qfrom, qto, mDuration.progress);
+                    //Fun.SetRotation(param.sender.gameObject, qdest);
                     param.sender.gameObject.transform.rotation = Quaternion.Slerp(qfrom, qto, mDuration.progress);
                 }
             }
         }
-        if (mCompleted)
+        if (mCompleted || param == null)
             GameObject.Destroy(this);
     }
 }

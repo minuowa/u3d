@@ -33,6 +33,13 @@ public class Hero : Player
     // Update is called once per frame
     public override void Update()
     {
-        
+        base.Update();
+        if (!IsSkilling())
+        {
+            if (HasTarget())
+            {
+                Attack(mTarget, 1001);
+            }
+        }
     }
 }

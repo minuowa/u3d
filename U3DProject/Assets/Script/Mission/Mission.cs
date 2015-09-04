@@ -34,6 +34,7 @@ public class Mission
         {
             bool hasbegin = mParam != null;
             mParam = value;
+            this.InitBaseData();
             if (CheckCompleted())
             {
                 this.Discard();
@@ -56,7 +57,10 @@ public class Mission
     {
         return mi!=null;
     }
-
+    public virtual bool InitBaseData()
+    {
+        return true;
+    }
     public virtual bool CheckCompleted()
     {
         return false;
@@ -101,7 +105,7 @@ public class Mission
     {
         return MissionTag.None;
     }
-    public bool Update()
+    public virtual bool Update()
     {
         if (mCompleted || !mBegin)
             return false;
@@ -138,8 +142,7 @@ public class MissionSkill : Mission
     public override void Restart()
     {
         base.Restart();
-        executor.Execute();
-        completed = true;
+        executor.Execute(this.id);
     }
 
     public override MissionTag Tag()

@@ -7,17 +7,6 @@ namespace Skill
         None,
         Directive,      ///指向性
     }
-    public class DamageData
-    {
-        public string prefab;
-
-        public void AddTo(GameObject go)
-        {
-
-        }
-    }
-
-
     public class DamageSender : MonoBehaviour
     {
         public int skillid;
@@ -25,12 +14,7 @@ namespace Skill
         public int missionid;
         public void OnEnd()
         {
-            if (sender)
-            {
-                MissionMgr mgr = gameObject.GetComponent<MissionMgr>();
-                if (mgr)
-                    mgr.OnComplate(missionid);
-            }
+
             Animator anim = gameObject.GetComponent<Animator>();
             if (anim != null)
                 anim.SetInteger(BeingAnimation.action, BeingAnimation.Joke1);
@@ -59,7 +43,6 @@ namespace Skill
 
         public void Take(float time)
         {
-            //尚未激活，不可用协成。。
             mDelayTimer = MS<ClockMgr>.Instance.Require();
             mDelayTimer.interval = 0.1;
             mDelayTimer.Begin(time, OnTimeEnd);
@@ -75,10 +58,17 @@ namespace Skill
                     break;
                 case DamageObjectType.Normal:
                     {
-
+                        NormalAttack();
                     }
                     break;
             }
+        }
+        public void NormalAttack()
+        {
+            gameObject.SetActive(true);
+            transform.position = target.GetArcherShotPos();
+            GameObject.Destroy(gameObject, 3);
+            damage.OnEnd();
         }
         public void Shot()
         {
@@ -108,6 +98,11 @@ namespace Skill
         void Update()
         {
 
+        }
+        void OnDestroy()
+        {
+            if (mDelayTimer != null)
+                mDelayTimer.Destory();
         }
     }
 }

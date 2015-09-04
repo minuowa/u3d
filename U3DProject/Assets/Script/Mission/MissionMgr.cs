@@ -126,6 +126,7 @@ public class MissionMgr : MonoBehaviour
             if (mCur)
             {
                 mCur.begined = true;
+                mCur.InitBaseData();
                 if (mCur.CheckCompleted())
                     mCur.Discard();
                 else

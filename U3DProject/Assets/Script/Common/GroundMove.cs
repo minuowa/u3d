@@ -13,7 +13,14 @@ public class GroundMove : Mission
             return (GroundMoveParam)mParam;
         }
     }
-
+    public override bool InitBaseData()
+    {
+        if (!mPathfinder)
+            mPathfinder = param.sender.GetComponent<NavMeshAgent>();
+        if (!mAnimator)
+            mAnimator = moveParam.sender.gameObject.GetComponentInChildren<Animator>();
+        return true;
+    }
     public override void Restart()
     {
         base.Restart();
@@ -34,6 +41,10 @@ public class GroundMove : Mission
         if (mAnimator)
             mAnimator.SetInteger(BeingAnimation.action, BeingAnimation.Run1);
 
+        mPathfinder.Resume();
+        mPathfinder.updateRotation = true;
+        mPathfinder.updatePosition = true;
+
         Rotation rot = param.sender.gameObject.GetComponent<Rotation>();
         if (rot)
             GameObject.Destroy(rot);
@@ -47,40 +58,33 @@ public class GroundMove : Mission
     {
         if (mGroundFlag && moveParam != null)
             mGroundFlag.transform.localPosition = moveParam.target;
-        if (!mPathfinder)
-            mPathfinder = param.sender.GetComponent<NavMeshAgent>();
 
         mPathfinder.SetDestination(moveParam.target);
-        mPathfinder.destination = moveParam.target;
-        mPathfinder.Resume();
-        mPathfinder.updateRotation = true;
-        mPathfinder.updatePosition = true;
-
-        if (!mAnimator)
-            mAnimator = moveParam.sender.gameObject.GetComponentInChildren<Animator>();
     }
-    public void UpdateRotation()
+    void CorrectRotation()
     {
         Rotation rot = param.sender.gameObject.GetComponent<Rotation>();
         if (!rot)
             rot = param.sender.gameObject.AddComponent<Rotation>();
         rot.param = moveParam;
     }
+    void StopAni()
+    {
+        if(mAnimator)
+            mAnimator.SetInteger(BeingAnimation.action, BeingAnimation.Idle1);
+        mPathfinder.Stop();
+    }
     public override void Discard()
     {
         if (mGroundFlag)
             GameObject.Destroy(mGroundFlag);
 
-        UpdateRotation();
-
-        mAnimator.SetInteger(BeingAnimation.action, BeingAnimation.Idle1);
-        mPathfinder.Stop();
+        CorrectRotation();
+        StopAni();
     }
 
     public override bool CheckCompleted()
     {
-        UpdateTargetPosition();
-
         CapsuleCollider collider = moveParam.sender.gameObject.GetComponentInChildren<CapsuleCollider>();
         Vector3 target = moveParam.target;
         if (collider)
@@ -94,6 +98,7 @@ public class GroundMove : Mission
 
         completed = Vector3.Distance(mypos, target) <= moveParam.miniDistance || Vector3.Distance(v0, v1) <= mPathfinder.radius;
         return completed;
+        //这个计算会延迟一帧。。
         //bool comp = mPathfinder.remainingDistance <= moveParam.miniDistance
         //    || mPathfinder.remainingDistance <= mPathfinder.radius;
 
@@ -102,8 +107,16 @@ public class GroundMove : Mission
 
     public override void OnDrawGizmos()
     {
-        Gizmos.color = Color.yellow;
-        Vector3 mypos = param.sender.gameObject.transform.position;
-        Gizmos.DrawWireSphere(mypos, moveParam.miniDistance);
+        Gizmos.color = Color.red;
+        if (mPathfinder && mPathfinder.updatePosition)
+            Gizmos.DrawWireSphere(mPathfinder.destination, 0.25f);
+    }
+
+    public override bool Update()
+    {
+        if (!base.Update())
+            return false;
+        UpdateTargetPosition();
+        return true;
     }
 }

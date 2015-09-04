@@ -14,31 +14,38 @@ public class SkillObjects
     public string bullet;
     public float delay;
 }
+public enum RangeType
+{
+    Single,
+    Quad,
+    Circle,
+    Sector,
+}
 namespace Config
 {
     public class SkillData : Record<SkillData>
     {
         public static string filename = "config/SkillData";
 
-        public float distance;
         public int animition;
+        public float distance;
+        public float beginTime;
 
-        public RangeData range;
+        public RangeType rangeType;
         public EffectData effect;
         public SkillObjects objects;
-
         public bool IsInRange(Vector3 center, Vector3 pos)
         {
-            if (range.type == RangeType.Single)
+            if (rangeType == RangeType.Single)
                 return Vector3.Distance(center, pos) <= distance;
             return true;
         }
 
-        public void Execute(Being actor, Being victim)
+        public void Execute(Being actor, Being victim, int missionid)
         {
-            Do(actor, victim, 0);
+            Do(actor, victim, missionid);
 
-            switch (range.type)
+            switch (rangeType)
             {
                 case RangeType.Single:
                     {
@@ -47,7 +54,7 @@ namespace Config
                     break;
                 default:
                     {
-                        Do(actor, null, 0);
+                        Do(actor, null, missionid);
                     }
                     break;
             }
@@ -100,8 +107,8 @@ namespace Config
                 dameobj.target = victim;
                 dameobj.missionid = missionid;
                 dameobj.type = DamageObjectType.Bullet;
+                dameobj.damage = data;
                 dameobj.Take(this.objects.delay);
-                //actor.GetComponent<AnimationCallBack>().bullet = obj;
             }
             else if (!string.IsNullOrEmpty(objects.normal))
             {
@@ -132,6 +139,7 @@ namespace Config
                 dameobj.sender = actor;
                 dameobj.target = victim;
                 dameobj.missionid = missionid;
+                dameobj.damage = data;
                 dameobj.type = DamageObjectType.Normal;
             }
             if (dameobj != null)

@@ -16,10 +16,10 @@ namespace Skill
                 return Config.SkillData.Get(skillID);
             }
         }
-        public void Execute()
+        public void Execute(int missionid)
         {
             if (data != null)
-                data.Execute(sender, receiver);
+                data.Execute(sender, receiver, missionid);
         }
         public override Mission Create()
         {

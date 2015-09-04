@@ -212,20 +212,6 @@ namespace behaviac
 		}
 	}
 
-	class Condition_bt_Npc_RandomMove_Passive_node2 : behaviac.Condition
-	{
-		public Condition_bt_Npc_RandomMove_Passive_node2()
-		{
-		}
-		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
-		{
-			bool opl = (bool)((Being)pAgent).IsMoving();
-			bool opr = true;
-			bool op = opl == opr;
-			return op ? EBTStatus.BT_SUCCESS : EBTStatus.BT_FAILURE;
-		}
-	}
-
 	class Condition_bt_Npc_RandomMove_Passive_node4 : behaviac.Condition
 	{
 		public Condition_bt_Npc_RandomMove_Passive_node4()
@@ -249,6 +235,20 @@ namespace behaviac
 		{
 			behaviac.EBTStatus result = (behaviac.EBTStatus)((Npc)pAgent).AttackTarget();
 			return result;
+		}
+	}
+
+	class Condition_bt_Npc_RandomMove_Passive_node3 : behaviac.Condition
+	{
+		public Condition_bt_Npc_RandomMove_Passive_node3()
+		{
+		}
+		protected override EBTStatus update_impl(behaviac.Agent pAgent, behaviac.EBTStatus childStatus)
+		{
+			bool opl = (bool)((Being)pAgent).IsMoving();
+			bool opr = false;
+			bool op = opl == opr;
+			return op ? EBTStatus.BT_SUCCESS : EBTStatus.BT_FAILURE;
 		}
 	}
 
@@ -310,54 +310,54 @@ namespace behaviac
 #endif
 						node7.AddChild(node0);
 						{
-							Condition_bt_Npc_RandomMove_Passive_node2 node2 = new Condition_bt_Npc_RandomMove_Passive_node2();
-							node2.SetClassNameString("Condition");
+							Condition_bt_Npc_RandomMove_Passive_node4 node4 = new Condition_bt_Npc_RandomMove_Passive_node4();
+							node4.SetClassNameString("Condition");
+							node4.SetId(4);
+#if !BEHAVIAC_RELEASE
+							node4.SetAgentType("Npc");
+#endif
+							node0.AddChild(node4);
+							node0.SetHasEvents(node0.HasEvents() | node4.HasEvents());
+						}
+						{
+							Action_bt_Npc_RandomMove_Passive_node8 node8 = new Action_bt_Npc_RandomMove_Passive_node8();
+							node8.SetClassNameString("Action");
+							node8.SetId(8);
+#if !BEHAVIAC_RELEASE
+							node8.SetAgentType("Npc");
+#endif
+							node0.AddChild(node8);
+							node0.SetHasEvents(node0.HasEvents() | node8.HasEvents());
+						}
+						{
+							Sequence node2 = new Sequence();
+							node2.SetClassNameString("Sequence");
 							node2.SetId(2);
 #if !BEHAVIAC_RELEASE
 							node2.SetAgentType("Npc");
 #endif
 							node0.AddChild(node2);
+							{
+								Condition_bt_Npc_RandomMove_Passive_node3 node3 = new Condition_bt_Npc_RandomMove_Passive_node3();
+								node3.SetClassNameString("Condition");
+								node3.SetId(3);
+#if !BEHAVIAC_RELEASE
+								node3.SetAgentType("Npc");
+#endif
+								node2.AddChild(node3);
+								node2.SetHasEvents(node2.HasEvents() | node3.HasEvents());
+							}
+							{
+								Action_bt_Npc_RandomMove_Passive_node5 node5 = new Action_bt_Npc_RandomMove_Passive_node5();
+								node5.SetClassNameString("Action");
+								node5.SetId(5);
+#if !BEHAVIAC_RELEASE
+								node5.SetAgentType("Npc");
+#endif
+								node2.AddChild(node5);
+								node2.SetHasEvents(node2.HasEvents() | node5.HasEvents());
+							}
 							node0.SetHasEvents(node0.HasEvents() | node2.HasEvents());
-						}
-						{
-							Sequence node3 = new Sequence();
-							node3.SetClassNameString("Sequence");
-							node3.SetId(3);
-#if !BEHAVIAC_RELEASE
-							node3.SetAgentType("Npc");
-#endif
-							node0.AddChild(node3);
-							{
-								Condition_bt_Npc_RandomMove_Passive_node4 node4 = new Condition_bt_Npc_RandomMove_Passive_node4();
-								node4.SetClassNameString("Condition");
-								node4.SetId(4);
-#if !BEHAVIAC_RELEASE
-								node4.SetAgentType("Npc");
-#endif
-								node3.AddChild(node4);
-								node3.SetHasEvents(node3.HasEvents() | node4.HasEvents());
-							}
-							{
-								Action_bt_Npc_RandomMove_Passive_node8 node8 = new Action_bt_Npc_RandomMove_Passive_node8();
-								node8.SetClassNameString("Action");
-								node8.SetId(8);
-#if !BEHAVIAC_RELEASE
-								node8.SetAgentType("Npc");
-#endif
-								node3.AddChild(node8);
-								node3.SetHasEvents(node3.HasEvents() | node8.HasEvents());
-							}
-							node0.SetHasEvents(node0.HasEvents() | node3.HasEvents());
-						}
-						{
-							Action_bt_Npc_RandomMove_Passive_node5 node5 = new Action_bt_Npc_RandomMove_Passive_node5();
-							node5.SetClassNameString("Action");
-							node5.SetId(5);
-#if !BEHAVIAC_RELEASE
-							node5.SetAgentType("Npc");
-#endif
-							node0.AddChild(node5);
-							node0.SetHasEvents(node0.HasEvents() | node5.HasEvents());
 						}
 						node7.SetHasEvents(node7.HasEvents() | node0.HasEvents());
 					}

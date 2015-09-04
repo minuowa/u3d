@@ -12,27 +12,27 @@
         <property Opr="const bool false" />
       </node>
       <node class="IfElse" version="1" id="0">
-        <node class="Condition" version="1" id="2">
+        <node class="Condition" version="1" id="4">
           <property Operator="Equal" />
-          <property Opl="Self.Being::IsMoving()" />
+          <property Opl="Self.Being::HasTarget()" />
           <property Opr="const bool true" />
         </node>
-        <node class="Sequence" version="1" id="3">
-          <node class="Condition" version="1" id="4">
+        <node class="Action" version="1" id="8">
+          <property Method="Self.Npc::AttackTarget()" />
+          <property PreconditionFailResult="BT_FAILURE" />
+          <property ResultOption="BT_INVALID" />
+        </node>
+        <node class="Sequence" version="1" id="2">
+          <node class="Condition" version="1" id="3">
             <property Operator="Equal" />
-            <property Opl="Self.Being::HasTarget()" />
-            <property Opr="const bool true" />
+            <property Opl="Self.Being::IsMoving()" />
+            <property Opr="const bool false" />
           </node>
-          <node class="Action" version="1" id="8">
-            <property Method="Self.Npc::AttackTarget()" />
+          <node class="Action" version="1" id="5">
+            <property Method="Self.Npc::RandomMove()" />
             <property PreconditionFailResult="BT_FAILURE" />
             <property ResultOption="BT_INVALID" />
           </node>
-        </node>
-        <node class="Action" version="1" id="5">
-          <property Method="Self.Npc::RandomMove()" />
-          <property PreconditionFailResult="BT_FAILURE" />
-          <property ResultOption="BT_INVALID" />
         </node>
       </node>
     </node>

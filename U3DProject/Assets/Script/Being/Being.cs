@@ -137,6 +137,10 @@ public class Being : behaviac.Agent
     {
         GetNewComponent<SelectFlag>();
     }
+    public void ClearTarget()
+    {
+        mTarget = null;
+    }
     public void Attack(Being obj, int skillid = (int)Default.NormalAttack)
     {
         if (!obj)
@@ -164,6 +168,7 @@ public class Being : behaviac.Agent
                 break;
             case ActionID.MoveTo:
                 {
+                    this.ClearTarget();
                     missionMgr.Add(para, MissionOption.ClearList);
                 }
                 break;

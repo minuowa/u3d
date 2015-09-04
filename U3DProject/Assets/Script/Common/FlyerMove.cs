@@ -4,7 +4,7 @@ using Skill;
 
 public class FlyerMove : MonoBehaviour
 {
-    public float speed = 0.1f;
+    public float speed = 0.05f  ;
     public float miniDistance = 0.7f;
     public Vector3 target;
     Duration _duration;

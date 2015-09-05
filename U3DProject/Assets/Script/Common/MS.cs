@@ -8,6 +8,11 @@ public class MS<T> : MonoBehaviour where T : MonoBehaviour
     {
         get
         {
+            if (mWillQuit)
+            {
+                return null;
+            }
+
             lock (mLocker)
             {
                 if (!mGo)
@@ -32,4 +37,11 @@ public class MS<T> : MonoBehaviour where T : MonoBehaviour
     static T mInstance;
     static GameObject mGo;
     static object mLocker = new object();
+
+    static bool mWillQuit = false;
+
+    void OnApplicationQuit()
+    {
+        mWillQuit = true;
+    }
 }

@@ -5,12 +5,15 @@ public class Rotation : MonoBehaviour
 {
     Duration mDuration;
     public GroundMoveParam param;
+    Quaternion from = Quaternion.identity;
+    Quaternion to = Quaternion.identity;
     bool mCompleted = false;
 
     void Start()
     {
         mDuration = new Duration();
         mDuration.total = 0.15f;
+        from = param.sender.gameObject.transform.rotation;
     }
 
 
@@ -18,46 +21,30 @@ public class Rotation : MonoBehaviour
     {
         if (!mCompleted && param != null)
         {
-            CapsuleCollider collider = param.sender.gameObject.GetComponentInChildren<CapsuleCollider>();
             Vector3 target = param.target;
-            if (collider)
-                target.y += (collider.height + collider.radius) * 0.5f;
-
             Vector3 mypos = param.sender.gameObject.transform.position;
-            //Quaternion myrotation = Fun.GetRotation(param.sender.gameObject);
-            Quaternion myrotation = param.sender.gameObject.transform.rotation;
             Vector3 v0 = mypos;
             Vector3 v1 = target;
             v0.y = 0;
             v1.y = 0;
 
-            CharacterController ctrler = param.sender.gameObject.GetComponentInParent<CharacterController>();
-            if (ctrler)
+            if (Vector3.Distance(target, mypos) == 0)
+                mCompleted = true;
+
+            if (!mCompleted)
             {
-                Vector3 vt = target;
-                vt.y = mypos.y;
+                to = Quaternion.LookRotation(v1 - v0);
+                mCompleted = mCompleted || from == to;
+                mCompleted = mCompleted || Vector3.Distance(from.eulerAngles, to.eulerAngles) < 0.0001f;
+                mCompleted = mCompleted || to == Quaternion.identity;
+            }
 
-                if (Vector3.Distance(vt, mypos) == 0)
-                    mCompleted = true;
-
-                Quaternion qfrom=Quaternion.identity, qto=Quaternion.identity;
-                if (!mCompleted)
-                {
-                    qfrom = myrotation;
-                    qto = Quaternion.LookRotation(vt - mypos);
-                    mCompleted = mCompleted || qfrom == qto;
-                    mCompleted = mCompleted || Vector3.Distance(qfrom.eulerAngles, qto.eulerAngles) < 0.0001f;
-                    mCompleted = mCompleted || qto == Quaternion.identity;
-                }
-
-                if (!mCompleted)
-                {
-                    Debug.DrawLine(target, mypos, Color.green);
-                    mDuration.Advance(Time.deltaTime);
-                    Quaternion qdest=Quaternion.Slerp(qfrom, qto, mDuration.progress);
-                    //Fun.SetRotation(param.sender.gameObject, qdest);
-                    param.sender.gameObject.transform.rotation = Quaternion.Slerp(qfrom, qto, mDuration.progress);
-                }
+            if (!mCompleted)
+            {
+                Debug.DrawLine(target, mypos, Color.green);
+                mDuration.Advance(Time.deltaTime);
+                Quaternion qdest = Quaternion.Slerp(from, to, mDuration.progress);
+                param.sender.gameObject.transform.rotation = Quaternion.Slerp(from, to, mDuration.progress);
             }
         }
         if (mCompleted || param == null)

@@ -56,10 +56,7 @@ public class GroundMove : Mission
 
     public void UpdateTargetPosition()
     {
-        if (mGroundFlag && moveParam != null)
-            mGroundFlag.transform.localPosition = moveParam.target;
 
-        mPathfinder.SetDestination(moveParam.target);
     }
     void CorrectRotation()
     {
@@ -85,24 +82,15 @@ public class GroundMove : Mission
 
     public override bool CheckCompleted()
     {
-        CapsuleCollider collider = moveParam.sender.gameObject.GetComponentInChildren<CapsuleCollider>();
-        Vector3 target = moveParam.target;
-        if (collider)
-            target.y += (collider.height + collider.radius) * 0.5f;
+        if (mGroundFlag && moveParam != null)
+            mGroundFlag.transform.localPosition = moveParam.target;
+        mPathfinder.SetDestination(moveParam.target);
+        mPathfinder.stoppingDistance = moveParam.miniDistance;
 
-        Vector3 mypos = param.sender.gameObject.transform.position;
-        Vector3 v0 = mypos;
-        Vector3 v1 = target;
-        v0.y = 0;
-        v1.y = 0;
+        bool comp = mPathfinder.remainingDistance <= moveParam.miniDistance
+            || mPathfinder.remainingDistance <= mPathfinder.radius;
 
-        completed = Vector3.Distance(mypos, target) <= moveParam.miniDistance || Vector3.Distance(v0, v1) <= mPathfinder.radius;
-        return completed;
-        //这个计算会延迟一帧。。
-        //bool comp = mPathfinder.remainingDistance <= moveParam.miniDistance
-        //    || mPathfinder.remainingDistance <= mPathfinder.radius;
-
-        //return comp;
+        return comp;
     }
 
     public override void OnDrawGizmos()

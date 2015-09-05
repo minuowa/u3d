@@ -112,6 +112,8 @@ public class AResource
 
             foreach (FieldInfo prop in props)
             {
+                if (prop.IsStatic)
+                    continue;
                 if (prop.MemberType == MemberTypes.Property || prop.MemberType == MemberTypes.Field)
                 {
                     System.Type proptype = prop.FieldType;

@@ -23,21 +23,22 @@ public class Npc : Being
     {
         base.Awake();
         pathFinder.speed = 0.5f;
-        pathFinder.angularSpeed = 360;
+        pathFinder.angularSpeed = 720;
         pathFinder.acceleration = 500;
     }
     // Update is called once per frame
     public override void Update()
     {
-        UpdateAround();
-        UpdateTarget();
+        if (!string.IsNullOrEmpty(statNpc.ai))
+        {
+            UpdateAround();
+            UpdateTarget();
+        }
         base.Update();
     }
 
     void UpdateAround()
     {
-        if (string.IsNullOrEmpty(statBeing.ai))
-            return;
         mBeings.Clear();
         Being[] alls = (Being[])GameObject.FindObjectsOfType(typeof(Being));
         foreach (var be in alls)
@@ -50,15 +51,20 @@ public class Npc : Being
     }
     public void UpdateTarget()
     {
+        if (damageReceiver.firstAttacker && mTarget != damageReceiver.firstAttacker)
+        {
+            missionMgr.Clear();
+            mTarget = damageReceiver.firstAttacker;
+        }
         if (mTarget != null)
         {
             //目标远离了
             if (mBeings.IndexOf(mTarget) == -1)
+            {
+                missionMgr.Clear();
+                damageReceiver.RemoveThreat(mTarget);
                 mTarget = null;
-        }
-        if (mTarget == null)
-        {
-            mTarget = damageReceiver.firstAttacker;
+            }
         }
         if (mTarget == null)
         {

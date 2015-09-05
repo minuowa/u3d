@@ -139,6 +139,8 @@ public class Being : behaviac.Agent
     }
     public void ClearTarget()
     {
+        if (mTarget)
+            mTarget.Unselect();
         mTarget = null;
     }
     public void Attack(Being obj, int skillid = (int)Default.NormalAttack)

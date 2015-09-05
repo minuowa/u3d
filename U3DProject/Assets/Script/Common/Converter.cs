@@ -224,7 +224,10 @@ public class Converter
     {
         return value.ToString();
     }
-
+    public static string GetString_Single(Type type, object value)
+    {
+        return value.ToString();
+    }
     public static string GetString_byte(Type type, object value)
     {
         return value.ToString();

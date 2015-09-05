@@ -11,14 +11,14 @@
 -->
 
 <root>
-  <record id="1000" distance="2.5" rangeType="Single" animition="40" beginTime="0.11" >
-    <effect name=""/>
-    <objects normal="Prefabs/sceneObjects/normal_attack_effect" />
+  <record id="1000" distance="1.5" rangeType="Single" animation="40" beAnimation="0" life="200" >
+    <beAttackEffects>
+      <effect name="Prefabs/sceneObjects/normal_attack_effect" beginTime="200" life="150"/>
+    </beAttackEffects>
   </record>
 
-  <record id="1001" distance="8" rangeType="Single" animition="41"  beginTime="0.11">
-    <effect name=""/>
-    <objects bullet="Prefabs/sceneObjects/bullet" />
+  <record id="1001" distance="8" rangeType="Single" animation="41"  beAnimation="0" life="-1">
+    <bullet name="Prefabs/sceneObjects/bullet" beginTime="500" life="-1"/>
   </record>
 
 </root>

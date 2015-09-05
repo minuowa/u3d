@@ -20,7 +20,7 @@ public class IReceiver
 public class OneDamage : IReceiver
 {
     public Being sender;
-    public Being vicitim;
+    public Being victim;
     public Skill.Executor skill;
     public int missionid;
 
@@ -32,12 +32,12 @@ public class OneDamage : IReceiver
             if (mgr)
                 mgr.OnComplate(missionid);
         }
-        if (vicitim)
+        if (victim)
         {
-            Animator anim = vicitim.gameObject.GetComponent<Animator>();
+            Animator anim = victim.gameObject.GetComponent<Animator>();
             if (anim != null)
                 anim.SetInteger(BeingAnimation.action, BeingAnimation.BeAttack1);
-            vicitim.transform.position -= vicitim.transform.forward * 0.2f;
+            victim.transform.position -= victim.transform.forward * 0.2f;
         }
     }
 }
@@ -48,7 +48,17 @@ public class DamageReceiver : MonoBehaviour {
     {
         damageList = new List<OneDamage>();
     }
-
+    public void RemoveThreat(Being sender)
+    {
+        foreach (var d in damageList)
+        {
+            if (d.sender == sender)
+            {
+                damageList.Remove(d);
+                return;
+            }
+        }
+    }
     public Being firstAttacker
     {
         get

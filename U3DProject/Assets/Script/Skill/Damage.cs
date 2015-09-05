@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 namespace Skill
 {
     public enum DamageType
@@ -7,22 +8,6 @@ namespace Skill
         None,
         Directive,      ///指向性
     }
-    public class DamageSender : MonoBehaviour
-    {
-        public int skillid;
-        public GameObject sender;
-        public int missionid;
-        public void OnEnd()
-        {
-
-            Animator anim = gameObject.GetComponent<Animator>();
-            if (anim != null)
-                anim.SetInteger(BeingAnimation.action, BeingAnimation.Joke1);
-            transform.position -= transform.forward * 0.2f;
-            Destroy(this);
-        }
-    }
-
 
     public enum DamageObjectType
     {
@@ -34,75 +19,55 @@ namespace Skill
     public class DamageObject : MonoBehaviour
     {
         public int skillid;
-        public Being sender;
-        public Being target;
         public int missionid;
-        public OneDamage damage;
         public DamageObjectType type;
+        public Being sender;
+        public List<Being> targets;
+
         Clock mDelayTimer;
 
-        public void Take(float time)
+        public void OnComplete()
         {
-            mDelayTimer = MS<ClockMgr>.Instance.Require();
-            mDelayTimer.interval = 0.1;
-            mDelayTimer.Begin(time, OnTimeEnd);
+            GameObject.Destroy(gameObject);
         }
-        public void OnTimeEnd(Clock c)
+
+        public Config.SkillData skillData
+        {
+            get
+            {
+                return Config.SkillData.Get(skillid);
+            }
+        }
+
+        public void OnKill(Clock c)
         {
             switch (type)
             {
                 case DamageObjectType.Bullet:
                     {
-                        Shot();
                     }
                     break;
                 case DamageObjectType.Normal:
                     {
-                        NormalAttack();
+                        sender.missionMgr.OnComplate(missionid);
+                        OnComplete();
                     }
                     break;
             }
         }
-        public void NormalAttack()
-        {
-            gameObject.SetActive(true);
-            transform.position = target.GetArcherShotPos();
-            GameObject.Destroy(gameObject, 3);
-            damage.OnEnd();
-        }
-        public void Shot()
-        {
-            gameObject.SetActive(true);
-            transform.position = sender.GetArcherShotPos();
-
-            if (target)
-            {
-                FlyerMove mvoe = gameObject.AddComponent<FlyerMove>();
-                Collider co = target.GetComponent<Collider>();
-                mvoe.target = target.transform.position;
-                if (co)
-                {
-                    mvoe.target = co.bounds.center;
-                }
-                else
-                {
-                    mvoe.target = target.transform.position;
-                }
-                mvoe.receiver = damage;
-            }
-            gameObject.SetActive(true);
-        }
-        void Start()
-        {
-        }
-        void Update()
-        {
-
-        }
-        void OnDestroy()
+        public void OnDestroy()
         {
             if (mDelayTimer != null)
                 mDelayTimer.Destory();
+        }
+        void Start()
+        {
+            if (skillData.life > 0)
+            {
+                mDelayTimer = MS<ClockMgr>.Instance.Require();
+                mDelayTimer.interval = 0.1;
+                mDelayTimer.Begin(Fun.MillSecondToSecond(skillData.life), OnKill);
+            }
         }
     }
 }

@@ -47,7 +47,7 @@ public class GroundMove : Mission
 
         Rotation rot = param.sender.gameObject.GetComponent<Rotation>();
         if (rot)
-            GameObject.Destroy(rot);
+            GameObject.DestroyImmediate(rot);
 
         UpdateTargetPosition();
 

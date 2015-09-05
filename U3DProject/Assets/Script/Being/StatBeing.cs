@@ -17,5 +17,4 @@ public class StatBeing : MonoBehaviour
     public int maxHp = 100;
     public int hp = 0;
     public int modelID = 0;
-    public string ai = string.Empty;
 }

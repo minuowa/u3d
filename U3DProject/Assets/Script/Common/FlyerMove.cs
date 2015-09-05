@@ -4,29 +4,35 @@ using Skill;
 
 public class FlyerMove : MonoBehaviour
 {
-    public float speed = 0.05f  ;
+    public DamageObject damageobject;
+    public float speed = 0.05f;
     public float miniDistance = 0.7f;
     public Vector3 target;
-    Duration _duration;
-    public OneDamage receiver;
-    bool _end = false;
+    public int missionID;
+    public Being sender;
+    Duration mDuration;
+    bool mEnd = false;
     void Start()
     {
-        _duration = new Duration();
-        _duration.total = 5f;
+        mDuration = new Duration();
+        mDuration.total = 5f;
         transform.rotation = Quaternion.LookRotation(target - transform.position); ;
     }
 
     void EndFinding()
     {
-        if (receiver != null)
-            receiver.OnEnd();
-        _end = true;
+        mEnd = true;
+        if (sender)
+            sender.missionMgr.OnComplate(missionID);
+
+        if (damageobject)
+            damageobject.OnComplete();
+
         Destroy(gameObject);
     }
     void Update()
     {
-        if (_end)
+        if (mEnd)
             return;
         if (Vector3.Distance(transform.position, target) < miniDistance)
         {
@@ -36,8 +42,8 @@ public class FlyerMove : MonoBehaviour
         {
             Debug.DrawLine(target, transform.position, Color.green);
             transform.position += transform.forward * speed;
-            if (_duration.Advance(Time.deltaTime))
-                _duration.Reset();
+            if (mDuration.Advance(Time.deltaTime))
+                mDuration.Reset();
         }
     }
 }

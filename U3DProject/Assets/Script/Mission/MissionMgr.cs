@@ -4,12 +4,20 @@ using System.Text;
 using UnityEngine;
 public class MissionMgr : MonoBehaviour
 {
+    public delegate void OnCompleteMission(int missionid);
+    public OnCompleteMission onComplete;
     List<Mission> mList = new List<Mission>();
 
     Mission mCur = null;
 
     int mCount = 0;
-
+    public void Clear()
+    {
+        if (mCur)
+            mCur.Discard();
+        mCur = null;
+        mList.Clear();
+    }
     void OnDestroy()
     {
     }
@@ -19,6 +27,12 @@ public class MissionMgr : MonoBehaviour
     }
     public void OnComplate(int missionid)
     {
+        if (onComplete != null)
+            onComplete(missionid);
+
+        if (mCur != null && mCur.id == missionid)
+            mCur.completed = true;
+
         foreach (Mission mi in mList)
         {
             if (mi.id == missionid)
@@ -58,10 +72,7 @@ public class MissionMgr : MonoBehaviour
         {
             case MissionOption.ClearList:
                 {
-                    if (mCur)
-                        mCur.Discard();
-                    mCur = null;
-                    mList.Clear();
+                    this.Clear();
                     AddInner(mission);
                 }
                 break;

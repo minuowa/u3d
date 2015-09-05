@@ -6,6 +6,11 @@ using UnityEngine;
 
 public static class Fun
 {
+    public static float  MillSecondToSecond(float ms)
+    {
+        return ms*0.001f;
+    }
+
     public static void DoSthAfterTime(float time, Action act)
     {
         Clock c = MS<ClockMgr>.Instance.Require();

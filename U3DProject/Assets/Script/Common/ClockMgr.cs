@@ -7,7 +7,7 @@ public class Clock
 {
     public delegate void TimeDelegate(Clock clock);
     public TimeDelegate OnTimer;
-    public double interval;
+    public double interval=0.05;
     public bool canPause = true;
 
     ~Clock()

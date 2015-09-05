@@ -43,6 +43,7 @@ public class Scene : MonoBehaviour
             npc.statBeing.modelID = data.modelID;
             npc.statNpc.npcid = data.npcid;
             npc.statNpc.orignalPos = data.pos;
+            npc.statNpc.ai = data.ai;
         }
     }
     GameObject RecreateNpcRoot()

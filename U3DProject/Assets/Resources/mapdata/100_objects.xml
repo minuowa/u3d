@@ -1,8 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <npcs>
-    <npcsItem modelID="2" pos="123.36,0,64.62" npcid="0" ai="Npc_RandomMove_Passive" aiRange="25" name="female_02" />
-    <npcsItem modelID="1" pos="125.5826,0,61.13384" npcid="0" ai="Npc_RandomMove_Passive" aiRange="25" name="female_01" />
-    <npcsItem modelID="0" pos="127.62,0.34,59.23" npcid="0" ai="Npc_RandomMove_Passive" aiRange="25" name="xiao0" />
+    <npcsItem modelID="1" pos="123.36,0.053,69.035" npcid="0" aiRange="25" name="child_01" />
+    <npcsItem modelID="1" pos="125.61,0,66.79" npcid="0" ai="Npc_RandomMove_Passive" aiRange="15" name="child_02" />
   </npcs>
 </root>

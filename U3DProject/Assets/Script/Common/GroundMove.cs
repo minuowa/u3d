@@ -15,10 +15,18 @@ public class GroundMove : Mission
     }
     public override bool InitBaseData()
     {
-        if (!mPathfinder)
-            mPathfinder = param.sender.GetComponent<NavMeshAgent>();
-        if (!mAnimator)
-            mAnimator = moveParam.sender.gameObject.GetComponentInChildren<Animator>();
+        base.InitBaseData();
+        mPathfinder = param.sender.GetComponent<NavMeshAgent>();
+        if(mPathfinder)
+        {
+            mPathfinder.stoppingDistance = moveParam.miniDistance;
+            mPathfinder.SetDestination(moveParam.target);
+            mPathfinder.updateRotation = true;
+            mPathfinder.updatePosition = true;
+            mPathfinder.Stop();
+        }
+
+        mAnimator = moveParam.sender.gameObject.GetComponentInChildren<Animator>();
         return true;
     }
     public override void Restart()
@@ -42,21 +50,19 @@ public class GroundMove : Mission
             mAnimator.SetInteger(BeingAnimation.action, BeingAnimation.Run1);
 
         mPathfinder.Resume();
-        mPathfinder.updateRotation = true;
-        mPathfinder.updatePosition = true;
 
         Rotation rot = param.sender.gameObject.GetComponent<Rotation>();
         if (rot)
             GameObject.DestroyImmediate(rot);
 
         UpdateTargetPosition();
-
-        mCompleted = false;
     }
 
     public void UpdateTargetPosition()
     {
-
+        if (mGroundFlag && moveParam != null)
+            mGroundFlag.transform.localPosition = moveParam.target;
+        mPathfinder.SetDestination(moveParam.target);
     }
     void CorrectRotation()
     {
@@ -73,6 +79,8 @@ public class GroundMove : Mission
     }
     public override void Discard()
     {
+        base.Discard();
+
         if (mGroundFlag)
             GameObject.Destroy(mGroundFlag);
 
@@ -82,11 +90,6 @@ public class GroundMove : Mission
 
     public override bool CheckCompleted()
     {
-        if (mGroundFlag && moveParam != null)
-            mGroundFlag.transform.localPosition = moveParam.target;
-        mPathfinder.SetDestination(moveParam.target);
-        mPathfinder.stoppingDistance = moveParam.miniDistance;
-
         bool comp = mPathfinder.remainingDistance <= moveParam.miniDistance
             || mPathfinder.remainingDistance <= mPathfinder.radius;
 

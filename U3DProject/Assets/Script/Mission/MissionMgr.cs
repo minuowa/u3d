@@ -112,7 +112,18 @@ public class MissionMgr : MonoBehaviour
     {
         if (mCur)
         {
-            if (!mCur.Update())
+            if(mCur.state== MissionState.DataReady)
+            {
+                if (mCur.CheckCompleted())
+                    mCur.Discard();
+                else
+                    mCur.Restart();
+            }
+            else
+            {
+                mCur.Update();
+            }
+            if (mCur.state == MissionState.Completed)
             {
                 mList.Remove(mCur);
                 mCur = null;
@@ -135,14 +146,7 @@ public class MissionMgr : MonoBehaviour
                 mCur = mList[0];
             }
             if (mCur)
-            {
-                mCur.begined = true;
                 mCur.InitBaseData();
-                if (mCur.CheckCompleted())
-                    mCur.Discard();
-                else
-                    mCur.Restart();
-            }
         }
     }
 

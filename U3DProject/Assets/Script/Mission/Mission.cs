@@ -18,12 +18,19 @@ public enum MissionOption
     Recreate,
     SetParam,
 }
-
+public enum MissionState
+{
+    None,
+    DataReady,
+    Begined,
+    Completed,
+}
 public class Mission 
 {
     public delegate void EndDelegate(Mission mission);
     public EndDelegate OnEnd;
     public EndDelegate OnBegin;
+    public MissionState state = MissionState.None;
     public IMissionParam param
     {
         get
@@ -32,26 +39,13 @@ public class Mission
         }
         set
         {
-            bool hasbegin = mParam != null;
             mParam = value;
             this.InitBaseData();
-            if (CheckCompleted())
-            {
-                this.Discard();
-            }
-            else
-            {
-                if (hasbegin)
-                    this.Restart();
-            }
         }
     }
     protected IMissionParam mParam;
 
     public int id;
-
-    protected bool mCompleted = false;
-    private bool mBegin = false;
 
     public static implicit operator bool (Mission mi)
     {
@@ -59,32 +53,22 @@ public class Mission
     }
     public virtual bool InitBaseData()
     {
+        state = MissionState.DataReady;
         return true;
     }
     public virtual bool CheckCompleted()
     {
         return false;
     }
-    public bool begined
-    {
-        get
-        {
-            return mBegin;
-        }
-        set
-        {
-            mBegin = value;
-        }
-    }
     public bool completed
     {
         get
         {
-            return mCompleted;
+            return state== MissionState.Completed;
         }
         set
         {
-            mCompleted = value;
+            this.Discard();
         }
     }
     public virtual float Progress()
@@ -93,11 +77,11 @@ public class Mission
     }
     public virtual bool IsDoing()
     {
-        return mBegin && !mCompleted;
+        return state == MissionState.Begined;
     }
     public virtual void Restart()
     {
-        mBegin = true;
+        state = MissionState.Begined;
         if (OnBegin != null)
             OnBegin(this);
     }
@@ -107,21 +91,21 @@ public class Mission
     }
     public virtual bool Update()
     {
-        if (mCompleted || !mBegin)
-            return false;
-        mCompleted = CheckCompleted();
-        if (mCompleted)
+        if(state== MissionState.Begined)
         {
-            if (OnEnd != null)
-                OnEnd(this);
-            this.Discard();
-            return false;
+            if(CheckCompleted())
+            {
+                if (OnEnd != null)
+                    OnEnd(this);
+                this.Discard();
+                return false;
+            }
         }
         return true;
     }
     public virtual void Discard()
     {
-
+        state = MissionState.Completed;
     }
     public virtual void OnDrawGizmos()
     {

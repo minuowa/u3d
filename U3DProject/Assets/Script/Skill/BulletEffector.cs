@@ -3,16 +3,17 @@ using System.Collections;
 
 public class BulletEffector : Effector
 {
-    public override void OnEffectBegin(Clock c)
+    public override void OnBegin()
     {
-        gameObject.SetActive(true);
+        base.OnBegin();
+
         transform.position = sender.GetArcherShotPos();
 
         FlyerMove flayer = gameObject.AddComponent<FlyerMove>();
         Collider co = target.GetComponent<Collider>();
         flayer.damageobject = damageobj;
         flayer.target = target.transform.position;
-        flayer.missionID=this.missionID;
+        flayer.missionID = this.missionID;
         flayer.sender = sender;
         if (co)
         {
@@ -22,5 +23,9 @@ public class BulletEffector : Effector
         {
             flayer.target = target.transform.position;
         }
+    }
+
+    public override void OnEnd()
+    {
     }
 }

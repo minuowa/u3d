@@ -24,8 +24,6 @@ namespace Skill
         public Being sender;
         public List<Being> targets;
 
-        Clock mDelayTimer;
-
         public void OnComplete()
         {
             GameObject.Destroy(gameObject);
@@ -39,35 +37,32 @@ namespace Skill
             }
         }
 
-        public void OnKill(Clock c)
+        public void OnKill()
         {
-            switch (type)
-            {
-                case DamageObjectType.Bullet:
-                    {
-                    }
-                    break;
-                case DamageObjectType.Normal:
-                    {
-                        sender.missionMgr.OnComplate(missionid);
-                        OnComplete();
-                    }
-                    break;
-            }
-        }
-        public void OnDestroy()
-        {
-            if (mDelayTimer != null)
-                mDelayTimer.Destory();
+            sender.missionMgr.OnComplate(missionid);
+            OnComplete();
+            //switch (type)
+            //{
+            //    case DamageObjectType.Bullet:
+            //        {
+            //        }
+            //        break;
+            //    case DamageObjectType.Normal:
+            //        {
+
+            //        }
+            //        break;
+            //}
         }
         void Start()
         {
             if (skillData.life > 0)
-            {
-                mDelayTimer = MS<ClockMgr>.Instance.Require();
-                mDelayTimer.interval = 0.1;
-                mDelayTimer.Begin(Fun.MillSecondToSecond(skillData.life), OnKill);
-            }
+                this.StartCoroutine(WaitForKill(Fun.MillSecondToSecond(skillData.life)));
+        }
+        IEnumerator WaitForKill(float seconds)
+        {
+            yield return new WaitForSeconds(seconds);
+            this.OnKill();
         }
     }
 }

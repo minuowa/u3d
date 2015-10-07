@@ -22,12 +22,6 @@ public class FlyerMove : MonoBehaviour
     void EndFinding()
     {
         mEnd = true;
-        if (sender)
-            sender.missionMgr.OnComplate(missionID);
-
-        if (damageobject)
-            damageobject.OnComplete();
-
         Destroy(gameObject);
     }
     void Update()
@@ -38,7 +32,7 @@ public class FlyerMove : MonoBehaviour
         {
             EndFinding();
         }
-        else
+        else if (mDuration != null)
         {
             Debug.DrawLine(target, transform.position, Color.green);
             transform.position += transform.forward * speed;

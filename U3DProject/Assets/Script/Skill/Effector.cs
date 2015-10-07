@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,30 +12,30 @@ public class Effector : MonoBehaviour
     public Being sender;
     public Being target;
     public int missionID;
-    Clock mBeginTimer;
-    Clock mEndTimer;
 
-    public void TakeOn(float time)
-    {
-        mBeginTimer = MS<ClockMgr>.Instance.Require();
-        mBeginTimer.interval = 0.1;
-        mBeginTimer.Begin(time, OnEffectBegin);
-    }
-    public virtual void OnEffectBegin(Clock c)
+    public virtual void OnBegin()
     {
         gameObject.SetActive(true);
-        transform.position = target.GetArcherShotPos();
-        mBeginTimer.Destory();
-
-        mEndTimer = MS<ClockMgr>.Instance.Require();
-        mEndTimer.interval = 0.1;
-        mEndTimer.Begin(Fun.MillSecondToSecond(config.life), OnEffectEnd);
+        gameObject.transform.position = target.transform.position;
     }
-    public void OnEffectEnd(Clock c)
+    public virtual void OnEnd()
     {
+        gameObject.SetActive(false);
         Destroy(gameObject);
     }
-    public virtual void OnDestroy()
+    public void TakeOn(float time)
     {
+        MS<ClockMgr>.Instance.StartCoroutine(WaitForSkillBegin(time));
+    }
+    IEnumerator WaitForSkillBegin(float time)
+    {
+        yield return new WaitForSeconds(time);
+        this.OnBegin();
+        MS<ClockMgr>.Instance.StartCoroutine(WaitForSkillEnd(Fun.MillSecondToSecond(config.life)));
+    }
+    IEnumerator WaitForSkillEnd(float time)
+    {
+        yield return new WaitForSeconds(time);
+        this.OnEnd();
     }
 }
